@@ -8,6 +8,9 @@ import CareerSection from './components/Routes/Footer/CareerSection';
 import MediaSection from './components/Routes/Footer/MediaSection';
 import PolicySection from './components/Routes/Footer/Policy';
 import RegulationsSection from './components/Routes/Footer/Regulations';
+// login
+import SignInContainer from './containers/SignIn/SignInContainer';
+import SignUpContainer from './containers/SignUp/SignUpContainer';
 
 function App() {
   return (
@@ -15,7 +18,8 @@ function App() {
       <div>
         <Route path='/' exact component={StartPage}></Route>
         {/* <Route path='/findPartner/' component={Example}></Route> */}
-        <Route path='/login/' component={LoginSection}></Route>
+        <Route path='/login/' component={SignInContainer}></Route>
+        <Route path='/register/' component={SignUpContainer}></Route>
         <Route path='/addNotice/' component={AddNoticeSection}></Route>
         {/* footer */}
         <Route path='/about/' component={AboutSection}></Route>

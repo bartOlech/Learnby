@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FontStyle } from '../../../../assets/style/style';
+import { FontStyle } from '../../../assets/style/style';
 
-import facebookIco from '../../../../assets/img/Mobile/facebook.svg';
-import LinkedInIco from '../../../../assets/img/Mobile/linkedin-logo.svg';
+import facebookIco from '../../../assets/img/Mobile/facebook.svg';
+import LinkedInIco from '../../../assets/img/Mobile/linkedin-logo.svg';
 
 const Container = styled.div`
     width: 100%;

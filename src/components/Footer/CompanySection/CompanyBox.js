@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FontStyle } from '../../../../assets/style/style';
+import { FontStyle } from '../../../assets/style/style';
 import ListTemplate from './ListTemplate';
 
 

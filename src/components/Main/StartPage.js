@@ -10,7 +10,7 @@ import HowItWorkSection from './MainLayout/HowItWorksSection';
 import HorizontalLine from './MainLayout/HorizontalLine';
 import Join from './MainLayout/JoinSection/Join';
 // footer
-import FooterSection from './Footer/FooterSection';
+import FooterSection from '../Footer/FooterSection';
 
 // style
 import { FontStyle } from '../../assets/style/style';
