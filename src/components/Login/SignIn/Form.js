@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ForgotPassword from './ForgotPassword';
 import SendBtn from './SendBtn';
@@ -23,10 +23,11 @@ const Input = styled.input`
     height: 40px;
     border-radius: 10px;
     margin-top: 30px;
-    font-size: 1.6em;
+    font-size: 1.3em;
     outline: none;
     border: none;
     box-shadow: 1px 1px 6px #B4B4B4;
+    padding-left: 10px;
     &&::placeholder {
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         font-weight: 300;
@@ -36,13 +37,22 @@ const Input = styled.input`
 `
 
 const Form = () => {
+    const[email, setEmail] = useState('')
+    const[password, setPassword] = useState('')
+
+    const emailHandle = (e) => {
+        setEmail(e.target.value)
+    }
+    const passwordHandle = (e) => {
+        setPassword(e.target.value)
+    }
     return (
         <Container>
             <LogForm>
-                <Input type='text' placeholder='Email'></Input>
-                <Input type='password' placeholder='Hasło'></Input>
+                <Input value={email} onChange={emailHandle} type='text' placeholder='Email'></Input>
+                <Input value={password} onChange={passwordHandle} type='password' placeholder='Hasło'></Input>
                 <ForgotPassword></ForgotPassword>
-                <SendBtn></SendBtn>
+                <SendBtn email={email} password={password}></SendBtn>
             </LogForm>
             <RegisterBtn></RegisterBtn>
         </Container>

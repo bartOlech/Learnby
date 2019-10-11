@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontStyle } from '../../../assets/style/style';
+import firebase from '../../../Firebase.config';
 
 const Container = styled.div`
     margin: 0;
@@ -19,13 +20,17 @@ const Button = styled.button`
     font-family: ${FontStyle.family};
     font-size: 1.6em;
     cursor: pointer;
+    outline: none;
 `
 
-const handleButton = () => {
-    console.log('send')
-}
+const SendBtn = (props) => {
 
-const SendBtn = () => {
+    //move this scrap of code to the containers!!!
+    const handleButton = (e) => {
+        e.preventDefault()
+        firebase.register(props.name, props.email, props.password)
+    }
+
     return (
         <Container>
             <Button onClick={handleButton}>Zarejestruj się</Button>

@@ -4,6 +4,10 @@ import MainLogo from '../../assets/img/logo-LearnBy.svg';
 import AddNotice from './AddNotice/AddNotice';
 import Login from './Login/Login';
 import { BrowserRouter as Router, Link} from 'react-router-dom';
+import firebase from '../../Firebase.config';
+import { CurrentUserConsumer } from '../../context/CurrentUser.context';
+import { FontStyle } from '../../assets/style/style';
+import HorizontalLine from '../Main/MainLayout/HorizontalLine';
 
 const Container = styled.div`
     width: 100%;
@@ -20,13 +24,46 @@ const Logo = styled.div`
     background-repeat: no-repeat;
     margin: 20px;
 `
-
+const UserSection = styled.div`
+    width: 100px;
+    height: 100px;
+    position: relative;
+`
+const LogoutButton = styled.p`
+    font-family: ${FontStyle.family};
+    color: ${FontStyle.color};
+    font-size: 1.3em;
+    padding-top: 5px;
+    padding-right: 17px;
+    cursor: pointer;
+`
+const TextUnderLine = styled.div`
+    width: 72px;
+    height: 2px;
+    background-color: ${FontStyle.color};
+    position: absolute;
+    top: 52px;
+`
 const Header = () => {
     return (
         <Container>
             <Logo></Logo>
             <Link to='/addNotice'><AddNotice></AddNotice></Link>
-            <Link to='/login'><Login></Login></Link>     
+            <CurrentUserConsumer>
+                {({logout, user}) => (
+                    user ? (
+                        <UserSection>
+                            <LogoutButton onClick={logout}>Wyloguj</LogoutButton>
+                            <TextUnderLine></TextUnderLine>
+                        </UserSection> 
+                    ):(
+                        <React.Fragment>
+                            <Link to='/login'><Login></Login></Link> 
+                        </React.Fragment>
+                    )
+                    
+                )}
+            </CurrentUserConsumer>    
         </Container>
     )
 }
