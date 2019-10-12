@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Header from './Header';
 import { FontStyle } from '../../../assets/style/style';
-import GoogleBtn from './Social/Google';
-import FacebookBtn from './Social/Facebook';
+import GoogleBtn from '../SignIn/Social/Google';
+import FacebookBtn from '../SignIn/Social/Facebook';
 import Form from './Form';
 
 const Container = styled.div`

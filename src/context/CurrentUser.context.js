@@ -6,14 +6,49 @@ const CurrentUserContext = React.createContext();
 export class CurrentUserProvider extends Component {
     state = {
         user: '',
-        firebaseInitialized: ''
+        firebaseInitialized: '',
+        name: '',
+        email: '',
+        photo: '',
+        loading: false
     }
 
     logout = () => {
         firebase.logout()
         this.setState({
-            user: ''
+            user: '',
+            name: '',
+            email: '',
+            photo: ''
         })
+    }
+
+    // Social login
+    // Google
+    loginWithGoogle = () => {
+        firebase.signInWithGoogle().then(() => {
+            this.setState({
+                name: firebase.getCurrentUserAllData().displayName,
+                email: firebase.getCurrentUser(),
+                photo: firebase.getCurrentUserAllData().photoURL
+            })
+        }).then(() => {
+            const { name, email, photo } = this.state;
+        firebase.addLoginDataToFirebase(name, email, photo, 'Google')
+        }).catch(error => console.log(error))
+    }
+    // Facebook
+    loginWithFacebook = () => {
+        firebase.signInWithFacebook().then(() => {
+            this.setState({
+                name: firebase.getCurrentUserAllData().displayName,
+                email: firebase.getCurrentUser(),
+                photo: firebase.getCurrentUserAllData().photoURL
+            })
+        }).then(() => {
+             const { name, email, photo } = this.state;
+          firebase.addLoginDataToFirebase(name, email, photo, 'Facebook')
+        }).catch(error => console.log(error))
     }
 
     componentDidMount() {
@@ -27,11 +62,15 @@ export class CurrentUserProvider extends Component {
 
     render() {
         const { children } = this.props;
+        const { user, loading } = this.state;
         return (
             <CurrentUserContext.Provider
                 value={{
-                    user: this.state.user,
-                    logout: this.logout
+                    user,
+                    logout: this.logout,
+                    loginWithGoogle: this.loginWithGoogle,
+                    loginWithFacebook: this.loginWithFacebook,
+                    loading,
                 }}
                 >
                     {children}

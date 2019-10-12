@@ -21,7 +21,8 @@ const Career = (props) => {
     return (
         <Container>
             <List>
-                <Link style={{textDecoration: 'none'}} to={props.link}><Text key={props.key}>{props.text}</Text></Link>
+                {/* There is no key here (add if you want to add array as list!!!) */}
+                <Link style={{textDecoration: 'none'}} to={props.link}><Text>{props.text}</Text></Link>
             </List>
         </Container>
     )

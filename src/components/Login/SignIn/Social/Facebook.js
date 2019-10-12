@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import FacebookIco from '../../../../assets/img/Mobile/facebook1.svg';
+import { CurrentUserConsumer } from '../../../../context/CurrentUser.context';
+import { BrowserRouter as Router, useHistory} from 'react-router-dom';
 
 const Container = styled.div`
     width: 60px;
@@ -17,10 +19,27 @@ const Button = styled.div`
 `
 
 const Facebook = () => {
+    // create the history hook
+    let history = useHistory();
+
+    const redirect = () => {
+        // redirect to the homepage
+        history.push("/");
+    }
+
     return (
-        <Container>
-            <Button></Button>
-        </Container>
+        <Router>
+            <Container>
+                <CurrentUserConsumer>
+                    {({loginWithFacebook}) => (
+                        <Button onClick={() => {
+                            loginWithFacebook();
+                            redirect()
+                        }}></Button> 
+                    )}
+                </CurrentUserConsumer>
+            </Container>
+        </Router>  
     )
 }
 

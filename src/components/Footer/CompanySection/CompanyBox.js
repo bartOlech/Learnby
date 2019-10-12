@@ -23,11 +23,11 @@ const CompanyBox = () => {
     return (
         <Container>
             <Text>Company</Text>
-            <ListTemplate key={1} link='/career' text='Kariera'></ListTemplate>
-            <ListTemplate key={2} link='/about' text='O nas'></ListTemplate>
-            <ListTemplate key={3} link='/media' text='Dla mediów'></ListTemplate>
-            <ListTemplate key={4} link='/policy' text='Polityka prywatności'></ListTemplate>
-            <ListTemplate key={5} link='/regulations' text='Regulamin'></ListTemplate>
+            <ListTemplate link='/career' text='Kariera'></ListTemplate>
+            <ListTemplate link='/about' text='O nas'></ListTemplate>
+            <ListTemplate link='/media' text='Dla mediów'></ListTemplate>
+            <ListTemplate link='/policy' text='Polityka prywatności'></ListTemplate>
+            <ListTemplate link='/regulations' text='Regulamin'></ListTemplate>
             <Text style={{marginTop: '40px 0 20px 0',}}>Kontakt</Text>
         </Container>
     )

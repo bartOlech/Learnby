@@ -28,7 +28,7 @@ function App() {
   return (
     <Router>
       <CurrentUserProvider>
-        <div>
+        <Route>
           <div>{firebase.getCurrentUser()}</div>
           <Route path='/' exact component={StartPage}></Route>
           {/* <Route path='/findPartner/' component={Example}></Route> */}
@@ -41,7 +41,7 @@ function App() {
           <Route path='/media/' component={MediaSection}></Route>
           <Route path='/policy/' component={PolicySection}></Route>
           <Route path='/regulations/' component={RegulationsSection}></Route>
-        </div>
+        </Route>
       </CurrentUserProvider>
     </Router>
   )

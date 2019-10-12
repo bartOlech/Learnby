@@ -53,7 +53,7 @@ const Form = () => {
                 <Input value={email} onChange={emailHandle} type='text' placeholder='Email'></Input>
                 <Input value={password} onChange={passwordHandle} type='password' placeholder='Hasło'></Input>
                 <Input style={{marginBottom: '30px'}} type='password' placeholder='Powtórz hasło'></Input>
-                <SendBtn email={email} password={password} name='Wercia'></SendBtn>
+                <SendBtn email={email} password={password}></SendBtn>
             </LogForm>
             <LoginBtn></LoginBtn>
         </Container>

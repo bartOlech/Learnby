@@ -4,10 +4,8 @@ import MainLogo from '../../assets/img/logo-LearnBy.svg';
 import AddNotice from './AddNotice/AddNotice';
 import Login from './Login/Login';
 import { BrowserRouter as Router, Link} from 'react-router-dom';
-import firebase from '../../Firebase.config';
 import { CurrentUserConsumer } from '../../context/CurrentUser.context';
 import { FontStyle } from '../../assets/style/style';
-import HorizontalLine from '../Main/MainLayout/HorizontalLine';
 
 const Container = styled.div`
     width: 100%;

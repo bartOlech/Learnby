@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FontStyle } from '../../../assets/style/style';
+import Loader from 'react-loader-spinner';
 import firebase from '../../../Firebase.config';
+import { BrowserRouter as Router, useHistory} from 'react-router-dom';
 
 const Container = styled.div`
     margin: 0;
@@ -24,17 +26,38 @@ const Button = styled.button`
 `
 
 const SendBtn = (props) => {
+    // create the history hook
+    let history = useHistory();
+    
+    const[loading, setLoading] = useState(false)
 
-    //move this scrap of code to the containers!!!
-    const handleButton = (e) => {
-        e.preventDefault()
-        firebase.register(props.name, props.email, props.password)
+    const registerUser = () => {
+        setLoading(true)
+        firebase.register(props.email, props.password).then(() => {
+            setLoading(false)
+            // redirect to the homepage
+            history.push("/");
+        }).catch((error) => {
+            console.log(error)
+            setLoading(false)
+        })
     }
 
     return (
-        <Container>
-            <Button onClick={handleButton}>Zarejestruj się</Button>
-        </Container>
+        <Router>
+            <Container>
+                {!loading ? (
+                    <Button onClick={registerUser}>Zarejestruj się</Button>
+                ) : (
+                    <Loader
+                        type="TailSpin"
+                        color="#4DB6AC"
+                        height={60}
+                        width={60}
+                    />
+                )}
+            </Container>    
+        </Router>
     )
 }
 
