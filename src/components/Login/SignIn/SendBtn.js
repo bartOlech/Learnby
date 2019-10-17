@@ -40,6 +40,7 @@ const SendBtn = (props) => {
             history.push("/");
         }).catch((error) => {
             // here alert if password is wrong
+            props.authAlert(error.code)
             console.log(error)
             setLoading(false)
         })

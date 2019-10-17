@@ -24,10 +24,11 @@ const HorizontalLine = styled.div`
     position: absolute;
     left: 40px;
     top: 50px;
-    z-index: -1;
+    z-index: 0;
     border-radius: 20px;
 `
 const Step = styled.div`
+    z-index: 1;
     width: 100px;
     height: 100px;
     background-image: url(${DeformedCircleIco});

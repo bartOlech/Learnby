@@ -31,16 +31,26 @@ const SendBtn = (props) => {
     
     const[loading, setLoading] = useState(false)
 
-    const registerUser = () => {
-        setLoading(true)
-        firebase.register(props.email, props.password).then(() => {
-            setLoading(false)
-            // redirect to the homepage
-            history.push("/");
-        }).catch((error) => {
-            console.log(error)
-            setLoading(false)
-        })
+    const registerUser = (e) => {
+        props.validationCallback()
+        if (props.emailValidation && props.passwordValidation ) {
+            console.log('validate is true')
+            setLoading(true)
+            firebase.register(props.email, props.password).then(() => {
+                setLoading(false)
+                // redirect to the homepage
+                history.push("/");
+            }).catch((error) => {
+                props.authAllert(error.code)
+                console.log(error)
+                setLoading(false)
+            })
+        } else {
+            console.log('validate is false')
+            e.preventDefault();
+            // props.validationCallback()
+        }
+        
     }
 
     return (
