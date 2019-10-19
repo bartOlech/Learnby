@@ -9,11 +9,12 @@ import { FontStyle } from '../../assets/style/style';
 
 const Container = styled.div`
     width: 100%;
-    height: 100px;
+    height: 150px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: #DEF3EB;
+    background: ${props => props.background};
+    background-size: cover;
 `
 const Logo = styled.div`
     width: 40px;
@@ -42,11 +43,11 @@ const TextUnderLine = styled.div`
     position: absolute;
     top: 52px;
 `
-const Header = () => {
+const Header = (props) => {
     return (
-        <Container>
+        <Container background={props.background}>
             <Logo></Logo>
-            <Link to='/addNotice'><AddNotice></AddNotice></Link>
+            <Link to='/addApplication'><AddNotice></AddNotice></Link>
             <CurrentUserConsumer>
                 {({logout, user}) => (
                     user ? (

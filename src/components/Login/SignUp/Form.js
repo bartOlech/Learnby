@@ -108,7 +108,7 @@ const Form = () => {
     }
 
     // callback error message
-    const authAllert = (code) => {
+    const getAuthAlert = (code) => {
         setEmailErrorMessage('Konto już istnieje')
         // ADD THE ANOTHER ERRORS!!! use if(code === ....)
     }
@@ -148,7 +148,7 @@ const Form = () => {
                 >Hasła muszą być takie same i posiadać min. 6 znaków</InputAlert>
                 <SendBtn 
                     validationCallback={validationCallback} 
-                    authAllert={authAllert}
+                    getAuthAlert={getAuthAlert}
                     email={email} 
                     password={password} 
                     password2={password2}

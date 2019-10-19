@@ -4,6 +4,7 @@ import { FontStyle } from '../../../assets/style/style';
 import Loader from 'react-loader-spinner';
 import firebase from '../../../Firebase.config';
 import { BrowserRouter as Router, useHistory} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
     margin: 0;
@@ -29,7 +30,7 @@ const SendBtn = (props) => {
     // create the history hook
     let history = useHistory();
     
-    const[loading, setLoading] = useState(false)
+    const[isLoading, setLoading] = useState(false)
 
     const registerUser = (e) => {
         props.validationCallback()
@@ -41,7 +42,7 @@ const SendBtn = (props) => {
                 // redirect to the homepage
                 history.push("/");
             }).catch((error) => {
-                props.authAllert(error.code)
+                props.getAuthAlert(error.code)
                 console.log(error)
                 setLoading(false)
             })
@@ -56,7 +57,7 @@ const SendBtn = (props) => {
     return (
         <Router>
             <Container>
-                {!loading ? (
+                {!isLoading ? (
                     <Button onClick={registerUser}>Zarejestruj się</Button>
                 ) : (
                     <Loader
@@ -72,3 +73,12 @@ const SendBtn = (props) => {
 }
 
 export default SendBtn;
+
+SendBtn.propTypes = {
+    validationCallback: PropTypes.func,
+    emailValidation: PropTypes.bool,
+    passwordValidation: PropTypes.bool,
+    email: PropTypes.string,
+    password: PropTypes.string,
+    getAuthAlert: PropTypes.func
+}

@@ -4,6 +4,7 @@ import { FontStyle } from '../../../assets/style/style';
 import firebase from '../../../Firebase.config';
 import Loader from 'react-loader-spinner';
 import { BrowserRouter as Router, useHistory} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
     margin: 0;
@@ -30,7 +31,7 @@ const SendBtn = (props) => {
     let history = useHistory();
 
     //Move this to the container!!!
-    const[loading, setLoading] = useState(false)
+    const[isLoading, setLoading] = useState(false)
 
     const loginUser = () => {
         setLoading(true)
@@ -40,7 +41,7 @@ const SendBtn = (props) => {
             history.push("/");
         }).catch((error) => {
             // here alert if password is wrong
-            props.authAlert(error.code)
+            props.getAuthAlert(error.code)
             console.log(error)
             setLoading(false)
         })
@@ -49,7 +50,7 @@ const SendBtn = (props) => {
     return (
         <Router>
             <Container>
-                {!loading ? (
+                {!isLoading ? (
                     <Button onClick={loginUser}>Zaloguj się</Button>
                 ) : (
                     <Loader
@@ -66,3 +67,9 @@ const SendBtn = (props) => {
 
 export default SendBtn;
 // DOESNT WORK!!!!
+
+SendBtn.propTypes = {
+    email: PropTypes.string,
+    password: PropTypes.string,
+    getAuthAlert: PropTypes.func
+  };

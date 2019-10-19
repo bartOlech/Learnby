@@ -4,11 +4,11 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 
 import FindPartnerBtn from './FindPartnerBtn';
 import Header from '../Header/Header';
-import LearnMoreBtn from '../Main/LearnMoreBtn';
-import SideTextSection from './MainLayout/SideTextSection';
-import HowItWorkSection from './MainLayout/HowItWorksSection';
-import HorizontalLine from './MainLayout/HorizontalLine';
-import Join from './MainLayout/JoinSection/Join';
+import LearnMoreBtn from './LearnMoreBtn';
+import SideTextSection from './StartLayout/SideTextSection';
+import HowItWorkSection from './StartLayout/HowItWorksSection';
+import HorizontalLine from './StartLayout/HorizontalLine';
+import Join from './StartLayout/JoinSection/Join';
 // footer
 import FooterSection from '../Footer/FooterSection';
 
@@ -97,7 +97,7 @@ const StartPage = () => {
 
     return (
         <Container>
-            <Header></Header>
+            <Header background='#DEF3EB'></Header>
             <Main>
                 <MainText>Szukasz partnera do nauki?<br></br>Załóz konto juz teraz!</MainText>
                 <AuxiliaryText>

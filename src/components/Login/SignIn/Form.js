@@ -60,7 +60,7 @@ const InputAlert = styled.p`
     font-weight: 300;
     font-size: 1.2em;
     color: #d9534f;
-    display: ${props => props.display};
+    display: ${(props) => props.display};
     padding: 0 40px 0 40px;
     margin-top: 8px;
     margin-bottom: -10px;
@@ -68,7 +68,7 @@ const InputAlert = styled.p`
 `
 
 const Form = () => {
-    const[email, setEmail] = useState('')
+    const [email, setEmail] = useState('')
     const[password, setPassword] = useState('')
     const[authAlertMsg, setAuthAlertMsg] = useState('')
 
@@ -79,7 +79,7 @@ const Form = () => {
         setPassword(e.target.value)
     }
 
-    const authAlert = (code) => {
+    const getAuthAlert = (code) => {
         if (code === 'auth/invalid-email') {
             setAuthAlertMsg('podany email jest nieprawidłowy')
         } else if (code === 'auth/wrong-password') {
@@ -96,7 +96,7 @@ const Form = () => {
                 <InputAlert>{authAlertMsg}</InputAlert>
                 <InputPassword value={password} onChange={passwordHandle} type='password' placeholder='Hasło'></InputPassword>
                 <ForgotPassword></ForgotPassword>
-                <SendBtn authAlert={authAlert} email={email} password={password}></SendBtn>
+                <SendBtn getAuthAlert={getAuthAlert} email={email} password={password}></SendBtn>
             </LogForm>
             <RegisterBtn></RegisterBtn>
         </Container>
