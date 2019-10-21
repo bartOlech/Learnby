@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import firebase from '../Firebase.config';
 
 const CurrentUserContext = React.createContext();
+const FindUserContext = React.createContext();
 
 export class CurrentUserProvider extends Component {
     state = {
@@ -10,7 +11,8 @@ export class CurrentUserProvider extends Component {
         name: '',
         email: '',
         photo: '',
-        loading: false
+        loading: false,
+        arr: []
     }
 
     logout = () => {
@@ -52,17 +54,27 @@ export class CurrentUserProvider extends Component {
     }
 
     componentDidMount() {
+        const{ arr } = this.state;
+
         firebase.isInitialized().then(val => {
             this.setState({
                 firebaseInitialized: val,
                 user: firebase.getCurrentUser()
             })
           })
+
+        // Get announcements from database
+        firebase.getDataFromFirestore('Announcements').get().then((snapshot) => {
+        snapshot.forEach(el => {
+                arr.push(el.data())
+            });
+        })
+        console.log(arr)
     }
 
     render() {
         const { children } = this.props;
-        const { user, loading } = this.state;
+        const { user, loading, test } = this.state;
         return (
             <CurrentUserContext.Provider
                 value={{
@@ -73,10 +85,18 @@ export class CurrentUserProvider extends Component {
                     loading,
                 }}
                 >
-                    {children}
+                    <FindUserContext.Provider 
+                        value={{
+                            test
+                        }}
+                    >
+                        {children}
+                    </FindUserContext.Provider>
             </CurrentUserContext.Provider>
         )
     }
 }
 
 export const CurrentUserConsumer = CurrentUserContext.Consumer;
+
+export const FindUserConsumer = FindUserContext.Consumer;

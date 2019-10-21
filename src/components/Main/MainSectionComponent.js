@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Header from '../Header/Header';
 import WavyBackground from '../../assets/img/Mobile/wave-bck-header-mobile.svg';
-import FindUserSection from './Search/FindUserSection';
+import FindAnnouncementSection from './SearchPartner/FindAnnouncementSection';
+import FoundAnnouncementSection from './SearchPartner/FoundAnnouncementSections';
 import { FontStyle } from '../../assets/style/style';
 
 const Container = styled.div`
@@ -25,8 +26,8 @@ const MainSectionComponent = () => {
         <Container>
             <Header background={`url(${WavyBackground}) no-repeat `}></Header>
             <Text size='1.7em'>Wyszukaj partnera</Text>
-            <FindUserSection></FindUserSection>
-            <Text style={{marginTop: '50px', marginLeft: '-100px'}} size='1.5em'>Dopasowane osoby:</Text>
+            <FindAnnouncementSection></FindAnnouncementSection>
+            <FoundAnnouncementSection></FoundAnnouncementSection>
         </Container>
     )
 }
