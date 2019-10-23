@@ -49,7 +49,7 @@ const Header = (props) => {
             <Logo></Logo>
             <Link to='/addApplication'><AddNotice></AddNotice></Link>
             <CurrentUserConsumer>
-                {({logout, user}) => (
+                {({logout, user, }) => (
                     user ? (
                         <UserSection>
                             <LogoutButton onClick={logout}>Wyloguj</LogoutButton>

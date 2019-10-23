@@ -4,8 +4,7 @@ import ForgotPassword from './ForgotPassword';
 import SendBtn from './SendBtn';
 import RegisterBtn from './RegisterBtn';
 import { FontStyle } from '../../../assets/style/style';
-import { EmailValidation, PasswordValidation } from '../Validation/index';
-import useStateWithCallback from 'use-state-with-callback';
+
 
 const Container = styled.div`
     width: 100%;

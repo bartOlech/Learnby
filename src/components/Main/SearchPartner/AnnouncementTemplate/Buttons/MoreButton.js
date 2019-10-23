@@ -17,23 +17,14 @@ const Button = styled.div`
     top: 5px;
 `
 
-const ShowWholeAnnouncementBtn = () => {
-
-    // const firebaseTest = () => {
-    //    firebase.getDataFromFirestore('Announcements').get().then((snapshot) => {
-    //     snapshot.forEach(el => {
-    //             arr.push(el.data())
-    //         });
-    //    })
-    //    console.log(arr)
-    // }
+const MoreBtn = () => {
 
     return (
         <React.Fragment>
-            <Button onClick={() => console.log('more button')}></Button>
+            <Button></Button>
             {/* <Button onClick={firebaseTest}></Button> */}
         </React.Fragment>
     )
 }
 
-export default ShowWholeAnnouncementBtn;
+export default MoreBtn;

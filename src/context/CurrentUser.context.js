@@ -12,7 +12,9 @@ export class CurrentUserProvider extends Component {
         email: '',
         photo: '',
         loading: false,
-        arr: []
+        ex: false,
+        announcementsArray: [],
+        listID: []
     }
 
     logout = () => {
@@ -54,7 +56,7 @@ export class CurrentUserProvider extends Component {
     }
 
     componentDidMount() {
-        const{ arr } = this.state;
+        const{ announcementsArray, listID } = this.state;
 
         firebase.isInitialized().then(val => {
             this.setState({
@@ -65,16 +67,21 @@ export class CurrentUserProvider extends Component {
 
         // Get announcements from database
         firebase.getDataFromFirestore('Announcements').get().then((snapshot) => {
-        snapshot.forEach(el => {
-                arr.push(el.data())
-            });
+            snapshot.docs.forEach(doc => {
+                announcementsArray.push(doc.data())
+                listID.push(doc.id)
+            })   
+        }).then(() => {
+            this.setState({
+                announcementsArray
+            })
         })
-        console.log(arr)
     }
 
     render() {
+        
         const { children } = this.props;
-        const { user, loading, test } = this.state;
+        const { user, loading, announcementsArray, listID } = this.state;
         return (
             <CurrentUserContext.Provider
                 value={{
@@ -83,11 +90,13 @@ export class CurrentUserProvider extends Component {
                     loginWithGoogle: this.loginWithGoogle,
                     loginWithFacebook: this.loginWithFacebook,
                     loading,
+                    announcementsArray
                 }}
                 >
                     <FindUserContext.Provider 
                         value={{
-                            test
+                            announcementsArray,
+                            listID
                         }}
                     >
                         {children}

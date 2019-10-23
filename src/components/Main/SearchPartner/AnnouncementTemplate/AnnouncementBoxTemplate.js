@@ -124,22 +124,22 @@ const Spot = styled.p`
     font-size: 1.1em;
 `
 
-const AnnouncementBoxTemplate = () => {
+const AnnouncementBoxTemplate = (props) => {
     return (
         <Container>
             <BranchSection>
-                <BranchOfScienece>Jezyk Angielski</BranchOfScienece>
+                <BranchOfScienece>{props.Subject}</BranchOfScienece>
                 <MoreButton></MoreButton>
             </BranchSection>
             <UserDataSection>
-                <Name>Justyna</Name>
+                <Name>{props.UserName}</Name>
                 <Photo image={ExamplePhoto}></Photo>
             </UserDataSection>
             <DescriptionTittle>Opis:</DescriptionTittle>
-            <Description>Poszukuję partnera, z którym mógłbym szlifować język angielski  którym mógłbym szlifować język angielski</Description>
+            <Description>{props.Description}</Description>
             <SpotSection>
                 <SpotTittle>Miejsce:</SpotTittle>
-                <Spot>Kraków / Zdalnie</Spot>
+                <Spot>{props.Place}</Spot>
             </SpotSection>
             <ShowWholeAnnouncementBtn></ShowWholeAnnouncementBtn>
         </Container>

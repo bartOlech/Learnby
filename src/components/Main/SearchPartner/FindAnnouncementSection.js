@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import MagnifierIco from '../../../assets/img/Mobile/magnifying-glass.svg';
 import { FontStyle } from '../../../assets/style/style';
+import { FindUserConsumer } from '../../../context/CurrentUser.context';
 
 const Container = styled.div`
     width: 100%;
@@ -42,13 +43,18 @@ const Ico = styled.div`
 `
 
 const FindUserSection = () => {
+        
     return (
         <Container>
-            <Box>
-                <InputText type='text' placeholder='Czego obecnie się uczysz?'>   
-                </InputText>
-                <Ico></Ico>
-            </Box>
+                <FindUserConsumer>
+                    {({ announcementsArray }) => (
+                        <Box>
+                            <InputText onChange={() => console.log(announcementsArray)} type='text' placeholder='Czego obecnie się uczysz?'>   
+                            </InputText>
+                            <Ico></Ico>
+                        </Box>
+                    )}
+                </FindUserConsumer>
         </Container>
     )
 }

@@ -6,7 +6,8 @@ import { FontStyle } from '../../../assets/style/style';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+// Context
+import { FindUserConsumer } from '../../../context/CurrentUser.context';
 
 const Container = styled.div`
 
@@ -33,15 +34,35 @@ const FoundAnnouncementSection = () => {
       };
 
     return (
-        <Container>
-            <Text style={{marginTop: '50px', marginLeft: '-100px'}} size='1.5em'>Dopasowane osoby:</Text>
-            <Slider {...settings}>
-                <AnnouncementBoxTemplate></AnnouncementBoxTemplate>
-                <AnnouncementBoxTemplate></AnnouncementBoxTemplate>
-                <AnnouncementBoxTemplate></AnnouncementBoxTemplate>
-            </Slider>
-        </Container>
+        <div>
+            <FindUserConsumer>
+                {({ announcementsArray, listID }) => (
+                    <Container>
+                        <Text style={{marginTop: '50px', marginLeft: '-100px'}} size='1.5em'>Dopasowane osoby:</Text>
+                        <Slider {...settings}>
+                            {announcementsArray.map((el, index) => {
+                                return (
+                                    <AnnouncementBoxTemplate
+                                        key={listID[index]}
+                                        Subject={el.Subject}
+                                        UserName={el.UserName}
+                                        Description={el.Description}
+                                        Place={el.Place}
+                                ></AnnouncementBoxTemplate>
+                                )
+                            })}
+                        </Slider>
+                    </Container>
+                )}
+            </FindUserConsumer>
+        </div>
+       
     )
 }
 
 export default FoundAnnouncementSection;
+
+
+
+
+
