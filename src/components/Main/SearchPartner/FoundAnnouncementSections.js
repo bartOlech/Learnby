@@ -22,7 +22,7 @@ const Text = styled.h2`
     margin-top: -30px;
 `
 
-const FoundAnnouncementSection = () => {
+const FoundAnnouncementSection = (props) => {
     const settings = {
         dots: false,
         infinite: true,
@@ -35,26 +35,22 @@ const FoundAnnouncementSection = () => {
 
     return (
         <div>
-            <FindUserConsumer>
-                {({ announcementsArray, listID }) => (
-                    <Container>
-                        <Text style={{marginTop: '50px', marginLeft: '-100px'}} size='1.5em'>Dopasowane osoby:</Text>
-                        <Slider {...settings}>
-                            {announcementsArray.map((el, index) => {
-                                return (
-                                    <AnnouncementBoxTemplate
-                                        key={listID[index]}
-                                        Subject={el.Subject}
-                                        UserName={el.UserName}
-                                        Description={el.Description}
-                                        Place={el.Place}
-                                ></AnnouncementBoxTemplate>
-                                )
-                            })}
-                        </Slider>
-                    </Container>
-                )}
-            </FindUserConsumer>
+            <Container>
+                <Text style={{marginTop: '50px', marginLeft: '-100px'}} size='1.5em'>{props.tittle}</Text>
+                <Slider {...settings}>
+                    {props.announcementsArray.map((el, index) => {
+                        return (
+                            <AnnouncementBoxTemplate
+                                key={props.listID[index]}
+                                Subject={el.Subject}
+                                UserName={el.UserName}
+                                Description={el.Description}
+                                Place={el.Place}
+                        ></AnnouncementBoxTemplate>
+                        )
+                    })}
+                </Slider>
+            </Container>
         </div>
        
     )

@@ -5,6 +5,7 @@ import WavyBackground from '../../assets/img/Mobile/wave-bck-header-mobile.svg';
 import FindAnnouncementSection from './SearchPartner/FindAnnouncementSection';
 import FoundAnnouncementSection from './SearchPartner/FoundAnnouncementSections';
 import { FontStyle } from '../../assets/style/style';
+import { FindUserConsumer } from '../../context/CurrentUser.context';
 
 const Container = styled.div`
     width: 100%;
@@ -23,12 +24,20 @@ const Text = styled.h2`
 
 const MainSectionComponent = () => {
     return (
-        <Container>
-            <Header background={`url(${WavyBackground}) no-repeat `}></Header>
-            <Text size='1.7em'>Wyszukaj partnera</Text>
-            <FindAnnouncementSection></FindAnnouncementSection>
-            <FoundAnnouncementSection></FoundAnnouncementSection>
-        </Container>
+        <FindUserConsumer>
+            {({ announcementsArray, listID }) => (
+                <Container>
+                    <Header background={`url(${WavyBackground}) no-repeat `}></Header>
+                    <Text size='1.7em'>Wyszukaj partnera</Text>
+                    <FindAnnouncementSection></FindAnnouncementSection>
+                    <FoundAnnouncementSection 
+                        tittle='Dopasowane osoby'
+                        announcementsArray={announcementsArray}
+                        listID={listID}
+                    ></FoundAnnouncementSection>
+                </Container>
+            )}
+        </FindUserConsumer>
     )
 }
 
