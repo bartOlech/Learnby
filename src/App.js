@@ -36,7 +36,7 @@ function App() {
             <Route path='/login/' component={SignInContainer}></Route>
             <Route path='/register/' component={SignUpContainer}></Route>
             <Route path='/findPartner/' component={MainSectionContainer}></Route>
-            <Route path='/addApplication/' component={AddNoticeSection}></Route>
+            <Route path='/addAnnouncement/' component={AddNoticeSection}></Route>
             {/* footer */}
             <Route path='/about/' component={AboutSection}></Route>
             <Route path='/career/' component={CareerSection}></Route>

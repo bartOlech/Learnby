@@ -6,6 +6,7 @@ import FindAnnouncementSection from './SearchPartner/FindAnnouncementSection';
 import FoundAnnouncementSection from './SearchPartner/FoundAnnouncementSections';
 import { FontStyle } from '../../assets/style/style';
 import { FindUserConsumer } from '../../context/CurrentUser.context';
+import MainComponent from './Footer/MainComponent';
 
 const Container = styled.div`
     width: 100%;
@@ -31,10 +32,17 @@ const MainSectionComponent = () => {
                     <Text size='1.7em'>Wyszukaj partnera</Text>
                     <FindAnnouncementSection></FindAnnouncementSection>
                     <FoundAnnouncementSection 
-                        tittle='Dopasowane osoby'
+                        tittle='Dopasowane osoby:'
                         announcementsArray={announcementsArray}
                         listID={listID}
                     ></FoundAnnouncementSection>
+                    <FoundAnnouncementSection 
+                        tittle='Może cię zainteresować:'
+                        announcementsArray={announcementsArray}
+                        listID={listID}
+                    ></FoundAnnouncementSection>
+                    {/* Footer */}
+                    <MainComponent></MainComponent>
                 </Container>
             )}
         </FindUserConsumer>

@@ -24,12 +24,12 @@ const Button = styled.button`
     cursor: pointer;
 `
 
-const CreateAccountBtn = () => {
+const CreateAnnouncement = () => {
     return (
         <Container>
-            <Link to='/login'><Button>Załóż konto</Button></Link>
+            <Link to='/createAnnouncement'><Button>Dodaj ogłoszenie</Button></Link>
         </Container>
     )
 }
 
-export default CreateAccountBtn;
+export default CreateAnnouncement;

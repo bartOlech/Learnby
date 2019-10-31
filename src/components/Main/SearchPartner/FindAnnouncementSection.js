@@ -18,7 +18,7 @@ const Box = styled.div`
     margin-right: 20px;
 `
 const InputText = styled.input`
-    width: 310px;
+    width: 300px;
     height: 45px;
     border: none;
     border-radius: 40px;
