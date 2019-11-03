@@ -44,6 +44,7 @@ const FoundAnnouncementSection = (props) => {
                         return (
                             <AnnouncementBoxTemplate
                                 key={props.listID[index]}
+                                id={props.listID[index]}
                                 Subject={el.Subject}
                                 UserName={el.UserName}
                                 Description={el.Description}

@@ -16,6 +16,9 @@ import SignUpContainer from './containers/SignUp/SignUpContainer';
 import firebase from './Firebase.config';
 // main section
 import MainSectionContainer from './containers/MainSection/MainSectionContainer';
+// separate announcement
+import AnnouncementComonent from './components/Announcement/BoxComponent';
+
 function App() {
 
   const [firebaseInitialized, setFirebaseInitialized] = useState('');
@@ -36,7 +39,8 @@ function App() {
             <Route path='/login/' component={SignInContainer}></Route>
             <Route path='/register/' component={SignUpContainer}></Route>
             <Route path='/findPartner/' component={MainSectionContainer}></Route>
-            <Route path='/addAnnouncement/' component={AddNoticeSection}></Route>
+            <Route path='/addApplication/' component={AddNoticeSection}></Route>
+            <Route path='/announcement/:id' component={AnnouncementComonent}></Route>
             {/* footer */}
             <Route path='/about/' component={AboutSection}></Route>
             <Route path='/career/' component={CareerSection}></Route>

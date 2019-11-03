@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontStyle } from '../../../../../assets/style/style';
+import { FindUserConsumer } from '../../../../../context/CurrentUser.context';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { tsPropertySignature } from '@babel/types';
 
 const Button = styled.div`
     width: 194px;
@@ -23,11 +26,16 @@ const Button = styled.div`
     bottom: 15px;
 `
 
-const ShowWholeAnnouncementBtn = () => {
+const ShowWholeAnnouncementBtn = (props) => {
+
     return (
-        <React.Fragment>
-            <Button onClick={() => console.log('check announcement')}>Sprawdź</Button>
-        </React.Fragment>
+        <FindUserConsumer>
+           {({}) => (
+                <React.Fragment>
+                    <Link to={{ pathname:`/announcement/${props.id}` }}><Button>Sprawdź</Button></Link>
+                </React.Fragment>
+           )} 
+        </FindUserConsumer> 
     )
 }
 

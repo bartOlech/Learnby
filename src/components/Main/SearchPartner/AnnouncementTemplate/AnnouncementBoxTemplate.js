@@ -142,7 +142,7 @@ const AnnouncementBoxTemplate = (props) => {
                 <SpotTittle>Miejsce:</SpotTittle>
                 <Spot>{props.Place}</Spot>
             </SpotSection>
-            <ShowWholeAnnouncementBtn></ShowWholeAnnouncementBtn>
+            <ShowWholeAnnouncementBtn id={props.id}></ShowWholeAnnouncementBtn>
         </Container>
     )
 }
