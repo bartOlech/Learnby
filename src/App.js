@@ -17,7 +17,7 @@ import firebase from './Firebase.config';
 // main section
 import MainSectionContainer from './containers/MainSection/MainSectionContainer';
 // separate announcement
-import AnnouncementComonent from './components/Announcement/BoxComponent';
+import AnnouncementComonent from './components/Announcement/AnnouncementBoxComponent';
 
 function App() {
 

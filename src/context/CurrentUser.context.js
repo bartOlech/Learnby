@@ -78,6 +78,8 @@ export class CurrentUserProvider extends Component {
         })
     }
 
+    // Create the function of getting current announcement and get data from this function if the announcement has been clicked
+
     render() {
         
         const { children } = this.props;
