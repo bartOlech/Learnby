@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import UserImage from './UserImage';
 import UserData from './UserData';
 
+// temporary
+import userImage from '../../../assets/img/Mobile/user.svg';
+
 const Container = styled.div`
     width: 100%;
     height: 100%;
@@ -14,8 +17,13 @@ const Container = styled.div`
 const UserUIBoxComponent = () => {
     return (
         <Container>
-            <UserImage></UserImage>
-            <UserData></UserData>
+            <UserImage
+                userImage={userImage}
+            ></UserImage>
+            <UserData
+                name='Mateusz'
+                age='21'
+            ></UserData>
         </Container>
     )
 }

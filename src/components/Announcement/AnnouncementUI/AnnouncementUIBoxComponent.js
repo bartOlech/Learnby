@@ -5,6 +5,7 @@ import AnnouncementDescription from './AnnouncementDescription';
 import AnnouncementSpot from './AnnouncementSpot';
 import AnnouncementUIButtonsBox from './Buttons/AnnouncementUIButtonsBox';
 import MakeContactButton from './Buttons/MakeContact/MakeContactButton';
+import AnnouncementCommentSection from './AnnouncementFooter/AnnouncementCommentSection'
 
 const Container = styled.div`
     width: 100%;
@@ -23,6 +24,7 @@ const AnnouncementUIBoxComponent = () => {
             <AnnouncementSpot spot='Kraków / zdalnie'></AnnouncementSpot>
             <AnnouncementUIButtonsBox></AnnouncementUIButtonsBox>
             <MakeContactButton></MakeContactButton>
+            <AnnouncementCommentSection></AnnouncementCommentSection>
         </Container>
     )
 }

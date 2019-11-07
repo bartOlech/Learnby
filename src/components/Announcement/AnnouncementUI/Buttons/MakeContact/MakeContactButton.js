@@ -18,6 +18,7 @@ const Button = styled.div`
     flex-direction:column;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 `
 const Text = styled.div`
     font-family: ${FontStyle.family};

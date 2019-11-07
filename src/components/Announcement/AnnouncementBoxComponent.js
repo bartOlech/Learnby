@@ -7,7 +7,7 @@ import UserBoxComponent from './UserUI/UserUIBoxComponent';
 import AnnouncementUIBoxComponent from './AnnouncementUI/AnnouncementUIBoxComponent';
 
 const Container = styled.div`
-
+    background-color: #F8FAFB;
 `
 
 const BoxComponent = () => {

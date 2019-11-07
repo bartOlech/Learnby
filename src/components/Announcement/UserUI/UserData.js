@@ -57,12 +57,12 @@ const Dot = styled.div`
     border-radius: 50%;
 `
 
-const UserData = () => {
+const UserData = (props) => {
     return (
         <Container>
             <MainData>
-                <Name>Mateusz<Line></Line></Name>
-                <Age>21 lat</Age>
+                <Name>{props.name}<Line></Line></Name>
+                <Age>{props.age} lat</Age>
             </MainData>
             <LevelOfLearning>
                 <LevelText>Poziom:</LevelText>

@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import userIco from '../../../assets/img/Mobile/user.svg';
 
 const Container = styled.div`
     width: 77px;
@@ -11,7 +10,7 @@ const Container = styled.div`
 const Image = styled.div`
     width: 77px;
     height: 77px;
-    background-image: url(${userIco});
+    background-image: url(${props => props.userImage});
     background-repeat: no-repeat;
     background-size: 77px 77px;
     border-radius: 50%;
@@ -30,10 +29,10 @@ const Image = styled.div`
     }
 `
 
-const UserImage = () => {
+const UserImage = (props) => {
     return (
         <Container>
-            <Image></Image>
+            <Image userImage={props.userImage}></Image>
         </Container>
     )
 }
