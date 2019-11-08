@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import firebase from '../Firebase.config';
 
 const CurrentUserContext = React.createContext();
-const FindUserContext = React.createContext();
+const FindAnnouncementContext = React.createContext();
 
 export class CurrentUserProvider extends Component {
     state = {
@@ -14,7 +14,8 @@ export class CurrentUserProvider extends Component {
         loading: false,
         ex: false,
         announcementsArray: [],
-        listID: []
+        listID: [],
+        selectedAnnouncementById: ['1'],
     }
 
     logout = () => {
@@ -78,12 +79,39 @@ export class CurrentUserProvider extends Component {
         })
     }
 
-    // Create the function of getting current announcement and get data from this function if the announcement has been clicked
+    getAnnouncementById = (id) => {
+        const{ selectedAnnouncementById } = this.state;
+        firebase.getDataFromFirestore('Announcements').doc(id).get().then(snapshot => {
+            selectedAnnouncementById.splice(0)
+            selectedAnnouncementById.push(snapshot.data())
+            this.setState({
+                selectedAnnouncementById
+            })
+        }).then(
+            
+        )   
+        .catch(err => {
+            console.log('Error getting documents', err);
+        });
+    }
+
+    getAnnouncementByIdRepeatToRefreshPage = (id) => {
+        const{ selectedAnnouncementById } = this.state;
+        firebase.getDataFromFirestore('Announcements').doc(id).get().then(snapshot => {
+            selectedAnnouncementById.splice(0)
+            selectedAnnouncementById.push(snapshot.data())
+        }).then(
+            
+        )   
+        .catch(err => {
+            console.log('Error getting documents', err);
+        });
+    }
 
     render() {
         
         const { children } = this.props;
-        const { user, loading, announcementsArray, listID } = this.state;
+        const { user, loading, announcementsArray, listID, selectedAnnouncementById } = this.state;
         return (
             <CurrentUserContext.Provider
                 value={{
@@ -92,17 +120,20 @@ export class CurrentUserProvider extends Component {
                     loginWithGoogle: this.loginWithGoogle,
                     loginWithFacebook: this.loginWithFacebook,
                     loading,
-                    announcementsArray
+                    announcementsArray,
                 }}
                 >
-                    <FindUserContext.Provider 
-                        value={{
-                            announcementsArray,
-                            listID
-                        }}
-                    >
-                        {children}
-                    </FindUserContext.Provider>
+                <FindAnnouncementContext.Provider 
+                    value={{
+                        announcementsArray,
+                        listID,
+                        getAnnouncementById: this.getAnnouncementById,
+                        selectedAnnouncementById,
+                        getAnnouncementByIdRepeatToRefreshPage: this.getAnnouncementByIdRepeatToRefreshPage
+                    }}
+                >
+                    {children}
+                </FindAnnouncementContext.Provider>
             </CurrentUserContext.Provider>
         )
     }
@@ -110,4 +141,4 @@ export class CurrentUserProvider extends Component {
 
 export const CurrentUserConsumer = CurrentUserContext.Consumer;
 
-export const FindUserConsumer = FindUserContext.Consumer;
+export const FindAnnouncementConsumer = FindAnnouncementContext.Consumer;

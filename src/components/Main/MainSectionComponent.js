@@ -5,7 +5,7 @@ import WavyBackground from '../../assets/img/Mobile/wave-bck-header-mobile.svg';
 import FindAnnouncementSection from './SearchPartner/FindAnnouncementSection';
 import FoundAnnouncementSection from './SearchPartner/FoundAnnouncementSections';
 import { FontStyle } from '../../assets/style/style';
-import { FindUserConsumer } from '../../context/CurrentUser.context';
+import { FindAnnouncementConsumer } from '../../context/CurrentUser.context';
 import MainComponent from './Footer/MainComponent';
 
 const Container = styled.div`
@@ -25,7 +25,7 @@ const Text = styled.h2`
 
 const MainSectionComponent = () => {
     return (
-        <FindUserConsumer>
+        <FindAnnouncementConsumer>
             {({ announcementsArray, listID }) => (
                 <Container>
                     <Header background={`url(${WavyBackground}) no-repeat `}></Header>
@@ -45,7 +45,7 @@ const MainSectionComponent = () => {
                     <MainComponent></MainComponent>
                 </Container>
             )}
-        </FindUserConsumer>
+        </FindAnnouncementConsumer>
     )
 }
 

@@ -5,27 +5,33 @@ import AnnouncementDescription from './AnnouncementDescription';
 import AnnouncementSpot from './AnnouncementSpot';
 import AnnouncementUIButtonsBox from './Buttons/AnnouncementUIButtonsBox';
 import MakeContactButton from './Buttons/MakeContact/MakeContactButton';
-import AnnouncementCommentSection from './AnnouncementFooter/AnnouncementCommentSection'
-
+import AnnouncementCommentSection from './AnnouncementFooter/AnnouncementCommentSection';
+import { FindAnnouncementConsumer } from '../../../context/CurrentUser.context';
+import { BrowserRouter as Router, useParams } from 'react-router-dom'
+ 
 const Container = styled.div`
     width: 100%;
     height: 100%;
 `
 
 const AnnouncementUIBoxComponent = () => {
+    let { id }  = useParams();
     return (
-        <Container>
-            <AnnouncementTopic topic='Język Angielski'></AnnouncementTopic>
-            <AnnouncementDescription 
-                description='Poszukuję partnera, z którym mógłbym szlifować język angielski.
-                Obecnie poziom jakim posługuję się w danym języku jest to B2. 
-                Poszukuję osoby, z którą mógłbym spotkać się (lub porozmawiać na Skype) przynajmniej raz w tygodniu około 2h '>
-            </AnnouncementDescription>
-            <AnnouncementSpot spot='Kraków / zdalnie'></AnnouncementSpot>
-            <AnnouncementUIButtonsBox></AnnouncementUIButtonsBox>
-            <MakeContactButton></MakeContactButton>
-            <AnnouncementCommentSection></AnnouncementCommentSection>
-        </Container>
+        <FindAnnouncementConsumer>
+            {({ selectedAnnouncementById, getAnnouncementByIdRepeatToRefreshPage }) => (
+                <Container>
+                     {getAnnouncementByIdRepeatToRefreshPage(id)}
+                    <AnnouncementTopic topic={selectedAnnouncementById[0].Subject}></AnnouncementTopic>
+                    <AnnouncementDescription 
+                        description={selectedAnnouncementById[0].Description}>
+                    </AnnouncementDescription>
+                    <AnnouncementSpot spot={selectedAnnouncementById[0].Place}></AnnouncementSpot>
+                    <AnnouncementUIButtonsBox></AnnouncementUIButtonsBox>
+                    <MakeContactButton></MakeContactButton>
+                    <AnnouncementCommentSection></AnnouncementCommentSection>
+                </Container>
+            )}
+        </FindAnnouncementConsumer>
     )
 }
 
