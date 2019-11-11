@@ -12,7 +12,7 @@ const Button = styled.div`
     background-repeat: no-repeat;
     background-size: 30px 30px;
     cursor: pointer;
-    margin-left: 10px
+    margin-left: 10px;
 `
 
 const LikeButton = () => {

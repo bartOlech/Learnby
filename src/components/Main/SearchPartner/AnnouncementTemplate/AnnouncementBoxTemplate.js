@@ -134,7 +134,7 @@ const AnnouncementBoxTemplate = (props) => {
             </BranchSection>
             <UserDataSection>
                 <Name>{props.UserName}</Name>
-                <Photo image={ExamplePhoto}></Photo>
+                <Photo image={props.UserPhoto}></Photo>
             </UserDataSection>
             <DescriptionTittle>Opis:</DescriptionTittle>
             <Description>{props.Description}</Description>

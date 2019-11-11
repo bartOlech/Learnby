@@ -18,14 +18,14 @@ const AnnouncementUIBoxComponent = () => {
     let { id }  = useParams();
     return (
         <FindAnnouncementConsumer>
-            {({ selectedAnnouncementById, getAnnouncementByIdRepeatToRefreshPage }) => (
+            {({ selectedAnnouncementData, getAnnouncementByIdRepeatToRefreshPage }) => (
                 <Container>
                      {getAnnouncementByIdRepeatToRefreshPage(id)}
-                    <AnnouncementTopic topic={selectedAnnouncementById[0].Subject}></AnnouncementTopic>
+                    <AnnouncementTopic topic={selectedAnnouncementData[0].Subject}></AnnouncementTopic>
                     <AnnouncementDescription 
-                        description={selectedAnnouncementById[0].Description}>
+                        description={selectedAnnouncementData[0].Description}>
                     </AnnouncementDescription>
-                    <AnnouncementSpot spot={selectedAnnouncementById[0].Place}></AnnouncementSpot>
+                    <AnnouncementSpot spot={selectedAnnouncementData[0].Place}></AnnouncementSpot>
                     <AnnouncementUIButtonsBox></AnnouncementUIButtonsBox>
                     <MakeContactButton></MakeContactButton>
                     <AnnouncementCommentSection></AnnouncementCommentSection>

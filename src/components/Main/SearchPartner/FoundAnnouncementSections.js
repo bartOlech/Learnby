@@ -40,18 +40,22 @@ const FoundAnnouncementSection = (props) => {
             <Container>
                 <Text style={{marginTop: '50px'}} size='1.6em'>{props.tittle}</Text>
                 <Slider {...settings}>
-                    {props.announcementsArray.map((el, index) => {
-                        return (
-                            <AnnouncementBoxTemplate
-                                key={props.listID[index]}
-                                id={props.listID[index]}
-                                Subject={el.Subject}
-                                UserName={el.UserName}
-                                Description={el.Description}
-                                Place={el.Place}
-                        ></AnnouncementBoxTemplate>
-                        )
-                    })}
+                    {props.announcementsArray.length === props.userArray.length ? (
+                        props.announcementsArray.map((el, index) => {
+                            return (
+                                <AnnouncementBoxTemplate
+                                    key={props.listID[index]}
+                                    id={props.listID[index]}
+                                    Subject={el.Subject}
+                                    UserName={props.userArray[index].name}
+                                    Description={el.Description}
+                                    Place={el.Place}
+                                    UserPhoto={props.userArray[index].photo}
+                            ></AnnouncementBoxTemplate>
+                            )
+                        })
+                    ) : null}
+                    
                 </Slider>
             </Container>
         </div>

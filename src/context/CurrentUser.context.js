@@ -14,8 +14,10 @@ export class CurrentUserProvider extends Component {
         loading: false,
         ex: false,
         announcementsArray: [],
+        userArray: [],
         listID: [],
-        selectedAnnouncementById: ['1'],
+        selectedAnnouncementData: ['1'],
+        selectedAnnouncemenUserData: []
     }
 
     logout = () => {
@@ -57,7 +59,7 @@ export class CurrentUserProvider extends Component {
     }
 
     componentDidMount() {
-        const{ announcementsArray, listID } = this.state;
+        const{ announcementsArray, listID, userArray } = this.state;
 
         firebase.isInitialized().then(val => {
             this.setState({
@@ -66,26 +68,49 @@ export class CurrentUserProvider extends Component {
             })
           })
 
+          
+
         // Get announcements from database
         firebase.getDataFromFirestore('Announcements').get().then((snapshot) => {
             snapshot.docs.forEach(doc => {
                 announcementsArray.push(doc.data())
+                // get user info
+                firebase.getDataFromFirestore('user').doc(doc.data().UserId).get().then((snapshot) => {
+                    if (snapshot.exists) {
+                        userArray.push(snapshot.data())
+                    } else {
+                        console.log("No such document!");
+                    }
+                }).then(() => {
+                    this.setState({
+                        userArray
+                    })
+                })
                 listID.push(doc.id)
             })   
         }).then(() => {
             this.setState({
-                announcementsArray
+                announcementsArray,
             })
-        })
+            userArray.shift()
+        }).catch(error => {
+            console.log("Error getting document:", error);
+        });
     }
+    
+
+
+// DODAĆ ZAPISANIE USERA W BAZIE GDY REJESTRUJE SIE PRZEZ EMAIL (NA RAZIE JEST TYLKO PRZEZ SOCIAL ZAPIS)!!!
+
+
 
     getAnnouncementById = (id) => {
-        const{ selectedAnnouncementById } = this.state;
+        const{ selectedAnnouncementData } = this.state;
         firebase.getDataFromFirestore('Announcements').doc(id).get().then(snapshot => {
-            selectedAnnouncementById.splice(0)
-            selectedAnnouncementById.push(snapshot.data())
+            selectedAnnouncementData.splice(0)
+            selectedAnnouncementData.push(snapshot.data())
             this.setState({
-                selectedAnnouncementById
+                selectedAnnouncementData
             })
         }).then(
             
@@ -96,22 +121,41 @@ export class CurrentUserProvider extends Component {
     }
 
     getAnnouncementByIdRepeatToRefreshPage = (id) => {
-        const{ selectedAnnouncementById } = this.state;
+        const{ selectedAnnouncementData, selectedAnnouncemenUserData } = this.state;
+        
         firebase.getDataFromFirestore('Announcements').doc(id).get().then(snapshot => {
-            selectedAnnouncementById.splice(0)
-            selectedAnnouncementById.push(snapshot.data())
-        }).then(
+            selectedAnnouncementData.splice(0)
+            selectedAnnouncementData.push(snapshot.data())
             
+            // get the user data selected announcement
+            firebase.getDataFromFirestore('user').doc(snapshot.data().UserId).get().then(snapshot => {
+                // console.log(snapshot.data())
+                selectedAnnouncemenUserData.push(snapshot.data())
+                selectedAnnouncementData.splice(0, selectedAnnouncementData.length -1)
+            }).then(
+                
+            )
+        }).then(
+
         )   
         .catch(err => {
             console.log('Error getting documents', err);
         });
     }
 
+    
+
     render() {
         
         const { children } = this.props;
-        const { user, loading, announcementsArray, listID, selectedAnnouncementById } = this.state;
+        const { 
+            user,
+            loading, 
+            announcementsArray, 
+            listID, 
+            selectedAnnouncementData, 
+            userArray, 
+            selectedAnnouncemenUserData} = this.state;
         return (
             <CurrentUserContext.Provider
                 value={{
@@ -128,8 +172,10 @@ export class CurrentUserProvider extends Component {
                         announcementsArray,
                         listID,
                         getAnnouncementById: this.getAnnouncementById,
-                        selectedAnnouncementById,
-                        getAnnouncementByIdRepeatToRefreshPage: this.getAnnouncementByIdRepeatToRefreshPage
+                        selectedAnnouncementData,
+                        getAnnouncementByIdRepeatToRefreshPage: this.getAnnouncementByIdRepeatToRefreshPage,
+                        userArray,
+                        selectedAnnouncemenUserData
                     }}
                 >
                     {children}

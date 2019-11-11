@@ -26,7 +26,7 @@ const Text = styled.h2`
 const MainSectionComponent = () => {
     return (
         <FindAnnouncementConsumer>
-            {({ announcementsArray, listID }) => (
+            {({ announcementsArray, listID, userArray }) => (
                 <Container>
                     <Header background={`url(${WavyBackground}) no-repeat `}></Header>
                     <Text size='1.7em'>Wyszukaj partnera</Text>
@@ -34,11 +34,13 @@ const MainSectionComponent = () => {
                     <FoundAnnouncementSection 
                         tittle='Dopasowane osoby:'
                         announcementsArray={announcementsArray}
+                        userArray={userArray}
                         listID={listID}
                     ></FoundAnnouncementSection>
                     <FoundAnnouncementSection 
                         tittle='Może cię zainteresować:'
                         announcementsArray={announcementsArray}
+                        userArray={userArray}
                         listID={listID}
                     ></FoundAnnouncementSection>
                     {/* Footer */}
@@ -50,3 +52,13 @@ const MainSectionComponent = () => {
 }
 
 export default MainSectionComponent;
+
+
+// firebase.getDataFromFirestore('user').doc(snapshot.data().UserId).get().then(snapshot => {
+//     // selectedAnnouncementData.splice(0)
+//     // selectedAnnouncementUserInfo.push(snapshot.data)
+// }).then(
+//     this.setState({
+//         selectedAnnouncementUserInfo
+//     })
+// )
