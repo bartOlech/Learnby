@@ -105,13 +105,26 @@ export class CurrentUserProvider extends Component {
 
 
     getAnnouncementById = (id) => {
-        const{ selectedAnnouncementData } = this.state;
+        const{ selectedAnnouncementData, selectedAnnouncemenUserData } = this.state;
+        // get announcement data
         firebase.getDataFromFirestore('Announcements').doc(id).get().then(snapshot => {
             selectedAnnouncementData.splice(0)
             selectedAnnouncementData.push(snapshot.data())
             this.setState({
                 selectedAnnouncementData
             })
+
+            // get the user data selected announcement
+            firebase.getDataFromFirestore('user').doc(snapshot.data().UserId).get().then(snapshot => {
+                selectedAnnouncemenUserData.push(snapshot.data())
+                this.setState({
+                    selectedAnnouncemenUserData
+                })
+            }).then(
+                
+            ).catch(err => {
+                console.log('Error getting documents', err);
+            });
         }).then(
             
         )   
@@ -123,6 +136,7 @@ export class CurrentUserProvider extends Component {
     getAnnouncementByIdRepeatToRefreshPage = (id) => {
         const{ selectedAnnouncementData, selectedAnnouncemenUserData } = this.state;
         
+        // get announcement data
         firebase.getDataFromFirestore('Announcements').doc(id).get().then(snapshot => {
             selectedAnnouncementData.splice(0)
             selectedAnnouncementData.push(snapshot.data())
@@ -131,10 +145,13 @@ export class CurrentUserProvider extends Component {
             firebase.getDataFromFirestore('user').doc(snapshot.data().UserId).get().then(snapshot => {
                 // console.log(snapshot.data())
                 selectedAnnouncemenUserData.push(snapshot.data())
-                selectedAnnouncementData.splice(0, selectedAnnouncementData.length -1)
+                // selectedAnnouncementData.splice(0, selectedAnnouncementData.length -1)
+                
             }).then(
                 
-            )
+            ).catch(err => {
+                console.log('Error getting documents', err);
+            });
         }).then(
 
         )   
@@ -155,7 +172,8 @@ export class CurrentUserProvider extends Component {
             listID, 
             selectedAnnouncementData, 
             userArray, 
-            selectedAnnouncemenUserData} = this.state;
+            selectedAnnouncemenUserData,
+        } = this.state;
         return (
             <CurrentUserContext.Provider
                 value={{
@@ -175,7 +193,7 @@ export class CurrentUserProvider extends Component {
                         selectedAnnouncementData,
                         getAnnouncementByIdRepeatToRefreshPage: this.getAnnouncementByIdRepeatToRefreshPage,
                         userArray,
-                        selectedAnnouncemenUserData
+                        selectedAnnouncemenUserData,
                     }}
                 >
                     {children}

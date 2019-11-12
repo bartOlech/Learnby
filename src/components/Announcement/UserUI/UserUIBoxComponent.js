@@ -4,9 +4,6 @@ import UserImage from './UserImage';
 import UserData from './UserData';
 import { FindAnnouncementConsumer } from '../../../context/CurrentUser.context';
 
-// temporary
-import userImage from '../../../assets/img/Mobile/user.svg';
-
 const Container = styled.div`
     width: 100%;
     height: 100%;
@@ -22,7 +19,6 @@ const UserUIBoxComponent = () => {
                 selectedAnnouncemenUserData.length ? (
                     <Container>
                         {console.log(selectedAnnouncemenUserData)}
-
                         <UserImage
                             userImage={selectedAnnouncemenUserData[0].photo}
                         ></UserImage>

@@ -7,6 +7,7 @@ import FoundAnnouncementSection from './SearchPartner/FoundAnnouncementSections'
 import { FontStyle } from '../../assets/style/style';
 import { FindAnnouncementConsumer } from '../../context/CurrentUser.context';
 import MainComponent from './Footer/MainComponent';
+import Loader from 'react-loader-spinner';
 
 const Container = styled.div`
     width: 100%;
@@ -22,6 +23,12 @@ const Text = styled.h2`
     font-weight: 600;
     margin-top: -30px;
 `
+const LoaderBox = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 50px;  
+`
 
 const MainSectionComponent = () => {
     return (
@@ -31,18 +38,34 @@ const MainSectionComponent = () => {
                     <Header background={`url(${WavyBackground}) no-repeat `}></Header>
                     <Text size='1.7em'>Wyszukaj partnera</Text>
                     <FindAnnouncementSection></FindAnnouncementSection>
-                    <FoundAnnouncementSection 
-                        tittle='Dopasowane osoby:'
-                        announcementsArray={announcementsArray}
-                        userArray={userArray}
-                        listID={listID}
-                    ></FoundAnnouncementSection>
-                    <FoundAnnouncementSection 
-                        tittle='Może cię zainteresować:'
-                        announcementsArray={announcementsArray}
-                        userArray={userArray}
-                        listID={listID}
-                    ></FoundAnnouncementSection>
+                    {userArray.length > 1 ? (
+                        <React.Fragment>
+                            <FoundAnnouncementSection 
+                                tittle='Dopasowane osoby:'
+                                announcementsArray={announcementsArray}
+                                userArray={userArray}
+                                listID={listID}
+                                ></FoundAnnouncementSection>
+
+                            <FoundAnnouncementSection 
+                                tittle='Może cię zainteresować:'
+                                announcementsArray={announcementsArray}
+                                userArray={userArray}
+                                listID={listID}
+                            ></FoundAnnouncementSection>
+                        </React.Fragment>
+                    ) : (
+                        <LoaderBox>
+                            <Loader
+                                type="TailSpin"
+                                color="#4DB6AC"
+                                height={60}
+                                width={60}
+                            />
+                        </LoaderBox>
+                    )}
+                    
+                    
                     {/* Footer */}
                     <MainComponent></MainComponent>
                 </Container>
@@ -52,13 +75,3 @@ const MainSectionComponent = () => {
 }
 
 export default MainSectionComponent;
-
-
-// firebase.getDataFromFirestore('user').doc(snapshot.data().UserId).get().then(snapshot => {
-//     // selectedAnnouncementData.splice(0)
-//     // selectedAnnouncementUserInfo.push(snapshot.data)
-// }).then(
-//     this.setState({
-//         selectedAnnouncementUserInfo
-//     })
-// )
