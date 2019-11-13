@@ -1,33 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontStyle } from '../../../../../assets/style/style';
+import LikeGreyIco from '../../../../../assets/img/Mobile/heart-grey.svg';
+import LikeRedIco from '../../../../../assets/img/Mobile/heart-red.svg';
 
 const Container = styled.div`
-    width: 100%;
+    width: 90%;
     min-width: 100px;
     height: 100%;
     min-height: 65px;
     background-color: #fff;
-    border-radius: 6px;
     position: relative;
-    box-shadow: 1px 1px 3px #A0A6B1;
     margin-left: 15px;
-    &&::before {
-        content: '';
-        width: 3px;
-        height: 100%;
-        background-image: radial-gradient(circle 248px at center, #16d9e3 0%, #30c7ec 47%, #46aef7 100%);
-        position: absolute;
-        left: 1px;
-        top: 0;
-        border-radius: 10px;
-    }
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
 `
 const FirstRow = styled.div`
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    margin-left: 10px;
+    flex-direction: column;
     padding-top: 2px;
 `    
 const UserImage = styled.div`
@@ -36,30 +29,68 @@ const UserImage = styled.div`
     background-image: url(${props => props.userImage});
     background-repeat: no-repeat;
     background-size: 35px 35px;
+    margin-left: 10px;
 `    
-const TextOfComment = styled.div`
+const Text = styled.div`
     font-family: ${FontStyle.family};
     color: ${FontStyle.color};
     font-size: 1.4em;
     margin-left: 15px;
     padding-top: 3px;
+    font-size: 1.2em;
 `
-const Time = styled.div`
+const LikeContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+`
+const LikeAmount = styled.div`
     font-family: ${FontStyle.family};
-    color: #A0A6B1;
-    font-size: 1.1em;
-    margin-left: 15px;
-    padding-top: 5px;
+    color: #5C5C5C;
+    position: absolute;
+    right: 40px;
 `
+const LikeBox = styled.div`
+    position: absolute;
+    right: 15px;
+    cursor: pointer;
+`
+const LikeBackground = styled.div`
+    width: 31px;
+    height: 31px;
+    background-color: #E2E2E2;
+    border-radius: 50%;
+    position: relative;
+    display: ${props => props.display};
+`
+const LikeIco = styled.div`
+    width: 20px;
+    height: 18px;
+    background-image: url(${props => props.image});
+    background-repeat: no-repeat;
+    background-size: 20px 18px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`
+
 
 const Comment = (props) => {
     return (
         <Container>
+            <UserImage userImage={props.userImage}></UserImage>
             <FirstRow>
-                <UserImage userImage={props.userImage}></UserImage>
-                <TextOfComment>{props.textOfComment}</TextOfComment>
+                <Text style={{marginTop: '-10px', marginBottom: '10px'}}>{props.TextOfName}</Text>
+                <Text style={{fontWeight: 300, marginTop: '1px'}}>{props.textOfComment}</Text>
             </FirstRow>
-            <Time>{props.time}</Time>
+            <LikeContainer>
+                <LikeAmount>{props.likeAmount}</LikeAmount>
+                <LikeBox>
+                    <LikeBackground display='inline'></LikeBackground>
+                    <LikeIco image={LikeGreyIco}></LikeIco>
+                </LikeBox>
+            </LikeContainer>
         </Container>
     )
 }
