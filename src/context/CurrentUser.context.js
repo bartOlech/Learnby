@@ -17,7 +17,8 @@ export class CurrentUserProvider extends Component {
         userArray: [],
         listID: [],
         selectedAnnouncementData: ['1'],
-        selectedAnnouncemenUserData: []
+        selectedAnnouncemenUserData: [],
+        announcementComments: [],
     }
 
     logout = () => {
@@ -116,6 +117,7 @@ export class CurrentUserProvider extends Component {
 
             // get the user data selected announcement
             firebase.getDataFromFirestore('user').doc(snapshot.data().UserId).get().then(snapshot => {
+                selectedAnnouncemenUserData.splice(0)
                 selectedAnnouncemenUserData.push(snapshot.data())
                 this.setState({
                     selectedAnnouncemenUserData
@@ -134,7 +136,7 @@ export class CurrentUserProvider extends Component {
     }
 
     getAnnouncementByIdRepeatToRefreshPage = (id) => {
-        const{ selectedAnnouncementData, selectedAnnouncemenUserData } = this.state;
+        const{ selectedAnnouncementData, selectedAnnouncemenUserData, announcementComments } = this.state;
         
         // get announcement data
         firebase.getDataFromFirestore('Announcements').doc(id).get().then(snapshot => {
@@ -152,6 +154,24 @@ export class CurrentUserProvider extends Component {
             ).catch(err => {
                 console.log('Error getting documents', err);
             });
+
+            // get comments from firebase
+            snapshot.data().CommentsId.forEach(el => {
+                firebase.getDataFromFirestore('Comments').doc(el).get().then(snapshot => {
+                    announcementComments.push(snapshot.data())
+                    
+                    
+
+                    if(announcementComments.length === 0) {
+                        this.setState({
+                            announcementComments
+                        })
+                    }
+                }).then(
+                )
+                .catch(err => console.log('Error getting documents', err))
+            })
+
         }).then(
 
         )   
@@ -173,6 +193,7 @@ export class CurrentUserProvider extends Component {
             selectedAnnouncementData, 
             userArray, 
             selectedAnnouncemenUserData,
+            announcementComments,
         } = this.state;
         return (
             <CurrentUserContext.Provider
@@ -194,6 +215,7 @@ export class CurrentUserProvider extends Component {
                         getAnnouncementByIdRepeatToRefreshPage: this.getAnnouncementByIdRepeatToRefreshPage,
                         userArray,
                         selectedAnnouncemenUserData,
+                        announcementComments
                     }}
                 >
                     {children}

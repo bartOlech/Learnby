@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { FontStyle } from '../../../../assets/style/style';
 import MoreButton from './Buttons/MoreButton';
 import ShowWholeAnnouncementBtn from './Buttons/ShowWholeAnnouncementBtn';
-import ExamplePhoto from '../../../../assets/img/Mobile/user.svg';
 
 const Container = styled.div`
     width: 80vw;
