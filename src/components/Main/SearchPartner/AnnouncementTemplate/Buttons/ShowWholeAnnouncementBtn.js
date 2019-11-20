@@ -31,11 +31,11 @@ const ShowWholeAnnouncementBtn = (props) => {
         <FindAnnouncementConsumer>
            {({ getAnnouncementById }) => (
                 <React.Fragment>
-                    <Link to={{ pathname:`/announcement/${props.id}` }}><Button onClick={(() => getAnnouncementById(props.id))}>Sprawdź</Button></Link>
+                    <Link to={{ pathname:`/announcement/${props.id}` }}><Button  onClick={() => { getAnnouncementById(props.id);}}>Sprawdź</Button></Link>
                 </React.Fragment>
            )} 
         </FindAnnouncementConsumer> 
     )
 }
 
-export default ShowWholeAnnouncementBtn;
+export default ShowWholeAnnouncementBtn;   

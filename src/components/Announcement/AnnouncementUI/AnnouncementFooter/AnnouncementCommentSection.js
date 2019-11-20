@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { FontStyle } from '../../../../assets/style/style';
 import CreateCommentBox from './CreateComment/CreateCommentBox';
 import CommentsBox from './Comments/CommentsBox';
+import { FindAnnouncementConsumer } from '../../../../context/CurrentUser.context';
 
 const Container = styled.div`
     width: 100%;
@@ -20,11 +21,17 @@ const Text = styled.div`
 
 const AnnouncementFooterBox = () => {
     return (
-        <Container>
-            <Text>Komentarze:</Text>
-            <CreateCommentBox></CreateCommentBox>
-            <CommentsBox></CommentsBox>
-        </Container>
+        <FindAnnouncementConsumer>
+            {({ announcementComments }) => (
+                <Container>
+                    <Text>Komentarze:</Text>
+                    <CreateCommentBox></CreateCommentBox>
+                    <CommentsBox 
+                        announcementComments={announcementComments}
+                        ></CommentsBox>
+                </Container>
+            )}
+        </FindAnnouncementConsumer>
     )
 }
 

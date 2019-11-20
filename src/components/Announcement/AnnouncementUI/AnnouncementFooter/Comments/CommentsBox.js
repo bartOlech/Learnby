@@ -17,28 +17,24 @@ const Container = styled.div`
     background-size: 900px 800px;
 `
 
-const CommentBox = () => {
+const CommentBox = (props) => {
     return (   
-        <FindAnnouncementConsumer>
-            {({ announcementComments }) => (
-                <Container>
-                    {console.log(announcementComments)}
-                    <TopicText amountOfComments='2'></TopicText>
-                    <Comment
-                        textOfComment='Ten gość jest super'
-                        TextOfName='Weronika'
-                        userImage={userImage}
-                        likeAmount='1'
-                    ></Comment>
-                    <Comment
-                        textOfComment='Bardzo miła współpraca :)'
-                        TextOfName='Przemek'
-                        userImage={userImage}
-                        likeAmount='3'
-                    ></Comment>
-                </Container>
-            )}
-        </FindAnnouncementConsumer>
+        <Container>
+            <TopicText amountOfComments={props.announcementComments.length}></TopicText>
+            {props.announcementComments.map((el, index) => {
+                return (
+                    <React.Fragment>
+                        <Comment
+                            textOfComment={el.Content}
+                            TextOfName='Weronika'
+                            userImage={userImage}
+                            likeAmount={el.Likes.length}
+                            key={index}
+                        ></Comment>
+                    </React.Fragment>
+                )
+            })}
+        </Container>
     )
 }
 

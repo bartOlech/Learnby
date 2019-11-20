@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "firebase": "^7.2.0",
+    "lodash": "^4.17.15",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
@@ -14,6 +15,7 @@
     "react-slick": "^0.25.2",
     "slick-carousel": "^1.8.1",
     "styled-components": "^4.4.0",
+    "uniqid": "^5.1.0",
     "use-state-with-callback": "^1.0.18"
   },
   "scripts": {

@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import sendIco from '../../../../../assets/img/Mobile/send.svg';
+import { FindAnnouncementConsumer } from '../../../../../context/CurrentUser.context';
+import firebase from '../../../../../Firebase.config';
 
 const Container = styled.div`
     
@@ -24,11 +26,16 @@ const Ico = styled.div`
     background-size: 28px 28px;
 `
 
-const CommentSendButton = () => {
+const CommentSendButton = (props) => {
     return (
-        <Container>
-            <Button><Ico></Ico></Button>
-        </Container>
+        <FindAnnouncementConsumer>
+            
+            {({ sendComment }) => (
+                <Container>
+                    <Button onClick={() => {sendComment(props.commentValue, firebase.getCurrentUid()); props.clear();}}><Ico></Ico></Button>
+                </Container>
+            )}
+        </FindAnnouncementConsumer>
     )
 }
 

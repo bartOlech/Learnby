@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import AnnouncementTopic from './AnnouncementTopic';
 import AnnouncementDescription from './AnnouncementDescription';
@@ -16,11 +16,17 @@ const Container = styled.div`
 
 const AnnouncementUIBoxComponent = () => {
     let { id }  = useParams();
+    const[executed, setExecuted] = useState(true)
+    
     return (
         <FindAnnouncementConsumer>
             {({ selectedAnnouncementData, getAnnouncementByIdRepeatToRefreshPage }) => (
                 <Container>
-                     {getAnnouncementByIdRepeatToRefreshPage(id)}
+                    {executed ? (
+                        getAnnouncementByIdRepeatToRefreshPage(id),
+                        setExecuted(false)
+                    ) : null}
+                     
                     <AnnouncementTopic topic={selectedAnnouncementData[0].Subject}></AnnouncementTopic>
                     <AnnouncementDescription 
                         description={selectedAnnouncementData[0].Description}>

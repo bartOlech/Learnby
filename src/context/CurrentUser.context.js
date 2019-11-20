@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import firebase from '../Firebase.config';
+import _ from 'lodash';
+import uniqid from 'uniqid';
 
 const CurrentUserContext = React.createContext();
 const FindAnnouncementContext = React.createContext();
@@ -42,7 +44,7 @@ export class CurrentUserProvider extends Component {
             })
         }).then(() => {
             const { name, email, photo } = this.state;
-        firebase.addLoginDataToFirebase(name, email, photo, 'Google')
+        firebase.addLoginDataToFirebase(name, email, photo, 'Google', firebase.getCurrentUid())
         }).catch(error => console.log(error))
     }
     // Facebook
@@ -55,7 +57,7 @@ export class CurrentUserProvider extends Component {
             })
         }).then(() => {
              const { name, email, photo } = this.state;
-          firebase.addLoginDataToFirebase(name, email, photo, 'Facebook')
+          firebase.addLoginDataToFirebase(name, email, photo, 'Facebook', firebase.getCurrentUid())
         }).catch(error => console.log(error))
     }
 
@@ -98,15 +100,9 @@ export class CurrentUserProvider extends Component {
             console.log("Error getting document:", error);
         });
     }
-    
-
-
-// DODAĆ ZAPISANIE USERA W BAZIE GDY REJESTRUJE SIE PRZEZ EMAIL (NA RAZIE JEST TYLKO PRZEZ SOCIAL ZAPIS)!!!
-
-
 
     getAnnouncementById = (id) => {
-        const{ selectedAnnouncementData, selectedAnnouncemenUserData } = this.state;
+        const{ selectedAnnouncementData, selectedAnnouncemenUserData, announcementComments } = this.state;
         // get announcement data
         firebase.getDataFromFirestore('Announcements').doc(id).get().then(snapshot => {
             selectedAnnouncementData.splice(0)
@@ -117,18 +113,35 @@ export class CurrentUserProvider extends Component {
 
             // get the user data selected announcement
             firebase.getDataFromFirestore('user').doc(snapshot.data().UserId).get().then(snapshot => {
-                selectedAnnouncemenUserData.splice(0)
+                selectedAnnouncemenUserData.splice(0)  
                 selectedAnnouncemenUserData.push(snapshot.data())
+                // remove duplicate elements
                 this.setState({
-                    selectedAnnouncemenUserData
+                    selectedAnnouncemenUserData: _.uniqBy(selectedAnnouncemenUserData, 'email')
                 })
             }).then(
                 
             ).catch(err => {
                 console.log('Error getting documents', err);
             });
+
+            // get comments from firebase
+            snapshot.data().CommentsId.forEach((el, index) => {
+                if(index === 0) {
+                    announcementComments.splice(0)
+                }
+                
+                firebase.getDataFromFirestore('Comments').doc(el).get().then(snapshot => {
+                    announcementComments.push(snapshot.data())
+                    // remove duplicate elements
+                    this.setState({
+                        announcementComments: _.uniqBy(announcementComments, 'UniqueId')
+                    })
+                }).then(
+                )
+                .catch(err => console.log('Error getting documents', err))                
+            })
         }).then(
-            
         )   
         .catch(err => {
             console.log('Error getting documents', err);
@@ -140,12 +153,12 @@ export class CurrentUserProvider extends Component {
         
         // get announcement data
         firebase.getDataFromFirestore('Announcements').doc(id).get().then(snapshot => {
+            
             selectedAnnouncementData.splice(0)
             selectedAnnouncementData.push(snapshot.data())
             
             // get the user data selected announcement
             firebase.getDataFromFirestore('user').doc(snapshot.data().UserId).get().then(snapshot => {
-                // console.log(snapshot.data())
                 selectedAnnouncemenUserData.push(snapshot.data())
                 // selectedAnnouncementData.splice(0, selectedAnnouncementData.length -1)
                 
@@ -154,19 +167,14 @@ export class CurrentUserProvider extends Component {
             ).catch(err => {
                 console.log('Error getting documents', err);
             });
-
             // get comments from firebase
             snapshot.data().CommentsId.forEach(el => {
                 firebase.getDataFromFirestore('Comments').doc(el).get().then(snapshot => {
+                    
                     announcementComments.push(snapshot.data())
-                    
-                    
-
-                    if(announcementComments.length === 0) {
-                        this.setState({
-                            announcementComments
-                        })
-                    }
+                    this.setState({
+                        announcementComments: _.uniqBy(announcementComments, 'UniqueId')
+                    })
                 }).then(
                 )
                 .catch(err => console.log('Error getting documents', err))
@@ -180,7 +188,21 @@ export class CurrentUserProvider extends Component {
         });
     }
 
-    
+    sendComment = (text, uid) => {
+        firebase.sendDataToFirestore("Comments").doc().set({
+            Content: text,
+            Creator: uid,
+            Likes: [],
+            UniqueId: uniqid(),
+            UserComments: 'TxVantf16ZSTCmsEiN9N'
+        })
+        .then(function() {
+            console.log("Document successfully written!");
+        })
+        .catch(err => {
+            console.error("Error writing document: ", err);
+        });
+    }
 
     render() {
         
@@ -204,6 +226,7 @@ export class CurrentUserProvider extends Component {
                     loginWithFacebook: this.loginWithFacebook,
                     loading,
                     announcementsArray,
+
                 }}
                 >
                 <FindAnnouncementContext.Provider 
@@ -215,7 +238,9 @@ export class CurrentUserProvider extends Component {
                         getAnnouncementByIdRepeatToRefreshPage: this.getAnnouncementByIdRepeatToRefreshPage,
                         userArray,
                         selectedAnnouncemenUserData,
-                        announcementComments
+                        announcementComments,
+                        sendComment: this.sendComment
+                        
                     }}
                 >
                     {children}
