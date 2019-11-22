@@ -21,6 +21,7 @@ export class CurrentUserProvider extends Component {
         selectedAnnouncementData: ['1'],
         selectedAnnouncemenUserData: [],
         announcementComments: [],
+        currentCommentsArray: []
     }
 
     logout = () => {
@@ -188,16 +189,42 @@ export class CurrentUserProvider extends Component {
         });
     }
 
-    sendComment = (text, uid) => {
-        firebase.sendDataToFirestore("Comments").doc().set({
+    sendComment = (text, uid, announcementId) => {
+        const{ announcementComments, currentCommentsArray } = this.state;
+
+        announcementComments.push({
             Content: text,
             Creator: uid,
             Likes: [],
             UniqueId: uniqid(),
             UserComments: 'TxVantf16ZSTCmsEiN9N'
         })
-        .then(function() {
-            console.log("Document successfully written!");
+        this.setState({
+            announcementComments
+        })
+
+        firebase.sendDataToFirestore("Comments").add({
+            Content: text,
+            Creator: uid,
+            Likes: [],
+            UniqueId: uniqid(),
+            UserComments: 'TxVantf16ZSTCmsEiN9N'
+        })
+        .then((docRef) => {
+            // Create array with comments id and new comment id to replace existing array in firestore
+            firebase.getDataFromFirestore('Announcements').doc(announcementId).get().then(snapshot => {
+                snapshot.data().CommentsId.forEach(el => {
+                    currentCommentsArray.push(el)
+                })
+                currentCommentsArray.push(docRef.id)
+            }).then(() => {
+                // Update CommentsId(add a new comment)
+                firebase.sendDataToFirestore('Announcements').doc(announcementId).update({
+                    CommentsId: currentCommentsArray
+                })
+                .then()
+                .catch( err => console.log(err))
+            })
         })
         .catch(err => {
             console.error("Error writing document: ", err);

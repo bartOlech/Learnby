@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import TopicText from './TopicText';
 import Comment from './Comment';
 import waveBackground from '../../../../../assets/img/Mobile/waveCommentBackground.svg';
-import { FindAnnouncementConsumer } from '../../../../../context/CurrentUser.context';
+import firebase from '../../../../../Firebase.config';
+
 
 // temporary
 import userImage from '../../../../../assets/img/Mobile/user.svg';
@@ -21,7 +22,9 @@ const CommentBox = (props) => {
     return (   
         <Container>
             <TopicText amountOfComments={props.announcementComments.length}></TopicText>
+            
             {props.announcementComments.map((el, index) => {
+                
                 return (
                     <React.Fragment>
                         <Comment

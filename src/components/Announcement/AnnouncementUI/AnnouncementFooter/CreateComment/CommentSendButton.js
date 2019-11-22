@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import sendIco from '../../../../../assets/img/Mobile/send.svg';
 import { FindAnnouncementConsumer } from '../../../../../context/CurrentUser.context';
 import firebase from '../../../../../Firebase.config';
+import { BrowserRouter as Router, useParams } from 'react-router-dom'
 
 const Container = styled.div`
     
@@ -27,12 +28,23 @@ const Ico = styled.div`
 `
 
 const CommentSendButton = (props) => {
+    let { id }  = useParams();
+
     return (
         <FindAnnouncementConsumer>
-            
+            {/* DODAJ WCISNIECIE PRZYCISKU ENETEREM */}
             {({ sendComment }) => (
                 <Container>
-                    <Button onClick={() => {sendComment(props.commentValue, firebase.getCurrentUid()); props.clear();}}><Ico></Ico></Button>
+                    <Button onClick={() => {
+                        if(props.commentValue !== '') {
+                            if(firebase.getCurrentUid() !== null){
+                                sendComment(props.commentValue, firebase.getCurrentUid(), id);
+                                props.clear();
+                            } else {
+                                // props.userIsLogged(false);
+                            }
+                        }
+                        }}><Ico></Ico></Button>
                 </Container>
             )}
         </FindAnnouncementConsumer>
