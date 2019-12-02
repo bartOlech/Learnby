@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import styled, { keyframes, css }  from 'styled-components';
+import styled  from 'styled-components';
 import CommentSendButton from './CommentSendButton';
 import { FontStyle } from '../../../../../assets/style/style';
 import firebase from '../../../../../Firebase.config';
-import { bounce } from 'react-animations';
 
 const Container = styled.div`
     display: flex;
@@ -21,7 +20,6 @@ const Input = styled.input`
     font-family: ${FontStyle.family};
     font-size: 1.3em;
     font-weight: 300;
-    animation: ${props => props.animation};
     &&::placeholder {
         color: #A0A6B1;
     }
@@ -53,32 +51,34 @@ const CreateCommentBox = () => {
     return (
         <Container>
             <InputBox>
+                
                 <InputText
                     color={isLogged ? 'red' : 'grey'}
                     top={textIsFilled ? '1px' : '13px'}
                     size={textIsFilled ? '1em' : '1.3em'}
                     weight={textIsFilled ? '500' : '300'}
                 >
-                    {isLogged ? 'Zaloguj się' : 'Napisz Komentarz'}</InputText>
-                <Input 
-                    value={commentValue} 
-                    onChange={el => {
-                        setCommentValue(el.target.value); 
-                        if(el.target.value === '') {
-                            setTextIsFilled(false)
-                            setIsLogged(false)
-                        } else {
-                            if(firebase.getCurrentUid()) {
+                    {isLogged ? 'Zaloguj się' : 'Napisz Komentarz'}
+                </InputText>
+                    <Input 
+                        value={commentValue} 
+                        onChange={el => {
+                            setCommentValue(el.target.value); 
+                            if(el.target.value === '') {
+                                setTextIsFilled(false)
                                 setIsLogged(false)
                             } else {
-                                setIsLogged(true)
+                                if(firebase.getCurrentUid()) {
+                                    setIsLogged(false)
+                                } else {
+                                    setIsLogged(true)
+                                }
+                                setTextIsFilled(true)
                             }
-                            setTextIsFilled(true)
-                        }
-                    }} 
-                    type='text' 
-                    >
-                </Input>
+                        }} 
+                        type='text' 
+                        >
+                    </Input>
             </InputBox>
             <CommentSendButton clear={clear} commentValue={commentValue}></CommentSendButton>
         </Container>

@@ -9,8 +9,8 @@ const Container = styled.div`
     
 `
 const Button = styled.div`
-    width: 50px;
-    height: 44px;
+    width: 58px;
+    height: 54px;
     background-color: #4DB6AC;
     border-radius: 9px;
     cursor: pointer;
@@ -18,6 +18,7 @@ const Button = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: -1px;
 `
 const Ico = styled.div`
     width: 28px;

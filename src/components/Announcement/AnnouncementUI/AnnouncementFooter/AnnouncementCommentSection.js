@@ -22,12 +22,12 @@ const Text = styled.div`
 const AnnouncementFooterBox = () => {
     return (
         <FindAnnouncementConsumer>
-            {({ announcementComments }) => (
+            {({ commentsArray }) => (
                 <Container>
                     <Text>Komentarze:</Text>
                     <CreateCommentBox></CreateCommentBox>
                     <CommentsBox 
-                        announcementComments={announcementComments}
+                        commentsArray={commentsArray}
                         ></CommentsBox>
                 </Container>
             )}

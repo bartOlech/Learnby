@@ -1,11 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import TopicText from './TopicText';
 import Comment from './Comment';
 import waveBackground from '../../../../../assets/img/Mobile/waveCommentBackground.svg';
-import firebase from '../../../../../Firebase.config';
-
-
+import _ from 'lodash';
 // temporary
 import userImage from '../../../../../assets/img/Mobile/user.svg';
 
@@ -21,23 +19,21 @@ const Container = styled.div`
 const CommentBox = (props) => {
     return (   
         <Container>
-            <TopicText amountOfComments={props.announcementComments.length}></TopicText>
-            
-            {props.announcementComments.map((el, index) => {
-                
-                return (
+            <TopicText amountOfComments={props.commentsArray.length}></TopicText> 
+            {props.commentsArray.map(el => {
+                return(
                     <React.Fragment>
                         <Comment
-                            textOfComment={el.Content}
+                            textOfComment={el.value.Content}
                             TextOfName='Weronika'
                             userImage={userImage}
-                            likeAmount={el.Likes.length}
-                            key={index}
+                            likeAmount={el.value.Likes.length}
+                            key={el.key}
                         ></Comment>
                     </React.Fragment>
                 )
-            })}
-        </Container>
+            })} 
+            </Container>
     )
 }
 

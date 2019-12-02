@@ -20,8 +20,8 @@ export class CurrentUserProvider extends Component {
         listID: [],
         selectedAnnouncementData: ['1'],
         selectedAnnouncemenUserData: [],
-        announcementComments: [],
-        currentCommentsArray: []
+        commentsMap: new Map(),
+        commentsArray: []
     }
 
     logout = () => {
@@ -103,7 +103,7 @@ export class CurrentUserProvider extends Component {
     }
 
     getAnnouncementById = (id) => {
-        const{ selectedAnnouncementData, selectedAnnouncemenUserData, announcementComments } = this.state;
+        const{ selectedAnnouncementData, selectedAnnouncemenUserData, commentsMap, commentsArray } = this.state;
         // get announcement data
         firebase.getDataFromFirestore('Announcements').doc(id).get().then(snapshot => {
             selectedAnnouncementData.splice(0)
@@ -127,21 +127,20 @@ export class CurrentUserProvider extends Component {
             });
 
             // get comments from firebase
-            snapshot.data().CommentsId.forEach((el, index) => {
-                if(index === 0) {
-                    announcementComments.splice(0)
-                }
-                
-                firebase.getDataFromFirestore('Comments').doc(el).get().then(snapshot => {
-                    announcementComments.push(snapshot.data())
-                    // remove duplicate elements
-                    this.setState({
-                        announcementComments: _.uniqBy(announcementComments, 'UniqueId')
-                    })
-                }).then(
-                )
-                .catch(err => console.log('Error getting documents', err))                
-            })
+            commentsArray.splice(0)
+            commentsMap.clear()
+
+            for (const [key, value] of Object.entries(snapshot.data().Comments)) {
+                commentsMap.set(uniqid(), value)
+            }
+
+            commentsMap.forEach((val, key) => {
+                commentsArray.push({ key, value: val });
+                // remove duplicate elements
+                this.setState({
+                    commentsArray: _.uniqBy(commentsArray, 'key')
+                })
+            }); 
         }).then(
         )   
         .catch(err => {
@@ -150,7 +149,7 @@ export class CurrentUserProvider extends Component {
     }
 
     getAnnouncementByIdRepeatToRefreshPage = (id) => {
-        const{ selectedAnnouncementData, selectedAnnouncemenUserData, announcementComments } = this.state;
+        const{ selectedAnnouncementData, selectedAnnouncemenUserData, commentsMap, commentsArray } = this.state;
         
         // get announcement data
         firebase.getDataFromFirestore('Announcements').doc(id).get().then(snapshot => {
@@ -168,18 +167,15 @@ export class CurrentUserProvider extends Component {
             ).catch(err => {
                 console.log('Error getting documents', err);
             });
+
             // get comments from firebase
-            snapshot.data().CommentsId.forEach(el => {
-                firebase.getDataFromFirestore('Comments').doc(el).get().then(snapshot => {
-                    
-                    announcementComments.push(snapshot.data())
-                    this.setState({
-                        announcementComments: _.uniqBy(announcementComments, 'UniqueId')
-                    })
-                }).then(
-                )
-                .catch(err => console.log('Error getting documents', err))
-            })
+            for (const [key, value] of Object.entries(snapshot.data().Comments)) {
+                commentsMap.set(uniqid(), value)
+              }
+
+            commentsMap.forEach((val, key) => {
+                commentsArray.push({ key, value: val });
+            }); 
 
         }).then(
 
@@ -190,45 +186,46 @@ export class CurrentUserProvider extends Component {
     }
 
     sendComment = (text, uid, announcementId) => {
-        const{ announcementComments, currentCommentsArray } = this.state;
+        const{ commentsArray } = this.state;
+        const uniqueKey = uniqid()
 
-        announcementComments.push({
-            Content: text,
-            Creator: uid,
-            Likes: [],
-            UniqueId: uniqid(),
-            UserComments: 'TxVantf16ZSTCmsEiN9N'
+        // add a new comment to state
+        commentsArray.push({
+            key: uniqueKey,
+            value: {
+                Content: text,
+                Creator: uid,
+                Likes: [],
+                UniqueId: uniqid(),
+            }
         })
         this.setState({
-            announcementComments
+            commentsArray
         })
 
-        firebase.sendDataToFirestore("Comments").add({
-            Content: text,
-            Creator: uid,
-            Likes: [],
-            UniqueId: uniqid(),
-            UserComments: 'TxVantf16ZSTCmsEiN9N'
-        })
-        .then((docRef) => {
-            // Create array with comments id and new comment id to replace existing array in firestore
-            firebase.getDataFromFirestore('Announcements').doc(announcementId).get().then(snapshot => {
-                snapshot.data().CommentsId.forEach(el => {
-                    currentCommentsArray.push(el)
-                })
-                currentCommentsArray.push(docRef.id)
-            }).then(() => {
-                // Update CommentsId(add a new comment)
-                firebase.sendDataToFirestore('Announcements').doc(announcementId).update({
-                    CommentsId: currentCommentsArray
-                })
-                .then()
-                .catch( err => console.log(err))
+        // Update Comments in the firestore(add a new comment)
+        firebase.getDataFromFirestore('Announcements').doc(announcementId).get().then(snapshot => {
+            let commentsFromFirestore = snapshot.data().Comments
+            
+            const newComment = {
+                Content: text,
+                Creator: uid,
+                Likes: [],
+                uniqueId: uniqueKey
+            }
+
+            // create a unique Id in the Object
+            const map = new Map();
+            map.set(uniqueKey, newComment)
+            const newComentWithId = Object.fromEntries(map)
+
+            // Merging two objects
+            const MergedObject = Object.assign(newComentWithId, commentsFromFirestore)
+
+            firebase.sendDataToFirestore('Announcements').doc(announcementId).update({
+                Comments:  MergedObject
             })
         })
-        .catch(err => {
-            console.error("Error writing document: ", err);
-        });
     }
 
     render() {
@@ -242,7 +239,8 @@ export class CurrentUserProvider extends Component {
             selectedAnnouncementData, 
             userArray, 
             selectedAnnouncemenUserData,
-            announcementComments,
+            commentsMap,
+            commentsArray
         } = this.state;
         return (
             <CurrentUserContext.Provider
@@ -265,9 +263,9 @@ export class CurrentUserProvider extends Component {
                         getAnnouncementByIdRepeatToRefreshPage: this.getAnnouncementByIdRepeatToRefreshPage,
                         userArray,
                         selectedAnnouncemenUserData,
-                        announcementComments,
-                        sendComment: this.sendComment
-                        
+                        sendComment: this.sendComment,
+                        commentsMap,
+                        commentsArray
                     }}
                 >
                     {children}
