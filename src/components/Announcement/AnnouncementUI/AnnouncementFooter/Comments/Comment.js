@@ -88,6 +88,13 @@ const Comment = (props) => {
     const[isLiked, setIsLiked] = useState() 
 
     const[likeAmount, setLikeAmount] = useState(props.likeAmount)
+    console.log(`normal ${props.likeAmount}`)
+    console.log(`useState ${likeAmount}`)
+
+    useEffect(() => {
+        console.log('now')
+        setLikeAmount(props.likeAmount)
+    }, []);
 
     const likeComment = () => {
         // get object from the firestore
@@ -131,7 +138,7 @@ const Comment = (props) => {
             }
         } 
     }
-    
+
     return (
         <Container>
             <UserImage userImage={props.userImage}></UserImage>
@@ -140,7 +147,8 @@ const Comment = (props) => {
                 <Text style={{fontWeight: 300, marginTop: '1px'}}>{props.textOfComment}</Text>
             </FirstRow>
             <LikeContainer>
-                <LikeAmount>{likeAmount}</LikeAmount>
+                {/* Display length from firebase if a local array has a different length, otherwise display length of local array */}
+                <LikeAmount>{props.likeArray.length}</LikeAmount>
                 <LikeBox onClick={likeComment}>
                     <LikeBackground display='inline'></LikeBackground>
                     <LikeIco image={LikeGreyIco}></LikeIco>
@@ -150,6 +158,6 @@ const Comment = (props) => {
     )
 }
 
-// GDY W TORUŃ USUWAM LIKE, W ZAMOSC DAJE LIKE NA -1
+// PRZAETESTUJ DZIAŁANIE LIKES W KAZDYM KOMENTARZU, W KAZDYM OGLOSZENIU
 
 export default Comment;
