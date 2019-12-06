@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import TopicText from './TopicText';
 import Comment from './Comment';
 import waveBackground from '../../../../../assets/img/Mobile/waveCommentBackground.svg';
-import _ from 'lodash';
 // temporary
 import userImage from '../../../../../assets/img/Mobile/user.svg';
 
@@ -28,7 +27,8 @@ const CommentBox = (props) => {
                             TextOfName='Weronika'
                             userImage={userImage}
                             likeAmount={el.value.Likes.length}
-                            key={el.key}
+                            likeArray={el.value.Likes}
+                            commentKey={el.key}
                         ></Comment>
                     </React.Fragment>
                 )

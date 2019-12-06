@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FontStyle } from '../../../../../assets/style/style';
 import LikeGreyIco from '../../../../../assets/img/Mobile/heart-grey.svg';
 import LikeRedIco from '../../../../../assets/img/Mobile/heart-red.svg';
+import { BrowserRouter as Router, useParams } from 'react-router-dom'
+// Firebase
+import firebase from '../../../../../Firebase.config';
 
 const Container = styled.div`
     width: 90%;
@@ -77,6 +80,58 @@ const LikeIco = styled.div`
 
 
 const Comment = (props) => {
+    let { id }  = useParams();
+    let likesArray = props.likeArray;
+    const currentUid = firebase.getCurrentUid()
+
+    // TO USE IN THE FUTURE
+    const[isLiked, setIsLiked] = useState() 
+
+    const[likeAmount, setLikeAmount] = useState(props.likeAmount)
+
+    const likeComment = () => {
+        // get object from the firestore
+        if(currentUid !== null){
+            if(!likesArray.includes(currentUid)) {
+                console.log('like')
+                setIsLiked(true)
+                setLikeAmount(likeAmount + 1)
+
+                likesArray.push(currentUid)
+
+                // template to update firestore'
+                let LikesUpdate = {};
+                LikesUpdate[`Comments.${props.commentKey}.Likes`] = likesArray;
+
+
+                // send the updated object to the firestore
+                firebase.sendDataToFirestore('Announcements').doc(id).update(LikesUpdate)
+                .catch(err => console.log(err))
+
+            } else {
+                console.log('unlike')
+                if(currentUid !== null){
+                    if(likesArray.includes(currentUid)) {
+                        setIsLiked(false)
+                        setLikeAmount(likeAmount - 1)
+
+                        // remove currentUid from array
+                        let index = likesArray.indexOf(currentUid);
+                        if (index !== -1) likesArray.splice(index, 1);
+
+                        // template to update firestore'
+                        let LikesUpdate = {};
+                        LikesUpdate[`Comments.${props.commentKey}.Likes`] = likesArray;
+
+                        // send the updated object to the firestore
+                        firebase.sendDataToFirestore('Announcements').doc(id).update(LikesUpdate)
+                        .catch(err => console.log(err))
+                    }
+                } 
+            }
+        } 
+    }
+    
     return (
         <Container>
             <UserImage userImage={props.userImage}></UserImage>
@@ -85,8 +140,8 @@ const Comment = (props) => {
                 <Text style={{fontWeight: 300, marginTop: '1px'}}>{props.textOfComment}</Text>
             </FirstRow>
             <LikeContainer>
-                <LikeAmount>{props.likeAmount}</LikeAmount>
-                <LikeBox>
+                <LikeAmount>{likeAmount}</LikeAmount>
+                <LikeBox onClick={likeComment}>
                     <LikeBackground display='inline'></LikeBackground>
                     <LikeIco image={LikeGreyIco}></LikeIco>
                 </LikeBox>
@@ -94,5 +149,7 @@ const Comment = (props) => {
         </Container>
     )
 }
+
+// GDY W TORUŃ USUWAM LIKE, W ZAMOSC DAJE LIKE NA -1
 
 export default Comment;

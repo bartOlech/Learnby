@@ -131,7 +131,7 @@ export class CurrentUserProvider extends Component {
             commentsMap.clear()
 
             for (const [key, value] of Object.entries(snapshot.data().Comments)) {
-                commentsMap.set(uniqid(), value)
+                commentsMap.set(key, value)
             }
 
             commentsMap.forEach((val, key) => {
@@ -170,7 +170,7 @@ export class CurrentUserProvider extends Component {
 
             // get comments from firebase
             for (const [key, value] of Object.entries(snapshot.data().Comments)) {
-                commentsMap.set(uniqid(), value)
+                commentsMap.set(key, value)
               }
 
             commentsMap.forEach((val, key) => {
