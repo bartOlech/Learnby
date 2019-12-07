@@ -21,6 +21,7 @@ export class CurrentUserProvider extends Component {
         selectedAnnouncementData: ['1'],
         selectedAnnouncemenUserData: [],
         commentsMap: new Map(),
+        userDataMap: new Map(),
         commentsArray: []
     }
 
@@ -112,19 +113,9 @@ export class CurrentUserProvider extends Component {
                 selectedAnnouncementData
             })
 
-            // get the user data selected announcement
-            firebase.getDataFromFirestore('user').doc(snapshot.data().UserId).get().then(snapshot => {
-                selectedAnnouncemenUserData.splice(0)  
-                selectedAnnouncemenUserData.push(snapshot.data())
-                // remove duplicate elements
-                this.setState({
-                    selectedAnnouncemenUserData: _.uniqBy(selectedAnnouncemenUserData, 'email')
-                })
-            }).then(
-                
-            ).catch(err => {
-                console.log('Error getting documents', err);
-            });
+            // get the user from firestore
+            selectedAnnouncemenUserData.splice(0)
+            selectedAnnouncemenUserData.push(snapshot.data().AnnouncementCreator)
 
             // get comments from firebase
             commentsArray.splice(0)
@@ -149,7 +140,7 @@ export class CurrentUserProvider extends Component {
     }
 
     getAnnouncementByIdRepeatToRefreshPage = (id) => {
-        const{ selectedAnnouncementData, selectedAnnouncemenUserData, commentsMap, commentsArray } = this.state;
+        const{ selectedAnnouncementData, selectedAnnouncemenUserData, commentsMap, commentsArray, userDataMap } = this.state;
         
         // get announcement data
         firebase.getDataFromFirestore('Announcements').doc(id).get().then(snapshot => {
@@ -157,16 +148,8 @@ export class CurrentUserProvider extends Component {
             selectedAnnouncementData.splice(0)
             selectedAnnouncementData.push(snapshot.data())
             
-            // get the user data selected announcement
-            firebase.getDataFromFirestore('user').doc(snapshot.data().UserId).get().then(snapshot => {
-                selectedAnnouncemenUserData.push(snapshot.data())
-                // selectedAnnouncementData.splice(0, selectedAnnouncementData.length -1)
-                
-            }).then(
-                
-            ).catch(err => {
-                console.log('Error getting documents', err);
-            });
+            // get the user from firestore
+            selectedAnnouncemenUserData.push(snapshot.data().AnnouncementCreator)
 
             // get comments from firebase
             for (const [key, value] of Object.entries(snapshot.data().Comments)) {

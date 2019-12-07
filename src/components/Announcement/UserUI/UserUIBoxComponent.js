@@ -19,10 +19,10 @@ const UserUIBoxComponent = () => {
                 selectedAnnouncemenUserData.length ? (
                     <Container>
                         <UserImage
-                            userImage={selectedAnnouncemenUserData[0].photo}
+                            userImage={selectedAnnouncemenUserData[0].PhotoUrl}
                         ></UserImage>
                         <UserData
-                            name={selectedAnnouncemenUserData[0].name}
+                            name={selectedAnnouncemenUserData[0].UserName}
                             age='21'
                         ></UserData>
                     </Container>
