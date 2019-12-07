@@ -47,10 +47,10 @@ const FoundAnnouncementSection = (props) => {
                                     key={props.listID[index]}
                                     id={props.listID[index]}
                                     Subject={el.Subject}
-                                    UserName={props.userArray[index].name}
+                                    UserName={props.userArray[index].UserName}
                                     Description={el.Description}
                                     Place={el.Place}
-                                    UserPhoto={props.userArray[index].photo}
+                                    UserPhoto={props.userArray[index].PhotoUrl}
                             ></AnnouncementBoxTemplate>
                             )
                         })

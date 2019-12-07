@@ -73,31 +73,19 @@ export class CurrentUserProvider extends Component {
             })
           })
 
-          
-
         // Get announcements from database
         firebase.getDataFromFirestore('Announcements').get().then((snapshot) => {
             snapshot.docs.forEach(doc => {
                 announcementsArray.push(doc.data())
                 // get user info
-                firebase.getDataFromFirestore('user').doc(doc.data().UserId).get().then((snapshot) => {
-                    if (snapshot.exists) {
-                        userArray.push(snapshot.data())
-                    } else {
-                        console.log("No such document!");
-                    }
-                }).then(() => {
-                    this.setState({
-                        userArray
-                    })
-                })
+                userArray.push(doc.data().AnnouncementCreator)
+
                 listID.push(doc.id)
             })   
         }).then(() => {
             this.setState({
                 announcementsArray,
             })
-            userArray.shift()
         }).catch(error => {
             console.log("Error getting document:", error);
         });
