@@ -39,7 +39,7 @@ const CommentSendButton = (props) => {
                     <Button onClick={() => {
                         if(props.commentValue !== '') {
                             if(firebase.getCurrentUid() !== null){
-                                sendComment(props.commentValue, firebase.getCurrentUid(), id);
+                                sendComment(props.commentValue, firebase.getCurrentUid(), id, firebase.getCurrentUserAllData());
                                 props.clear();
                             } else {
                                 // props.userIsLogged(false);

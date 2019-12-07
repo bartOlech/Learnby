@@ -185,16 +185,23 @@ export class CurrentUserProvider extends Component {
         });
     }
 
-    sendComment = (text, uid, announcementId) => {
+    sendComment = (text, uid, announcementId, userData) => {
         const{ commentsArray } = this.state;
         const uniqueKey = uniqid()
+
+        // remain only the first name of full name
+        let firstName = userData.displayName.replace(/ .*/,'');
 
         // add a new comment to state
         commentsArray.push({
             key: uniqueKey,
             value: {
                 Content: text,
-                Creator: uid,
+                Creator: {
+                    Email: userData.email,
+                    UserName: firstName,
+                    PhotoUrl: userData.photoURL
+                },
                 Likes: [],
                 UniqueId: uniqid(),
             }
@@ -209,7 +216,11 @@ export class CurrentUserProvider extends Component {
             
             const newComment = {
                 Content: text,
-                Creator: uid,
+                Creator: {
+                    Email: userData.email,
+                    UserName: firstName,
+                    PhotoUrl: userData.photoURL
+                },
                 Likes: [],
                 uniqueId: uniqueKey
             }

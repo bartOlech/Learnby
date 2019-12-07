@@ -24,8 +24,8 @@ const CommentBox = (props) => {
                     <React.Fragment>
                         <Comment
                             textOfComment={el.value.Content}
-                            TextOfName='Weronika'
-                            userImage={userImage}
+                            TextOfName={el.value.Creator.UserName}
+                            userImage={el.value.Creator.PhotoUrl}
                             likeAmount={el.value.Likes.length}
                             likeArray={el.value.Likes}
                             commentKey={el.key}
