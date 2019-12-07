@@ -1,8 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import { FontStyle } from '../../../../assets/style/style';
 import MoreButton from './Buttons/MoreButton';
 import ShowWholeAnnouncementBtn from './Buttons/ShowWholeAnnouncementBtn';
+import { fadeIn } from 'react-animations';
+
+// LikeIco animation
+const bounceAnimation = keyframes`${fadeIn}`;
 
 const Container = styled.div`
     width: 80vw;
@@ -21,6 +25,7 @@ const Container = styled.div`
     background-color: #fff;
     box-shadow: 2px 2px 3px #D5D9DF;
     position: relative;
+    animation: 1s ${bounceAnimation};
     &&::before {
         content: '';
         width: 10px;

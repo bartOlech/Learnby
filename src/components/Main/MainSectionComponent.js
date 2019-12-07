@@ -61,6 +61,7 @@ const MainSectionComponent = () => {
                                 color="#4DB6AC"
                                 height={60}
                                 width={60}
+                                style={{marginTop: '50px', marginLeft: '-20px'}}
                             />
                         </LoaderBox>
                     )}
