@@ -6,7 +6,7 @@ import LikeButton from './LikeButton';
 const Container = styled.div`
     display: flex;
     flex-direction: row;
-    margin-top: 5px;
+    margin-top: 3px;
 `
 
 const UserButtons = () => {

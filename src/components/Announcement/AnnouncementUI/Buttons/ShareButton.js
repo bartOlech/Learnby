@@ -1,40 +1,51 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FontStyle } from '../../../../assets/style/style'; 
-import shareIco from '../../../../assets/img/Mobile/share.svg';
+import { FacebookShareButton, FacebookIcon, TwitterIcon, TwitterShareButton, LinkedinShareButton, LinkedinIcon } from 'react-share'
 
 const Container = styled.div`
-   
+   display: flex;
+   margin-left: -39px;
 `
-const Button = styled.div`
-    width: 170px;
-    height: 37px;
-    border-radius: 11px;
-    background-color: #EBF8FB;
-    box-shadow: 1px 1px 1px #C8CEEA;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+const ButtonBox = styled.div`
+    margin-left: 20px;
     cursor: pointer;
 `
-const Text = styled.div`
-    font-family: ${FontStyle.family};
-    color: ${FontStyle.color};
-    font-size: 1.2em;
-    margin-top: -5px;
-`
-const Ico = styled.div`
-    width: 30px;
-    height: 30px;
-    background-image: url(${shareIco});
-    background-repeat: no-repeat;
-    background-size: 30px 30px;
-`
-
 const ShareButton = () => {
     return (
         <Container>
-            <Button><Text>Udostępnij</Text><Ico></Ico></Button>
+            <ButtonBox>
+                <FacebookShareButton
+                    quote='Learnby - Ucz się wspólnie'
+                    url={String(window.location.href)}
+                >
+                    <FacebookIcon
+                        size='2.4rem'
+                        borderRadius='50%'
+                    />
+                </FacebookShareButton>
+            </ButtonBox>
+            <ButtonBox>
+                <TwitterShareButton
+                    quote='Learnby - Ucz się wspólnie'
+                    url={String(window.location.href)}
+                >
+                    <TwitterIcon
+                        size='2.4rem'
+                        borderRadius='50%'
+                    />
+                </TwitterShareButton>
+            </ButtonBox>
+            <ButtonBox>
+                <LinkedinShareButton
+                    quote='Learnby - Ucz się wspólnie'
+                    url={String(window.location.href)}
+                >
+                    <LinkedinIcon
+                        size='2.4rem'
+                        borderRadius='50%'
+                    />
+                </LinkedinShareButton>
+            </ButtonBox>
         </Container>
     )
 }
