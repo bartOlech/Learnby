@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import MainLogo from '../../assets/img/logo-LearnBy.svg';
+import Logo from './Logo';
 import AddNotice from './AddNotice/AddNotice';
 import Login from './Login/Login';
 import { BrowserRouter as Router, Link} from 'react-router-dom';
@@ -15,13 +15,6 @@ const Container = styled.div`
     justify-content: space-between;
     background: ${props => props.background};
     background-size: cover;
-`
-const Logo = styled.div`
-    width: 40px;
-    height: 40px;
-    background-image: url(${MainLogo});
-    background-repeat: no-repeat;
-    margin: 20px;
 `
 const UserSection = styled.div`
     width: 100px;
@@ -47,7 +40,7 @@ const Header = (props) => {
     return (
         <Container background={props.background}>
             <Logo></Logo>
-            <Link to='/addApplication'><AddNotice></AddNotice></Link>
+            <Link to='/createAnnouncement'><AddNotice></AddNotice></Link>
             <CurrentUserConsumer>
                 {({logout, user, }) => (
                     user ? (

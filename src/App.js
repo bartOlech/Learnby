@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import StartPage from './components/Start/StartPage';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import AddNoticeSection from './components/Routes/AddNotice/AddNoticeSection';
+import CreateAnnouncementSection from './components/Main/CreateAnnouncement/CreateAnnouncementSection';
 import AboutSection from './components/Routes/Footer/AboutSection';
 import CareerSection from './components/Routes/Footer/CareerSection';
 import MediaSection from './components/Routes/Footer/MediaSection';
@@ -39,7 +39,7 @@ function App() {
             <Route path='/login/' component={SignInContainer}></Route>
             <Route path='/register/' component={SignUpContainer}></Route>
             <Route path='/findPartner/' component={MainSectionContainer}></Route>
-            <Route path='/addApplication/' component={AddNoticeSection}></Route>
+            <Route path='/createAnnouncement/' component={CreateAnnouncementSection}></Route>
             <Route path='/announcement/:id' component={AnnouncementComonent}></Route>
             {/* footer */}
             <Route path='/about/' component={AboutSection}></Route>
