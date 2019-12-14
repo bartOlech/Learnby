@@ -7,31 +7,31 @@ const Container = styled.div`
 
 `
 const Bar = styled.div`
-    width: 110%;
-    height: 10px;
-    background-color: ${props => props.bck};
-    top: 78px;
-    position: absolute;
-    z-index: -1;
     &&::before {
         content: '';
         width: 40px;
         height: 10px;
         background-color: #262F3F;
         position: absolute;
+        top: 78px;
     }
 `
 
-const ProgresBar = (props) => {
+const ProgressBar = (props) => {
     return (
         <Container>
-          {console.log(props.layoutNumber )}
-            <Bar bck={props.layoutNumber === 3 ? '#252e3f' : '#DDDDDD'}></Bar>
+            <Bar></Bar>
             <Progress 
-            percent={props.layoutNumber === 0 ? '25' : (props.layoutNumber === 1 ? '50' : (props.layoutNumber === 2 ? '75' : (props.layoutNumber === 3 ? '99' : null)))}
+            style={{width: '115%'}}
+            percent={props.layoutNumber === 0 ? '25' : (props.layoutNumber === 1 ? '50' : (props.layoutNumber === 2 ? '75' : (props.layoutNumber === 3 ? '100' : null)))}
             theme={
                 {
                   active: {
+                    symbol: ' ',
+                    trailColor: '#DDDDDD',
+                    color: '#262F3F',
+                  },
+                  success: {
                     symbol: ' ',
                     trailColor: '#DDDDDD',
                     color: '#262F3F',
@@ -43,4 +43,4 @@ const ProgresBar = (props) => {
     )
 }
 
-export default ProgresBar;
+export default ProgressBar;
