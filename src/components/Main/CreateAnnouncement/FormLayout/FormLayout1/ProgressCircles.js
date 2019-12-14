@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Rating from 'react-rating';
 import ProgressCircleText from './ProgressCircleText';
+import { FindAnnouncementConsumer } from '../../../../../context/CurrentUser.context';
 
 const Container = styled.div`
     width: 80%;
@@ -56,20 +57,26 @@ const ProgressCircles = () => {
     }
 
     return (
-        <Container>
-            <div>
-                <Rating
-                    emptySymbol={<Circle/>}
-                    fullSymbol={<CircleFull/>}
-                    initialRating={rate}
-                    onChange={setSelectedRate}
-                    
-                />
-                <ProgressCircleText
-                    textOfLevel={rateText}
-                ></ProgressCircleText>
-            </div>
-        </Container>
+        <FindAnnouncementConsumer>
+            {({ addAnnouncementData, setAnnouncementData }) => (
+                <Container>
+                    <div>
+                        <Rating
+                            emptySymbol={<Circle/>}
+                            fullSymbol={<CircleFull/>}
+                            initialRating={addAnnouncementData.levelOfKnowledge}
+                            onChange={(rate) => {
+                                setSelectedRate(rate);
+                                setAnnouncementData('levelOfKnowledge', rate)
+                            }}
+                        />
+                        <ProgressCircleText
+                            textOfLevel={rateText}
+                        ></ProgressCircleText>
+                    </div>
+                </Container>
+            )}
+        </FindAnnouncementConsumer>
     )
 }
 

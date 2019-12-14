@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import Logo from '../../Header/Logo';
 import ProgressBar from './ProgresBar';
 import FormLayout1 from './FormLayout/FormLayout1/FormLayout1';
+import FormLayout2 from './FormLayout/FormLayout2/FormLayout2';
+import FormLayout3 from './FormLayout/FormLayout3/FormLayout3';
+import FormLayout4 from './FormLayout/FormLayout4/FormLayout4';
+import { FindAnnouncementConsumer } from '../../../context/CurrentUser.context';
 
 const Container = styled.div`
     width: 100%;
@@ -11,11 +15,18 @@ const Container = styled.div`
 
 const CreateAnnouncementSection = () => {
     return (
-        <Container>
-            <Logo></Logo>
-            <ProgressBar></ProgressBar>
-            <FormLayout1></FormLayout1>
-        </Container>
+        <FindAnnouncementConsumer>
+            {({ addAnnouncementLayoutNumeber }) => (
+                <Container>
+                    <Logo></Logo>
+                    <ProgressBar layoutNumber={addAnnouncementLayoutNumeber}></ProgressBar>
+                    {addAnnouncementLayoutNumeber === 0 ? <FormLayout1></FormLayout1> : null}
+                    {addAnnouncementLayoutNumeber === 1 ? <FormLayout2></FormLayout2> : null}
+                    {addAnnouncementLayoutNumeber === 2 ? <FormLayout3></FormLayout3> : null}
+                    {addAnnouncementLayoutNumeber === 3 ? <FormLayout4></FormLayout4> : null}
+                </Container>
+            )}
+        </FindAnnouncementConsumer>
     )
 }
 

@@ -21,8 +21,19 @@ export class CurrentUserProvider extends Component {
         selectedAnnouncementData: ['1'],
         selectedAnnouncemenUserData: [],
         commentsMap: new Map(),
-        userDataMap: new Map(),
-        commentsArray: []
+        commentsArray: [],
+        addAnnouncementLayoutNumeber: 0,
+        addAnnouncementData: {
+            subject: '',
+            levelOfKnowledge: 3,
+            contact: 'remote',
+            name: '',
+            surname: '',
+            city: '',
+            age: 0,
+            sex: 'M',
+            description: ''
+        }
     }
 
     logout = () => {
@@ -128,7 +139,7 @@ export class CurrentUserProvider extends Component {
     }
 
     getAnnouncementByIdRepeatToRefreshPage = (id) => {
-        const{ selectedAnnouncementData, selectedAnnouncemenUserData, commentsMap, commentsArray, userDataMap } = this.state;
+        const{ selectedAnnouncementData, selectedAnnouncemenUserData, commentsMap, commentsArray } = this.state;
         
         // get announcement data
         firebase.getDataFromFirestore('Announcements').doc(id).get().then(snapshot => {
@@ -210,6 +221,54 @@ export class CurrentUserProvider extends Component {
         })
     }
 
+    setAnnouncementLayout = (val) => {
+        const { addAnnouncementLayoutNumeber } = this.state;
+            if(val) {
+                this.setState({
+                    addAnnouncementLayoutNumeber: addAnnouncementLayoutNumeber + 1
+                })
+            } else {
+                if(addAnnouncementLayoutNumeber !== 0) {
+                    this.setState({
+                        addAnnouncementLayoutNumeber: addAnnouncementLayoutNumeber - 1
+                    })
+                }
+        }
+    }
+
+    setAnnouncementData = (name, value) => {
+        this.setState(prevState => ({
+            addAnnouncementData: {                   // object that we want to update
+                ...prevState.addAnnouncementData,    // keep all other key-value pairs
+                [name]: value       // update the value of specific key
+            }
+        }))
+    }
+
+    // clear the announcement form
+    clearAnnouncementData = () => {
+        this.setState({
+            addAnnouncementLayoutNumeber: 0,
+            addAnnouncementData: {
+                subject: '',
+                levelOfKnowledge: 3,
+                contact: 'remote',
+                name: '',
+                surname: '',
+                city: '',
+                age: 0,
+                sex: 'M',
+                description: ''
+            }
+        })
+    }
+
+    sendAnnouncementToFirestore = () => {
+        console.log('now send to firestore')
+    }
+
+   
+
     render() {
         
         const { children } = this.props;
@@ -222,7 +281,9 @@ export class CurrentUserProvider extends Component {
             userArray, 
             selectedAnnouncemenUserData,
             commentsMap,
-            commentsArray
+            commentsArray,
+            addAnnouncementLayoutNumeber,
+            addAnnouncementData
         } = this.state;
         return (
             <CurrentUserContext.Provider
@@ -247,7 +308,13 @@ export class CurrentUserProvider extends Component {
                         selectedAnnouncemenUserData,
                         sendComment: this.sendComment,
                         commentsMap,
-                        commentsArray
+                        commentsArray,
+                        addAnnouncementLayoutNumeber,
+                        setAnnouncementLayout: this.setAnnouncementLayout,
+                        addAnnouncementData,
+                        setAnnouncementData: this.setAnnouncementData,
+                        clearAnnouncementData: this.clearAnnouncementData,
+                        sendAnnouncementToFirestore: this.sendAnnouncementToFirestore
                     }}
                 >
                     {children}
