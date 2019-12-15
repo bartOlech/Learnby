@@ -58,9 +58,6 @@ const FormLayout2 = () => {
                         <Input value={addAnnouncementData.name} onChange={val => setAnnouncementData('name', val.target.value)} name='fname'  id='name' type='text'></Input>
                         <Label style={{marginLeft: '-204px'}} htmlFor='surname'>Nazwisko</Label>
                         <Input value={addAnnouncementData.surname} onChange={val => setAnnouncementData('surname', val.target.value)} name='surname' id='surname' type='text'></Input>
-                        <Label style={{marginLeft: '-175px'}} htmlFor='city'>Miejscowość</Label>
-                        <Input value={addAnnouncementData.city} onChange={val => setAnnouncementData('city', val.target.value)} name='city' id='city' type='text'></Input>
-
                         <Label style={{marginLeft: '-237px'}} htmlFor='age'>Wiek</Label>
                         <AgeInput value={addAnnouncementData.age} onChange={val => setAnnouncementData('age', val.target.value)} name='age' id='age' type="number" min="1" max="100"></AgeInput>
 

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontStyle } from '../../../../../assets/style/style';
 import { FindAnnouncementConsumer } from '../../../../../context/CurrentUser.context';
+import firebase from '../../../../../Firebase.config';
 
 const Button = styled.button`
     width: 107px;
@@ -26,10 +27,9 @@ const ForwardButton = () => {
                 <Button onClick={() => {
                     setAnnouncementLayout(true)
                     if(addAnnouncementLayoutNumeber === 2) {
-                        sendAnnouncementToFirestore()
+                        sendAnnouncementToFirestore(firebase.getCurrentUserAllData())
                     }
                 }}>
-                    {console.log(addAnnouncementLayoutNumeber)}
                     {addAnnouncementLayoutNumeber === 2 ? 'Wyślij' : 'Dalej'}
                 </Button>
             )}

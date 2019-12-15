@@ -27,7 +27,7 @@ const AnnouncementTopic = (props) => {
     return (
         <Container>
             <Text>Miejsce: </Text>
-            <Spot>{props.spot}</Spot>
+            <Spot>{props.remote ? 'Zdalnie' : `${props.spot} / Zdalnie` }</Spot>
         </Container>
     )
 }

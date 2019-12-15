@@ -26,7 +26,7 @@ export class CurrentUserProvider extends Component {
         addAnnouncementData: {
             subject: '',
             levelOfKnowledge: 3,
-            contact: 'remote',
+            remote: false,
             name: '',
             surname: '',
             city: '',
@@ -252,7 +252,7 @@ export class CurrentUserProvider extends Component {
             addAnnouncementData: {
                 subject: '',
                 levelOfKnowledge: 3,
-                contact: 'remote',
+                contact: false,
                 name: '',
                 surname: '',
                 city: '',
@@ -263,8 +263,30 @@ export class CurrentUserProvider extends Component {
         })
     }
 
-    sendAnnouncementToFirestore = () => {
-        console.log('now send to firestore')
+    // Send announcement to the firestore
+    sendAnnouncementToFirestore = (userData) => {
+        const{ addAnnouncementData } = this.state;
+        firebase.sendDataToFirestore("Announcements").doc().set({
+            AnnouncementCreator: {
+                Email: userData.email,
+                UserName: userData.displayName,
+                PhotoUrl: userData.photoURL,
+                Sex: addAnnouncementData.sex
+            },
+            Comments: {},
+            Description: addAnnouncementData.description,
+            LevelOfKnowledge: addAnnouncementData.levelOfKnowledge,
+            Remote: addAnnouncementData.remote,
+            Place: addAnnouncementData.city,
+            Subject: addAnnouncementData.subject,
+
+        })
+        .then(function() {
+            console.log("Document successfully written!");
+        })
+        .catch(function(error) {
+            console.error("Error writing document: ", error);
+        });
     }
 
    
