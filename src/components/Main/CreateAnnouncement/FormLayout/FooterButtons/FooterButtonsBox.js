@@ -13,11 +13,26 @@ const Container = styled.div`
     bottom: 0;
 `
 
-const FooterButtomsBox = () => {
+const FooterButtomsBox = (props) => {
+
+    const callbackValidationLayout0 = (cityValidation, subjectValidation) => {
+        props.callbackValidationLayout0(cityValidation, subjectValidation)
+    }
+    const callbackValidationLayout1 = (name, surname, age) => {
+        props.callbackValidationLayout1(name, surname, age)
+    }
+    const callbackValidationLayout2= (cityValidation, subjectValidation) => {
+        props.callbackValidationLayout2(cityValidation, subjectValidation)
+    }
+
     return (
         <Container>
             <ReturnButton></ReturnButton>
-            <ForwardButton></ForwardButton>
+            <ForwardButton 
+                callbackValidationLayout0={callbackValidationLayout0}
+                callbackValidationLayout1={callbackValidationLayout1}
+                callbackValidationLayout2={callbackValidationLayout2}
+            ></ForwardButton>
         </Container>
     )
 }

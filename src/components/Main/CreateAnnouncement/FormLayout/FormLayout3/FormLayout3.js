@@ -28,7 +28,7 @@ const Label = styled.label`
 const Textarea = styled.textarea`
     width: 290px;
     height: 180px;
-    border: 1px solid #C6C6C6;
+    border: ${props => props.border};
     border-radius: 3px;
     font-family: ${FontStyle.family};
     font-size: 1.4em;
@@ -44,14 +44,30 @@ const CheckRegulationsSection = styled.div`
 `
 const CheckboxBox = styled.div`
     margin: 17px 10px 0 10px;
+    && :before {
+        content: '';
+        display: ${props => props.display};
+        top: 0;
+        left: 0;
+        width: 17px;
+        height: 17px;
+        position: absolute;
+        border: 3px solid #CC1946;
+        z-index: 2;
+        border-radius: 4px;
+    }
+    border: ${props => props.border};
 `
 
 
 const FormLayout3 = () => {
     const[regulationsIsCheck, setRegulationsIsCheck] = useState(false)
+    const[regulationsIsValidate, setRegulationsIsValidate] = useState(true)
+    const[descriptionIsValidate, setDescriptionIsValidate] = useState(true)
 
-    const handleCheckboxRegulations = (val) => {
-        setRegulationsIsCheck(val)
+    const callbackValidationLayout2 = (regulations, description) => {
+        setDescriptionIsValidate(description)
+        setRegulationsIsValidate(regulations)
     }
 
     return (
@@ -63,19 +79,24 @@ const FormLayout3 = () => {
                         <Label style={{marginLeft: '-255px'}} htmlFor='description'>Opis</Label>
                         <Textarea 
                             value={addAnnouncementData.description} 
-                            onChange={val => setAnnouncementData('description', val.target.value)} 
+                            onChange={val => {
+                                setAnnouncementData('description', val.target.value)
+                            }} 
+                            border={descriptionIsValidate ? '1px solid #C6C6C6' : '1px solid #CC1946;'}
                             placeholder='Krótki opis odnośnie twoich oczekiwań w stosunku do partnera oraz nauki' 
                             name='description'  
                             id='description'></Textarea>
                         <CheckRegulationsSection>
-                            <CheckboxBox>
-                                {/* TUTAJ WALIDACJA!!! */}
+                            <CheckboxBox display={regulationsIsValidate ? 'none' : 'inline'}>
                                 <Checkbox 
                                     tickAnimationDuration='200' 
                                     checked={regulationsIsCheck} 
-                                    onChange={handleCheckboxRegulations} 
+                                    onChange={(val) => {
+                                        setRegulationsIsCheck(val)
+                                        setAnnouncementData('regulations', val)
+                                    }} 
                                     size='3' 
-                                    color='red' 
+                                    color='#262F3F'
                                     id='regulations'></Checkbox>
                             </CheckboxBox>
                             <Label style={{fontSize: '1.2em', paddingRight: '10px'}} htmlFor='regulations'>
@@ -84,7 +105,7 @@ const FormLayout3 = () => {
                         
                         </CheckRegulationsSection>
                     </Form>
-                    <FooterButtonsBox></FooterButtonsBox>
+                    <FooterButtonsBox callbackValidationLayout2={callbackValidationLayout2}></FooterButtonsBox>
                 </Container>
             )}
         </FindAnnouncementConsumer>

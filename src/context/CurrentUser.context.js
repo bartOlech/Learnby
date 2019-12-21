@@ -32,7 +32,8 @@ export class CurrentUserProvider extends Component {
             city: '',
             age: 0,
             sex: 'M',
-            description: ''
+            description: '', 
+            regulations: false
         }
     }
 
@@ -264,29 +265,30 @@ export class CurrentUserProvider extends Component {
     }
 
     // Send announcement to the firestore
-    sendAnnouncementToFirestore = (userData) => {
+    sendAnnouncementToFirestore = (userData, userId) => {
         const{ addAnnouncementData } = this.state;
-        firebase.sendDataToFirestore("Announcements").doc().set({
-            AnnouncementCreator: {
-                Email: userData.email,
-                UserName: userData.displayName,
-                PhotoUrl: userData.photoURL,
-                Sex: addAnnouncementData.sex
-            },
-            Comments: {},
-            Description: addAnnouncementData.description,
-            LevelOfKnowledge: addAnnouncementData.levelOfKnowledge,
-            Remote: addAnnouncementData.remote,
-            Place: addAnnouncementData.city,
-            Subject: addAnnouncementData.subject,
+        // firebase.sendDataToFirestore("Announcements").doc().set({
+        //     AnnouncementCreator: {
+        //         Email: userData.email,
+        //         UserName: userData.displayName,
+        //         PhotoUrl: userData.photoURL,
+        //         Sex: addAnnouncementData.sex,
+        //         UserId: userId
+        //     },
+        //     Comments: {},
+        //     Description: addAnnouncementData.description,
+        //     LevelOfKnowledge: addAnnouncementData.levelOfKnowledge,
+        //     Remote: addAnnouncementData.remote,
+        //     Place: addAnnouncementData.city,
+        //     Subject: addAnnouncementData.subject,
 
-        })
-        .then(function() {
-            console.log("Document successfully written!");
-        })
-        .catch(function(error) {
-            console.error("Error writing document: ", error);
-        });
+        // })
+        // .then(function() {
+        //     console.log("Document successfully written!");
+        // })
+        // .catch(function(error) {
+        //     console.error("Error writing document: ", error);
+        // });
     }
 
    

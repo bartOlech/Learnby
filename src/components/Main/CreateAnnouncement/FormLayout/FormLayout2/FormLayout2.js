@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FontStyle } from '../../../../../assets/style/style';
 import FooterButtonsBox from '../FooterButtons/FooterButtonsBox';
@@ -28,7 +28,7 @@ const Label = styled.label`
 const Input = styled.input`
     width: 290px;
     height: 43px;
-    border: 1px solid #C6C6C6;
+    border: ${props => props.border};
     border-radius: 3px;
     font-family: ${FontStyle.family};
     font-size: 1.23em;
@@ -46,8 +46,16 @@ const AgeInput = styled.input`
     outline: none;
 `
 
-
 const FormLayout2 = () => {
+    const[nameIsValidate, setNameIsValidate] = useState(true)
+    const[surnameIsValidate, setSurnameIsValidate] = useState(true)
+    const[ageIsValidate, setAgeIsValidate] = useState(true)
+
+    const callbackValidationLayout1 = (name, surname, age) => {
+        setNameIsValidate(name)
+        setSurnameIsValidate(surname)
+        setAgeIsValidate(age)
+    }
 
     return (
         <FindAnnouncementConsumer>
@@ -55,14 +63,49 @@ const FormLayout2 = () => {
                 <Container>
                     <Form>
                         <Label style={{marginLeft: '-256px'}} htmlFor='name'>Imię</Label>
-                        <Input value={addAnnouncementData.name} onChange={val => setAnnouncementData('name', val.target.value)} name='fname'  id='name' type='text'></Input>
+                        <Input 
+                            value={addAnnouncementData.name} 
+                            onChange={val => {
+                                setAnnouncementData('name', val.target.value)
+                            }} 
+                            border={nameIsValidate ? '1px solid #C6C6C6' : '1px solid #CC1946;'}
+                            name='fname'  
+                            id='name' 
+                            type='text'>
+
+                        </Input>
                         <Label style={{marginLeft: '-204px'}} htmlFor='surname'>Nazwisko</Label>
-                        <Input value={addAnnouncementData.surname} onChange={val => setAnnouncementData('surname', val.target.value)} name='surname' id='surname' type='text'></Input>
+                        <Input 
+                            value={addAnnouncementData.surname} 
+                            onChange={val => {
+                                setAnnouncementData('surname', val.target.value)
+                            }} 
+                            border={surnameIsValidate ? '1px solid #C6C6C6' : '1px solid #CC1946;'}
+                            name='surname' 
+                            id='surname' 
+                            type='text'>
+
+                        </Input>
                         <Label style={{marginLeft: '-237px'}} htmlFor='age'>Wiek</Label>
-                        <AgeInput value={addAnnouncementData.age} onChange={val => setAnnouncementData('age', val.target.value)} name='age' id='age' type="number" min="1" max="100"></AgeInput>
+                        <AgeInput 
+                            value={addAnnouncementData.age} 
+                            onChange={val => {
+                                setAnnouncementData('age', val.target.value)
+                            }} 
+                            border={ageIsValidate ? '1px solid #C6C6C6' : '1px solid #CC1946;'}
+                            name='age' 
+                            id='age' 
+                            type="number" 
+                            min="1" 
+                            max="100">
+
+                        </AgeInput>
 
                         <Label style={{marginLeft: '-254px', marginTop: '35px'}} htmlFor='age'>Płeć</Label>
-                        <RadioGroup onChange={val => setAnnouncementData('sex', val)} horizontal>
+                        <RadioGroup onChange={val => {
+                            // checkSexValidation(val)
+                            setAnnouncementData('sex', val)
+                        }} horizontal>
                             <RadioButton pointColor='#070E1A' rootColor='#797979' value="M">
                                 M
                             </RadioButton>
@@ -71,7 +114,7 @@ const FormLayout2 = () => {
                             </RadioButton>
                         </RadioGroup>
                     </Form>
-                    <FooterButtonsBox></FooterButtonsBox>
+                    <FooterButtonsBox callbackValidationLayout1={callbackValidationLayout1}></FooterButtonsBox>
                 </Container>
             )}
         </FindAnnouncementConsumer>

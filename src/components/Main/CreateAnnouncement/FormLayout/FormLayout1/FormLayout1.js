@@ -26,7 +26,7 @@ const Label = styled.label`
 const Input = styled.input`
     width: 290px;
     height: 43px;
-    border: 1px solid #C6C6C6;
+    border: ${props => props.border};
     border-radius: 3px;
     font-family: ${FontStyle.family};
     font-size: 1.23em;
@@ -48,6 +48,13 @@ const CheckboxBox = styled.div`
 
 const FormLayout1 = () => {
     const[isRemote, setIsRemote] = useState(false)
+    const[cityIsValidate, setCityIsValidate] = useState(true)
+    const[subjectIsValidate, setSubjectIsValidate] = useState(true)
+
+    const callbackValidationLayout0 = (cityValidation, subjectValidation) => {
+        setCityIsValidate(cityValidation)
+        setSubjectIsValidate(subjectValidation)
+    }
 
     return (
         <FindAnnouncementConsumer>
@@ -55,16 +62,36 @@ const FormLayout1 = () => {
                 <Container>
                     <Form>
                         <Label style={{marginLeft: '-67px'}} htmlFor='subject'>Czego chcesz się uczyć?</Label>
-                        <Input onChange={val => setAnnouncementData('subject', val.target.value)} value={addAnnouncementData.subject} name='subject' id='subject' type='text' placeholder='np. Język Angielski'></Input>
+                        <Input 
+                            onChange={val =>{
+                                setAnnouncementData('subject', val.target.value)
+                            }} 
+                            border={subjectIsValidate ? '1px solid #C6C6C6' : '1px solid #CC1946;'}
+                            value={addAnnouncementData.subject} 
+                            name='subject' 
+                            id='subject' 
+                            type='text' 
+                            placeholder='np. Język Angielski'>
+
+                        </Input>
 
                         <Label>Dopasuj poziom swojej wiedzy</Label>
                         <ProgressCircles></ProgressCircles>
                         <Label style={{marginLeft: '-175px'}} htmlFor='city'>Miejscowość</Label>
-                        <Input value={addAnnouncementData.city} onChange={val => setAnnouncementData('city', val.target.value)} name='city' id='city' type='text'></Input>
+                        <Input 
+                            value={addAnnouncementData.city} 
+                            onChange={val => {
+                                setAnnouncementData('city', val.target.value)
+                            }} 
+                            border={cityIsValidate ? '1px solid #C6C6C6' : '1px solid #CC1946;'}
+                            name='city' 
+                            id='city' 
+                            type='text'>
+
+                        </Input>
                         <div>
                             <CheckIfRemote>
                                 <CheckboxBox>
-                                    {/* TUTAJ WALIDACJA!!! */}
                                     <Checkbox 
                                         tickAnimationDuration='200' 
                                         checked={isRemote} 
@@ -80,7 +107,7 @@ const FormLayout1 = () => {
                             </CheckIfRemote>
                         </div>
                     </Form>
-                <FooterButtonsBox></FooterButtonsBox>
+                    <FooterButtonsBox callbackValidationLayout0={callbackValidationLayout0}></FooterButtonsBox>
             </Container>
             )}
         </FindAnnouncementConsumer>
