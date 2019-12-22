@@ -50,11 +50,13 @@ const FormLayout2 = () => {
     const[nameIsValidate, setNameIsValidate] = useState(true)
     const[surnameIsValidate, setSurnameIsValidate] = useState(true)
     const[ageIsValidate, setAgeIsValidate] = useState(true)
+    const[sexIsValidate, setSexIsValidate] = useState(true)
 
-    const callbackValidationLayout1 = (name, surname, age) => {
+    const callbackValidationLayout1 = (name, surname, age, sex) => {
         setNameIsValidate(name)
         setSurnameIsValidate(surname)
         setAgeIsValidate(age)
+        setSexIsValidate(sex)
     }
 
     return (
@@ -106,10 +108,10 @@ const FormLayout2 = () => {
                             // checkSexValidation(val)
                             setAnnouncementData('sex', val)
                         }} horizontal>
-                            <RadioButton pointColor='#070E1A' rootColor='#797979' value="M">
+                            <RadioButton pointColor='#070E1A' rootColor={sexIsValidate ? '#797979' : '#CC1946'} value="M">
                                 M
                             </RadioButton>
-                            <RadioButton pointColor='#070E1A' rootColor='#797979' value="K">
+                            <RadioButton pointColor='#070E1A' rootColor={sexIsValidate ? '#797979' : '#CC1946'} value="K">
                                 K
                             </RadioButton>
                         </RadioGroup>

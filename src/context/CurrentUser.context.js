@@ -31,7 +31,7 @@ export class CurrentUserProvider extends Component {
             surname: '',
             city: '',
             age: 0,
-            sex: 'M',
+            sex: '',
             description: '', 
             regulations: false
         }

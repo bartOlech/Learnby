@@ -25,7 +25,7 @@ const ForwardButton = (props) => {
         <FindAnnouncementConsumer>
             {({ addAnnouncementData, addAnnouncementLayoutNumeber, setAnnouncementLayout, sendAnnouncementToFirestore }) => (
                 <Button onClick={() => {
-                    const{ city, subject, name, surname, age, regulations, description } = addAnnouncementData;
+                    const{ city, subject, name, surname, age, sex, regulations, description } = addAnnouncementData;
                     if(addAnnouncementLayoutNumeber === 0) {
                         if(city && subject){
                             setAnnouncementLayout(true)
@@ -34,10 +34,10 @@ const ForwardButton = (props) => {
                         }
                     }
                     if(addAnnouncementLayoutNumeber === 1) {
-                        if(name && surname && age){
+                        if(name && surname && age && sex){
                             setAnnouncementLayout(true)
                         } else {
-                            props.callbackValidationLayout1(name, surname, age)
+                            props.callbackValidationLayout1(name, surname, age, sex)
                         }
                     }
                     if(addAnnouncementLayoutNumeber === 2) {

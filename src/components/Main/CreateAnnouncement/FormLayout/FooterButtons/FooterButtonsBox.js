@@ -18,8 +18,8 @@ const FooterButtomsBox = (props) => {
     const callbackValidationLayout0 = (cityValidation, subjectValidation) => {
         props.callbackValidationLayout0(cityValidation, subjectValidation)
     }
-    const callbackValidationLayout1 = (name, surname, age) => {
-        props.callbackValidationLayout1(name, surname, age)
+    const callbackValidationLayout1 = (name, surname, age, sex) => {
+        props.callbackValidationLayout1(name, surname, age, sex)
     }
     const callbackValidationLayout2= (cityValidation, subjectValidation) => {
         props.callbackValidationLayout2(cityValidation, subjectValidation)
