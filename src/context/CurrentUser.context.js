@@ -290,7 +290,8 @@ export class CurrentUserProvider extends Component {
                 UserName: userData.displayName,
                 PhotoUrl: userData.photoURL,
                 Sex: addAnnouncementData.sex,
-                UserId: userId
+                UserId: userId,
+                Age: addAnnouncementData.age
             },
             Comments: {},
             Description: addAnnouncementData.description,
@@ -298,13 +299,13 @@ export class CurrentUserProvider extends Component {
             Remote: addAnnouncementData.remote,
             Place: addAnnouncementData.city,
             Subject: addAnnouncementData.subject,
-
         })
         .then(function() {
             console.log("Document successfully written!");
             firebase.addUserDataToFirebase('user').doc(userId).update({
                 Sex: addAnnouncementData.sex,
-                Place: addAnnouncementData.city
+                Place: addAnnouncementData.city,
+                Age: addAnnouncementData.age
             })
         })
         .catch(function(error) {

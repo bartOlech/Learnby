@@ -23,7 +23,7 @@ const UserUIBoxComponent = () => {
                         ></UserImage>
                         <UserData
                             name={selectedAnnouncemenUserData[0].UserName}
-                            age='21'
+                            age={selectedAnnouncemenUserData[0].Age}
                         ></UserData>
                     </Container>
                 ) : null

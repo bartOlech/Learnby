@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Buttons_PhotoBox from './Buttons_Photo/Buttons_PhotoBox';
+import ButtonsPhotoBox from './Buttons_Photo/Buttons_PhotoBox';
 import DescriptionUser from './DescriptionUser';
 
 const Container = styled.div`
@@ -12,7 +12,14 @@ const Container = styled.div`
 const UpperSection = (props) => {
     return (
         <Container>
-            <Buttons_PhotoBox photo={props.photo}></Buttons_PhotoBox>
+            <ButtonsPhotoBox photo={props.photo}></ButtonsPhotoBox>
+            <DescriptionUser
+                name={props.name}
+                age={props.age}
+                description={props.description}
+                place={props.place}
+                sex={props.sex}
+            ></DescriptionUser>
         </Container>
     )
 }

@@ -7,6 +7,7 @@ import UserPhoto from './UserPhoto';
 const Container = styled.div`
     display: flex;
     justify-content: space-between;
+    margin-top: -20px;
 `
 
 const Buttons_PhotoBox = (props) => {

@@ -66,7 +66,7 @@ const UserData = (props) => {
             {({ getUserData, selectedAnnouncemenUserData }) => (
                 <Container>
                     <MainData>
-                        <Link to={{pathname: `/user/${selectedAnnouncemenUserData[0].UserId}`}}><Name onClick={getUserData}>{props.name}<Line></Line></Name></Link>
+                        <Link to={{pathname: `/user/${selectedAnnouncemenUserData[0].UserId}`}}><Name onClick={getUserData}>{props.name.replace(/ .*/,'')}<Line></Line></Name></Link>
                         <Age>{props.age} lat</Age>
                     </MainData>
                     <LevelOfLearning>
