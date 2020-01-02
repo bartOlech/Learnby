@@ -15,11 +15,15 @@ export class CurrentUserProvider extends Component {
         photo: '',
         loading: false,
         ex: false,
+        // Data from the found Announcements
         announcementsArray: [],
-        userArray: [],
-        listID: [],
+        usersArray: [],
+
+        listID: [], 
+        // Add data to arrays if announcement has been clicked
         selectedAnnouncementData: ['1'],
         selectedAnnouncemenUserData: [],
+
         commentsMap: new Map(),
         commentsArray: [],
         addAnnouncementLayoutNumeber: 0,
@@ -34,7 +38,8 @@ export class CurrentUserProvider extends Component {
             sex: '',
             description: '', 
             regulations: false
-        }
+        },
+        userDataFromUserCollection: ''
     }
 
     logout = () => {
@@ -58,7 +63,13 @@ export class CurrentUserProvider extends Component {
             })
         }).then(() => {
             const { name, email, photo } = this.state;
-        firebase.addLoginDataToFirebase(name, email, photo, 'Google', firebase.getCurrentUid())
+            firebase.addUserDataToFirebase('user').doc(firebase.getCurrentUid()).set({
+                type: 'Google',
+                Name: name,
+                Email: email,
+                PhotoUrl: photo,
+                Uid: firebase.getCurrentUid()
+            })
         }).catch(error => console.log(error))
     }
     // Facebook
@@ -71,12 +82,18 @@ export class CurrentUserProvider extends Component {
             })
         }).then(() => {
              const { name, email, photo } = this.state;
-          firebase.addLoginDataToFirebase(name, email, photo, 'Facebook', firebase.getCurrentUid())
+             firebase.addUserDataToFirebase('user').doc(firebase.getCurrentUid()).set({
+                type: 'Facebook',
+                Name: name,
+                Email: email,
+                PhotoUrl: photo,
+                Uid: firebase.getCurrentUid()
+            })
         }).catch(error => console.log(error))
     }
 
     componentDidMount() {
-        const{ announcementsArray, listID, userArray } = this.state;
+        const{ announcementsArray, listID, usersArray } = this.state;
 
         firebase.isInitialized().then(val => {
             this.setState({
@@ -90,7 +107,7 @@ export class CurrentUserProvider extends Component {
             snapshot.docs.forEach(doc => {
                 announcementsArray.push(doc.data())
                 // get user info
-                userArray.push(doc.data().AnnouncementCreator)
+                usersArray.push(doc.data().AnnouncementCreator)
 
                 listID.push(doc.id)
             })   
@@ -267,30 +284,51 @@ export class CurrentUserProvider extends Component {
     // Send announcement to the firestore
     sendAnnouncementToFirestore = (userData, userId) => {
         const{ addAnnouncementData } = this.state;
-        // firebase.sendDataToFirestore("Announcements").doc().set({
-        //     AnnouncementCreator: {
-        //         Email: userData.email,
-        //         UserName: userData.displayName,
-        //         PhotoUrl: userData.photoURL,
-        //         Sex: addAnnouncementData.sex,
-        //         UserId: userId
-        //     },
-        //     Comments: {},
-        //     Description: addAnnouncementData.description,
-        //     LevelOfKnowledge: addAnnouncementData.levelOfKnowledge,
-        //     Remote: addAnnouncementData.remote,
-        //     Place: addAnnouncementData.city,
-        //     Subject: addAnnouncementData.subject,
+        firebase.sendDataToFirestore("Announcements").doc().set({
+            AnnouncementCreator: {
+                Email: userData.email,
+                UserName: userData.displayName,
+                PhotoUrl: userData.photoURL,
+                Sex: addAnnouncementData.sex,
+                UserId: userId
+            },
+            Comments: {},
+            Description: addAnnouncementData.description,
+            LevelOfKnowledge: addAnnouncementData.levelOfKnowledge,
+            Remote: addAnnouncementData.remote,
+            Place: addAnnouncementData.city,
+            Subject: addAnnouncementData.subject,
 
-        // })
-        // .then(function() {
-        //     console.log("Document successfully written!");
-        // })
-        // .catch(function(error) {
-        //     console.error("Error writing document: ", error);
-        // });
+        })
+        .then(function() {
+            console.log("Document successfully written!");
+            firebase.addUserDataToFirebase('user').doc(userId).update({
+                Sex: addAnnouncementData.sex,
+                Place: addAnnouncementData.city
+            })
+        })
+        .catch(function(error) {
+            console.error("Error writing document: ", error);
+        });
     }
 
+    // get user data from firestore
+    getUserData = () => {
+        const{ selectedAnnouncemenUserData } = this.state;
+        firebase.getDataFromFirestore('user').doc(selectedAnnouncemenUserData[0].UserId).get().then(snapshot => {
+            this.setState({
+                userDataFromUserCollection: snapshot.data()
+            })
+        })
+    }
+    // get user data from firestore after refresh page
+    getUserDataIfRefresh = (id) => {
+        firebase.getDataFromFirestore('user').doc(id).get().then(snapshot => {
+            this.setState({
+                userDataFromUserCollection: snapshot.data()
+            })
+        })
+    }
    
 
     render() {
@@ -302,12 +340,13 @@ export class CurrentUserProvider extends Component {
             announcementsArray, 
             listID, 
             selectedAnnouncementData, 
-            userArray, 
+            usersArray, 
             selectedAnnouncemenUserData,
             commentsMap,
             commentsArray,
             addAnnouncementLayoutNumeber,
-            addAnnouncementData
+            addAnnouncementData,
+            userDataFromUserCollection
         } = this.state;
         return (
             <CurrentUserContext.Provider
@@ -318,7 +357,6 @@ export class CurrentUserProvider extends Component {
                     loginWithFacebook: this.loginWithFacebook,
                     loading,
                     announcementsArray,
-
                 }}
                 >
                 <FindAnnouncementContext.Provider 
@@ -328,7 +366,7 @@ export class CurrentUserProvider extends Component {
                         getAnnouncementById: this.getAnnouncementById,
                         selectedAnnouncementData,
                         getAnnouncementByIdRepeatToRefreshPage: this.getAnnouncementByIdRepeatToRefreshPage,
-                        userArray,
+                        usersArray,
                         selectedAnnouncemenUserData,
                         sendComment: this.sendComment,
                         commentsMap,
@@ -338,7 +376,10 @@ export class CurrentUserProvider extends Component {
                         addAnnouncementData,
                         setAnnouncementData: this.setAnnouncementData,
                         clearAnnouncementData: this.clearAnnouncementData,
-                        sendAnnouncementToFirestore: this.sendAnnouncementToFirestore
+                        sendAnnouncementToFirestore: this.sendAnnouncementToFirestore,
+                        getUserData: this.getUserData,
+                        getUserDataIfRefresh: this.getUserDataIfRefresh,
+                        userDataFromUserCollection
                     }}
                 >
                     {children}
@@ -351,3 +392,5 @@ export class CurrentUserProvider extends Component {
 export const CurrentUserConsumer = CurrentUserContext.Consumer;
 
 export const FindAnnouncementConsumer = FindAnnouncementContext.Consumer;
+
+export const AAA = FindAnnouncementContext;

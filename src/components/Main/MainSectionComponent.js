@@ -33,24 +33,24 @@ const LoaderBox = styled.div`
 const MainSectionComponent = () => {
     return (
         <FindAnnouncementConsumer>
-            {({ announcementsArray, listID, userArray }) => (
+            {({ announcementsArray, listID, usersArray }) => (
                 <Container>
                     <Header background={`url(${WavyBackground}) no-repeat `}></Header>
                     <Text size='1.7em'>Wyszukaj partnera</Text>
                     <FindAnnouncementSection></FindAnnouncementSection>
-                    {userArray.length > 1 ? (
+                    {usersArray.length > 1 ? (
                         <React.Fragment>
                             <FoundAnnouncementSection 
                                 tittle='Dopasowane osoby:'
                                 announcementsArray={announcementsArray}
-                                userArray={userArray}
+                                usersArray={usersArray}
                                 listID={listID}
                                 ></FoundAnnouncementSection>
 
                             <FoundAnnouncementSection 
                                 tittle='Może cię zainteresować:'
                                 announcementsArray={announcementsArray}
-                                userArray={userArray}
+                                usersArray={usersArray}
                                 listID={listID}
                             ></FoundAnnouncementSection>
                         </React.Fragment>

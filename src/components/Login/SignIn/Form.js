@@ -91,7 +91,7 @@ const Form = () => {
     return (
         <Container>
             <LogForm>
-                <InputEmail value={email} onChange={emailHandle} type='text' placeholder='Email'></InputEmail>
+                <InputEmail data-testid='form-email' value={email} onChange={emailHandle} type='text' placeholder='Email'></InputEmail>
                 <InputAlert>{authAlertMsg}</InputAlert>
                 <InputPassword value={password} onChange={passwordHandle} type='password' placeholder='Hasło'></InputPassword>
                 <ForgotPassword></ForgotPassword>

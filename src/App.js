@@ -18,6 +18,8 @@ import firebase from './Firebase.config';
 import MainSectionContainer from './containers/MainSection/MainSectionContainer';
 // separate announcement
 import AnnouncementComonent from './components/Announcement/AnnouncementBoxComponent';
+// user section
+import User from './components/Main/User/User';
 
 function App() {
 
@@ -41,6 +43,7 @@ function App() {
             <Route path='/findPartner/' component={MainSectionContainer}></Route>
             <Route path='/createAnnouncement/' component={CreateAnnouncementSection}></Route>
             <Route path='/announcement/:id' component={AnnouncementComonent}></Route>
+            <Route path='/user/:id' component={User}></Route>
             {/* footer */}
             <Route path='/about/' component={AboutSection}></Route>
             <Route path='/career/' component={CareerSection}></Route>

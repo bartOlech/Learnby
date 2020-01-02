@@ -38,7 +38,7 @@ const AnnouncementTopic = (props) => {
     return (
         <Container>
             <TittleDescription>Opis:</TittleDescription>
-            <Description>{props.description}</Description>
+            <Description data-testid='announcement-description'>{props.description}</Description>
         </Container>
     )
 }

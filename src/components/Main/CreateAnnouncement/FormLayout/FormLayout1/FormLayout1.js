@@ -63,11 +63,12 @@ const FormLayout1 = () => {
                     <Form>
                         <Label style={{marginLeft: '-67px'}} htmlFor='subject'>Czego chcesz się uczyć?</Label>
                         <Input 
+                            data-testid='form-layout1-subject'
                             onChange={val =>{
                                 setAnnouncementData('subject', val.target.value)
                             }} 
                             border={subjectIsValidate ? '1px solid #C6C6C6' : '1px solid #CC1946;'}
-                            value={addAnnouncementData.subject} 
+                            value={addAnnouncementData.subject} te
                             name='subject' 
                             id='subject' 
                             type='text' 

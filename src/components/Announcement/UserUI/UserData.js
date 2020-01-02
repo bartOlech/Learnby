@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontStyle } from '../../../assets/style/style';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { FindAnnouncementConsumer } from '../../../context/CurrentUser.context';
 
 const Container = styled.div`
     width: 270px;
@@ -58,23 +60,28 @@ const Dot = styled.div`
 `
 
 const UserData = (props) => {
+
     return (
-        <Container>
-            <MainData>
-                <Name>{props.name}<Line></Line></Name>
-                <Age>{props.age} lat</Age>
-            </MainData>
-            <LevelOfLearning>
-                <LevelText>Poziom:</LevelText>
-                <LevelDotted>
-                    <Dot background='#3AAF9F'></Dot>
-                    <Dot background='#fff'></Dot>
-                    <Dot background='#fff'></Dot>
-                    <Dot background='#fff'></Dot>
-                    <Dot background='#fff'></Dot>
-                </LevelDotted>
-            </LevelOfLearning>
-        </Container>
+        <FindAnnouncementConsumer>
+            {({ getUserData, selectedAnnouncemenUserData }) => (
+                <Container>
+                    <MainData>
+                        <Link to={{pathname: `/user/${selectedAnnouncemenUserData[0].UserId}`}}><Name onClick={getUserData}>{props.name}<Line></Line></Name></Link>
+                        <Age>{props.age} lat</Age>
+                    </MainData>
+                    <LevelOfLearning>
+                        <LevelText>Poziom:</LevelText>
+                        <LevelDotted>
+                            <Dot background='#3AAF9F'></Dot>
+                            <Dot background='#fff'></Dot>
+                            <Dot background='#fff'></Dot>
+                            <Dot background='#fff'></Dot>
+                            <Dot background='#fff'></Dot>
+                        </LevelDotted>
+                    </LevelOfLearning>
+                </Container>
+            )}
+        </FindAnnouncementConsumer>
     )
 }
 

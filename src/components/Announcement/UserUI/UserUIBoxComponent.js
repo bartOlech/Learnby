@@ -15,7 +15,7 @@ const Container = styled.div`
 const UserUIBoxComponent = () => {
     return (
         <FindAnnouncementConsumer>
-            {({ selectedAnnouncemenUserData, }) => (
+            {({ selectedAnnouncemenUserData }) => (
                 selectedAnnouncemenUserData.length ? (
                     <Container>
                         <UserImage
