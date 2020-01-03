@@ -39,7 +39,7 @@ export class CurrentUserProvider extends Component {
             description: '', 
             regulations: false
         },
-        userDataFromUserCollection: ''
+        userDataFromUserCollection: '',
     }
 
     logout = () => {
@@ -68,7 +68,8 @@ export class CurrentUserProvider extends Component {
                 Name: name,
                 Email: email,
                 PhotoUrl: photo,
-                Uid: firebase.getCurrentUid()
+                Uid: firebase.getCurrentUid(),
+                Announcements: []
             })
         }).catch(error => console.log(error))
     }
@@ -87,7 +88,8 @@ export class CurrentUserProvider extends Component {
                 Name: name,
                 Email: email,
                 PhotoUrl: photo,
-                Uid: firebase.getCurrentUid()
+                Uid: firebase.getCurrentUid(),
+                Announcements: []
             })
         }).catch(error => console.log(error))
     }
@@ -283,8 +285,10 @@ export class CurrentUserProvider extends Component {
 
     // Send announcement to the firestore
     sendAnnouncementToFirestore = (userData, userId) => {
+        
         const{ addAnnouncementData } = this.state;
-        firebase.sendDataToFirestore("Announcements").doc().set({
+        console.log(addAnnouncementData.remote,)
+        firebase.sendDataToFirestore("Announcements").add({
             AnnouncementCreator: {
                 Email: userData.email,
                 UserName: userData.displayName,
@@ -296,19 +300,27 @@ export class CurrentUserProvider extends Component {
             Comments: {},
             Description: addAnnouncementData.description,
             LevelOfKnowledge: addAnnouncementData.levelOfKnowledge,
-            Remote: addAnnouncementData.remote,
+            // Remote: addAnnouncementData.remote,
             Place: addAnnouncementData.city,
             Subject: addAnnouncementData.subject,
         })
-        .then(function() {
+        .then((docRef) => {
             console.log("Document successfully written!");
-            firebase.addUserDataToFirebase('user').doc(userId).update({
-                Sex: addAnnouncementData.sex,
-                Place: addAnnouncementData.city,
-                Age: addAnnouncementData.age
+            firebase.getDataFromFirestore('user').doc(userId).get().then(snapshot => {
+                let announcementsArray = snapshot.data().Announcements
+                announcementsArray.push(docRef.id)
+                console.log(announcementsArray)
+                firebase.addUserDataToFirebase('user').doc(userId).update({
+                    Sex: addAnnouncementData.sex,
+                    Place: addAnnouncementData.city,
+                    Age: addAnnouncementData.age,
+                    // add a new announcement to the suitable user, to user collection
+                    Announcements: announcementsArray
+                })
             })
+            
         })
-        .catch(function(error) {
+        .catch((error) => {
             console.error("Error writing document: ", error);
         });
     }
