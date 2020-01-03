@@ -10,7 +10,7 @@ const Container = styled.div`
 const BottomSection = (props) => {
     return (
         <Container>
-            <UserActualLearn name={props.name}></UserActualLearn>
+            <UserActualLearn userAnnouncements={props.userAnnouncements} name={props.name}></UserActualLearn>
             <BottomButtons></BottomButtons>
         </Container>
     )

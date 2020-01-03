@@ -33,12 +33,21 @@ const Li = styled.li`
 `
 
 const UserActualLearn = (props) => {
+
+    const writeSubjects = () => {
+        let list = [];
+
+        for ( let [key, value] of props.userAnnouncements.entries()) {
+            list.push(<Li>{value}<CheckButton id={key}></CheckButton></Li>)
+        }
+        return list
+    }
     return (
         <Container>
+            
             <Text>{props.name.replace(/ .*/,'')} aktualnie uczy się:</Text>
             <List>
-                <Li>Język Niemiecki <CheckButton></CheckButton></Li>
-                <Li>Matematyka <CheckButton></CheckButton></Li>
+                {writeSubjects()}
             </List>
         </Container>
     )

@@ -20,7 +20,7 @@ const Age = styled.span`
     position: absolute;
     right: 20px;
     top: 22px;
-    font-size: 1.5em;
+    font-size: 1.4em;
     font-family: ${FontStyle.family};
     color: #A0A6B1;
 `

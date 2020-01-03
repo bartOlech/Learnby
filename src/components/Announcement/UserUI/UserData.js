@@ -76,10 +76,13 @@ const UserData = (props) => {
 
     return (
         <FindAnnouncementConsumer>
-            {({ getUserData, selectedAnnouncemenUserData, selectedAnnouncementData }) => (
+            {({ getUserData, selectedAnnouncemenUserData, selectedAnnouncementData, getUserAnnouncementsFromUserCollection }) => (
                 <Container>
                     <MainData>
-                        <Link to={{pathname: `/user/${selectedAnnouncemenUserData[0].UserId}`}}><Name onClick={getUserData}>{props.name.replace(/ .*/,'')}<Line></Line></Name></Link>
+                        <Link to={{pathname: `/user/${selectedAnnouncemenUserData[0].UserId}`}}><Name onClick={()=> {
+                            getUserAnnouncementsFromUserCollection(selectedAnnouncemenUserData[0].UserId)
+                            getUserData()
+                        }}>{props.name.replace(/ .*/,'')}<Line></Line></Name></Link>
                         <Age>{props.age} lat</Age>
                     </MainData>
                     <LevelOfLearning>
@@ -87,11 +90,6 @@ const UserData = (props) => {
                         <LevelDotted>
                             {/* function that return quantity of green dots */}
                             {knowledgeDots(selectedAnnouncementData[0].LevelOfKnowledge)}
-                            {/* <Dot background='#3AAF9F'></Dot>
-                            <Dot background='#fff'></Dot>
-                            <Dot background='#fff'></Dot>
-                            <Dot background='#fff'></Dot>
-                            <Dot background='#fff'></Dot> */}
                         </LevelDotted>
                     </LevelOfLearning>
                 </Container>

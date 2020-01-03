@@ -25,10 +25,11 @@ const User = () => {
 
     return (
         <FindAnnouncementConsumer>
-            {({ userDataFromUserCollection, getUserDataIfRefresh }) => (
+            {({ userDataFromUserCollection, getUserDataIfRefresh, userAnnouncements, getUserAnnouncementsFromUserCollection }) => (
                 <Container>
                     {executed ? (
                         getUserDataIfRefresh(id),
+                        getUserAnnouncementsFromUserCollection(id),
                         setExecuted(false)
                     ) : null}
                     {userDataFromUserCollection ? (
@@ -43,7 +44,7 @@ const User = () => {
                                 sex={userDataFromUserCollection.Sex}
                             ></UpperSection>
                             <HorizontalLine></HorizontalLine>
-                            <BottomSection name={userDataFromUserCollection.Name}></BottomSection>
+                            <BottomSection userAnnouncements={userAnnouncements} name={userDataFromUserCollection.Name}></BottomSection>
                         </React.Fragment>  
                     ) : null}
                 </Container>

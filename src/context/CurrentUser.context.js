@@ -40,6 +40,8 @@ export class CurrentUserProvider extends Component {
             regulations: false
         },
         userDataFromUserCollection: '',
+        // announcements created by the user
+        userAnnouncements: new Map()
     }
 
     logout = () => {
@@ -63,13 +65,17 @@ export class CurrentUserProvider extends Component {
             })
         }).then(() => {
             const { name, email, photo } = this.state;
-            firebase.addUserDataToFirebase('user').doc(firebase.getCurrentUid()).set({
-                type: 'Google',
-                Name: name,
-                Email: email,
-                PhotoUrl: photo,
-                Uid: firebase.getCurrentUid(),
-                Announcements: {}
+            firebase.getDataFromFirestore('user').doc(firebase.getCurrentUid()).get().then(doc => {
+                if(!doc.exists) {
+                    firebase.addUserDataToFirebase('user').doc(firebase.getCurrentUid()).set({
+                        type: 'Google',
+                        Name: name,
+                        Email: email,
+                        PhotoUrl: photo,
+                        Uid: firebase.getCurrentUid(),
+                        Announcements: {}
+                    })
+                }
             })
         }).catch(error => console.log(error))
     }
@@ -83,13 +89,17 @@ export class CurrentUserProvider extends Component {
             })
         }).then(() => {
              const { name, email, photo } = this.state;
-             firebase.addUserDataToFirebase('user').doc(firebase.getCurrentUid()).set({
-                type: 'Facebook',
-                Name: name,
-                Email: email,
-                PhotoUrl: photo,
-                Uid: firebase.getCurrentUid(),
-                Announcements: {}
+             firebase.getDataFromFirestore('user').doc(firebase.getCurrentUid()).get().then(doc => {
+                if(!doc.exists) {
+                    firebase.addUserDataToFirebase('user').doc(firebase.getCurrentUid()).set({
+                        type: 'Facebook',
+                        Name: name,
+                        Email: email,
+                        PhotoUrl: photo,
+                        Uid: firebase.getCurrentUid(),
+                        Announcements: {}
+                    })
+                }
             })
         }).catch(error => console.log(error))
     }
@@ -350,7 +360,27 @@ export class CurrentUserProvider extends Component {
             })
         })
     }
-   
+
+    // get user announcements from user collection
+    getUserAnnouncementsFromUserCollection = (id) => {
+        const{ userAnnouncements } = this.state;
+        firebase.getDataFromFirestore('user').doc(id).get().then(snapshot => {
+            userAnnouncements.clear()
+            for (const [key, value] of Object.entries(snapshot.data().Announcements)) {
+                userAnnouncements.set(key, value)
+            }
+        })
+    }
+    // get user announcements from user collection after refresh
+    getUserAnnouncementsFromUserCollection = (id) => {
+        const{ userAnnouncements } = this.state;
+        firebase.getDataFromFirestore('user').doc(id).get().then(snapshot => {
+            userAnnouncements.clear()
+            for (const [key, value] of Object.entries(snapshot.data().Announcements)) {
+                userAnnouncements.set(key, value)
+            }
+        })
+    }
 
     render() {
         
@@ -367,7 +397,8 @@ export class CurrentUserProvider extends Component {
             commentsArray,
             addAnnouncementLayoutNumeber,
             addAnnouncementData,
-            userDataFromUserCollection
+            userDataFromUserCollection,
+            userAnnouncements
         } = this.state;
         return (
             <CurrentUserContext.Provider
@@ -400,7 +431,10 @@ export class CurrentUserProvider extends Component {
                         sendAnnouncementToFirestore: this.sendAnnouncementToFirestore,
                         getUserData: this.getUserData,
                         getUserDataIfRefresh: this.getUserDataIfRefresh,
-                        userDataFromUserCollection
+                        userDataFromUserCollection,
+                        getUserAnnouncementsFromUserCollection: this.getUserAnnouncementsFromUserCollection,
+                        getUserAnnouncementsFromUserCollection: this.getUserAnnouncementsFromUserCollection,
+                        userAnnouncements
                     }}
                 >
                     {children}
