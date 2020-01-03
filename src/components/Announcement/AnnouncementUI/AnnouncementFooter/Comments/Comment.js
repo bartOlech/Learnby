@@ -99,7 +99,6 @@ const Comment = (props) => {
         // get object from the firestore
         if(currentUid !== null){
             if(!likesArray.includes(currentUid)) {
-                console.log('like')
                 setIsLiked(true)
 
                 likesArray.push(currentUid)
@@ -114,7 +113,6 @@ const Comment = (props) => {
                 .catch(err => console.log(err))
 
             } else {
-                console.log('unlike')
                 if(currentUid !== null){
                     if(likesArray.includes(currentUid)) {
                         setIsLiked(false)

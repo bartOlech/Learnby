@@ -69,7 +69,7 @@ export class CurrentUserProvider extends Component {
                 Email: email,
                 PhotoUrl: photo,
                 Uid: firebase.getCurrentUid(),
-                Announcements: []
+                Announcements: {}
             })
         }).catch(error => console.log(error))
     }
@@ -89,7 +89,7 @@ export class CurrentUserProvider extends Component {
                 Email: email,
                 PhotoUrl: photo,
                 Uid: firebase.getCurrentUid(),
-                Announcements: []
+                Announcements: {}
             })
         }).catch(error => console.log(error))
     }
@@ -272,7 +272,7 @@ export class CurrentUserProvider extends Component {
             addAnnouncementData: {
                 subject: '',
                 levelOfKnowledge: 3,
-                contact: false,
+                remote: false,
                 name: '',
                 surname: '',
                 city: '',
@@ -287,7 +287,6 @@ export class CurrentUserProvider extends Component {
     sendAnnouncementToFirestore = (userData, userId) => {
         
         const{ addAnnouncementData } = this.state;
-        console.log(addAnnouncementData.remote,)
         firebase.sendDataToFirestore("Announcements").add({
             AnnouncementCreator: {
                 Email: userData.email,
@@ -300,22 +299,31 @@ export class CurrentUserProvider extends Component {
             Comments: {},
             Description: addAnnouncementData.description,
             LevelOfKnowledge: addAnnouncementData.levelOfKnowledge,
-            // Remote: addAnnouncementData.remote,
+            Remote: addAnnouncementData.remote,
             Place: addAnnouncementData.city,
             Subject: addAnnouncementData.subject,
         })
         .then((docRef) => {
             console.log("Document successfully written!");
             firebase.getDataFromFirestore('user').doc(userId).get().then(snapshot => {
-                let announcementsArray = snapshot.data().Announcements
-                announcementsArray.push(docRef.id)
-                console.log(announcementsArray)
+                let announcementsFromFirestore = snapshot.data().Announcements;
+
+                // create a map and transform into a object
+                const map = new Map();
+                // key is a id of announcement, value is a subject!!!
+                map.set(docRef.id, addAnnouncementData.subject)
+                const objectOfAnnouncements = Object.fromEntries(map)
+
+                // Merging two objects
+                const MergedObject = Object.assign(objectOfAnnouncements, announcementsFromFirestore)
+                
+
                 firebase.addUserDataToFirebase('user').doc(userId).update({
                     Sex: addAnnouncementData.sex,
                     Place: addAnnouncementData.city,
                     Age: addAnnouncementData.age,
                     // add a new announcement to the suitable user, to user collection
-                    Announcements: announcementsArray
+                    Announcements: MergedObject
                 })
             })
             
