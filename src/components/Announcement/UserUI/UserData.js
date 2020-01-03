@@ -61,9 +61,22 @@ const Dot = styled.div`
 
 const UserData = (props) => {
 
+    const knowledgeDots = (val) => {
+        let indents = [];
+        let emptyDots = 5 - val
+
+        for (let i = 0; i < val; i++) {
+            indents.push(<Dot background='#3AAF9F'></Dot>);
+        }
+        for (let i = 0; i < emptyDots; i++) {
+            indents.push(<Dot background='#fff'></Dot>);
+        }
+        return indents;
+    }
+
     return (
         <FindAnnouncementConsumer>
-            {({ getUserData, selectedAnnouncemenUserData }) => (
+            {({ getUserData, selectedAnnouncemenUserData, selectedAnnouncementData }) => (
                 <Container>
                     <MainData>
                         <Link to={{pathname: `/user/${selectedAnnouncemenUserData[0].UserId}`}}><Name onClick={getUserData}>{props.name.replace(/ .*/,'')}<Line></Line></Name></Link>
@@ -72,11 +85,13 @@ const UserData = (props) => {
                     <LevelOfLearning>
                         <LevelText>Poziom:</LevelText>
                         <LevelDotted>
-                            <Dot background='#3AAF9F'></Dot>
+                            {/* function that return quantity of green dots */}
+                            {knowledgeDots(selectedAnnouncementData[0].LevelOfKnowledge)}
+                            {/* <Dot background='#3AAF9F'></Dot>
                             <Dot background='#fff'></Dot>
                             <Dot background='#fff'></Dot>
                             <Dot background='#fff'></Dot>
-                            <Dot background='#fff'></Dot>
+                            <Dot background='#fff'></Dot> */}
                         </LevelDotted>
                     </LevelOfLearning>
                 </Container>
