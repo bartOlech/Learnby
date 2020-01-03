@@ -85,7 +85,7 @@ export class CurrentUserProvider extends Component {
             this.setState({
                 name: firebase.getCurrentUserAllData().displayName,
                 email: firebase.getCurrentUser(),
-                photo: firebase.getCurrentUserAllData().photoURL
+                photo: `${firebase.getCurrentUserAllData().photoURL}?type=normal`
             })
         }).then(() => {
              const { name, email, photo } = this.state;
@@ -301,7 +301,7 @@ export class CurrentUserProvider extends Component {
             AnnouncementCreator: {
                 Email: userData.email,
                 UserName: userData.displayName,
-                PhotoUrl: userData.photoURL,
+                PhotoUrl: `${userData.photoURL}?type=normal`,
                 Sex: addAnnouncementData.sex,
                 UserId: userId,
                 Age: addAnnouncementData.age
