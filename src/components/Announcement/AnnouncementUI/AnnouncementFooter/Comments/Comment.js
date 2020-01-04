@@ -155,6 +155,4 @@ const Comment = (props) => {
     )
 }
 
-// SPRAWDZIC DZIAŁANIE LIKES W KAZDYM KOMENTARZU, W KAZDYM OGLOSZENIU (ROZNE OPCJE DZIALANIA)
-
 export default Comment;

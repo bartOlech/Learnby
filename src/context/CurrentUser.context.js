@@ -150,17 +150,19 @@ export class CurrentUserProvider extends Component {
             commentsArray.splice(0)
             commentsMap.clear()
 
+            
+
             for (const [key, value] of Object.entries(snapshot.data().Comments)) {
                 commentsMap.set(key, value)
             }
 
             commentsMap.forEach((val, key) => {
                 commentsArray.push({ key, value: val });
-                // remove duplicate elements
-                this.setState({
-                    commentsArray: _.uniqBy(commentsArray, 'key')
-                })
             }); 
+            // remove duplicate elements
+            this.setState({
+                commentsArray: _.uniqBy(commentsArray, 'key')
+            })
         }).then(
         )   
         .catch(err => {
@@ -188,7 +190,6 @@ export class CurrentUserProvider extends Component {
             commentsMap.forEach((val, key) => {
                 commentsArray.push({ key, value: val });
             }); 
-
         }).then(
 
         )   
