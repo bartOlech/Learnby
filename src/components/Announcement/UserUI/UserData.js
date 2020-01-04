@@ -76,11 +76,11 @@ const UserData = (props) => {
 
     return (
         <FindAnnouncementConsumer>
-            {({ getUserData, selectedAnnouncemenUserData, selectedAnnouncementData, getUserAnnouncementsFromUserCollection }) => (
+            {({ getUserData, selectedAnnouncementData, getUserAnnouncementsFromUserCollection }) => (
                 <Container>
                     <MainData>
-                        <Link to={{pathname: `/user/${selectedAnnouncemenUserData[0].UserId}`}}><Name onClick={()=> {
-                            getUserAnnouncementsFromUserCollection(selectedAnnouncemenUserData[0].UserId)
+                        <Link to={{pathname: `/user/${selectedAnnouncementData[0].AnnouncementCreator.UserId}`}}><Name onClick={()=> {
+                            getUserAnnouncementsFromUserCollection(selectedAnnouncementData[0].AnnouncementCreator.UserId)
                             getUserData()
                         }}>{props.name.replace(/ .*/,'')}<Line></Line></Name></Link>
                         <Age>{props.age} lat</Age>

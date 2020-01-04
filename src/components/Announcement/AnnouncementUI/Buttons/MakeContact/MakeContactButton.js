@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontStyle } from '../../../../../assets/style/style';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 const Container = styled.div`
     width: 100%;
@@ -28,10 +29,10 @@ const Text = styled.div`
     color: #fff;
 `
 
-const MakeContactButton = () => {
+const MakeContactButton = (props) => {
     return (
         <Container>
-            <Button><Text>Nawiąż kontakt</Text></Button>
+            <Link to={{pathname: `/chat/${props.selectedAnnouncementData[0].AnnouncementCreator.UserId}`}}><Button><Text>Nawiąż kontakt</Text></Button></Link>
         </Container>
     )
 }

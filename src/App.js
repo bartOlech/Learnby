@@ -20,6 +20,9 @@ import MainSectionContainer from './containers/MainSection/MainSectionContainer'
 import AnnouncementComonent from './components/Announcement/AnnouncementBoxComponent';
 // user section
 import User from './components/Main/User/User';
+// Chat
+import MessagesListBox from './components/Chat/MessagesList/MessagesListBox';
+import UserChatBox from './components/Chat/UserChat/UserChatBox';
 
 function App() {
 
@@ -44,6 +47,8 @@ function App() {
             <Route path='/createAnnouncement/' component={CreateAnnouncementSection}></Route>
             <Route path='/announcement/:id' component={AnnouncementComonent}></Route>
             <Route path='/user/:id' component={User}></Route>
+            <Route path='/messagesList' component={MessagesListBox}></Route>
+            <Route path='/chat/:id' component={UserChatBox}></Route>
             {/* footer */}
             <Route path='/about/' component={AboutSection}></Route>
             <Route path='/career/' component={CareerSection}></Route>

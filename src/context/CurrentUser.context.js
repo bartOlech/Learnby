@@ -21,8 +21,14 @@ export class CurrentUserProvider extends Component {
 
         listID: [], 
         // Add data to arrays if announcement has been clicked
-        selectedAnnouncementData: ['1'],
-        selectedAnnouncemenUserData: [],
+        selectedAnnouncementData: [{AnnouncementCreator: {
+            Age: '',
+            Email: '',
+            PhotoUrl: '',
+            Sex: '',
+            UserId: '',
+            UserName: '',
+        }, Comments: { }, Description: '', LevelOfKnowledge: '', Place: '', Remote: '', Subject: ''}],
 
         commentsMap: new Map(),
         commentsArray: [],
@@ -133,7 +139,7 @@ export class CurrentUserProvider extends Component {
     }
 
     getAnnouncementById = (id) => {
-        const{ selectedAnnouncementData, selectedAnnouncemenUserData, commentsMap, commentsArray } = this.state;
+        const{ selectedAnnouncementData, commentsMap, commentsArray } = this.state;
         // get announcement data
         firebase.getDataFromFirestore('Announcements').doc(id).get().then(snapshot => {
             selectedAnnouncementData.splice(0)
@@ -141,10 +147,6 @@ export class CurrentUserProvider extends Component {
             this.setState({
                 selectedAnnouncementData
             })
-
-            // get the user from firestore
-            selectedAnnouncemenUserData.splice(0)
-            selectedAnnouncemenUserData.push(snapshot.data().AnnouncementCreator)
 
             // get comments from firebase
             commentsArray.splice(0)
@@ -171,16 +173,12 @@ export class CurrentUserProvider extends Component {
     }
 
     getAnnouncementByIdRepeatToRefreshPage = (id) => {
-        const{ selectedAnnouncementData, selectedAnnouncemenUserData, commentsMap, commentsArray } = this.state;
+        const{ selectedAnnouncementData, commentsMap, commentsArray } = this.state;
         
         // get announcement data
         firebase.getDataFromFirestore('Announcements').doc(id).get().then(snapshot => {
-            
             selectedAnnouncementData.splice(0)
             selectedAnnouncementData.push(snapshot.data())
-            
-            // get the user from firestore
-            selectedAnnouncemenUserData.push(snapshot.data().AnnouncementCreator)
 
             // get comments from firebase
             for (const [key, value] of Object.entries(snapshot.data().Comments)) {
@@ -346,8 +344,8 @@ export class CurrentUserProvider extends Component {
 
     // get user data from firestore
     getUserData = () => {
-        const{ selectedAnnouncemenUserData } = this.state;
-        firebase.getDataFromFirestore('user').doc(selectedAnnouncemenUserData[0].UserId).get().then(snapshot => {
+        const{ selectedAnnouncementData } = this.state;
+        firebase.getDataFromFirestore('user').doc(selectedAnnouncementData[0].AnnouncementCreator.UserId).get().then(snapshot => {
             this.setState({
                 userDataFromUserCollection: snapshot.data()
             })
@@ -393,7 +391,6 @@ export class CurrentUserProvider extends Component {
             listID, 
             selectedAnnouncementData, 
             usersArray, 
-            selectedAnnouncemenUserData,
             commentsMap,
             commentsArray,
             addAnnouncementLayoutNumeber,
@@ -420,7 +417,6 @@ export class CurrentUserProvider extends Component {
                         selectedAnnouncementData,
                         getAnnouncementByIdRepeatToRefreshPage: this.getAnnouncementByIdRepeatToRefreshPage,
                         usersArray,
-                        selectedAnnouncemenUserData,
                         sendComment: this.sendComment,
                         commentsMap,
                         commentsArray,
