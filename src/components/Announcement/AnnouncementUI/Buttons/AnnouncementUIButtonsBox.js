@@ -9,11 +9,11 @@ const Container = styled.div`
    margin-top: 30px;
 `
 
-const AnnouncementUIButtonsBox = () => {
+const AnnouncementUIButtonsBox = (props) => {
     return (
         <Container>
             <ShareButton></ShareButton>
-            <UserButtons></UserButtons>
+            <UserButtons selectedAnnouncementData={props.selectedAnnouncementData}></UserButtons>
         </Container>
     )
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontStyle } from '../../../../../../assets/style/style';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 const Button = styled.button`
     width: 275px;
@@ -17,7 +18,7 @@ const Button = styled.button`
 
 const SearchPartner = () => {
     return (
-        <Button>Szukaj ogłoszeń</Button>
+        <Link to='/findPartner'><Button>Szukaj ogłoszeń</Button></Link>
     )
 }
 

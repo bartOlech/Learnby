@@ -9,10 +9,10 @@ const Container = styled.div`
     margin-top: 3px;
 `
 
-const UserButtons = () => {
+const UserButtons = (props) => {
     return (
         <Container>
-            <MessageButton></MessageButton>
+            <MessageButton selectedAnnouncementData={props.selectedAnnouncementData}></MessageButton>
             <LikeButton></LikeButton>
         </Container>
     )

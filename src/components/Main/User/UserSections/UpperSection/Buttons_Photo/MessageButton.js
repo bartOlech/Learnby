@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import MessageIco from '../../../../../../assets/img/Mobile/chat.svg';
+import { BrowserRouter as Router, Link, useParams } from 'react-router-dom';
 
 const Container = styled.div`
 
@@ -26,11 +27,15 @@ const Ico = styled.div`
 `
 
 const MessageButton = () => {
+    let { id }  = useParams();
+
     return (
         <Container>
-            <Box>
+            <Link to={{pathname: `/chat/${id}`}}>
+                <Box>
                 <Ico></Ico>
-            </Box>
+                </Box>
+            </Link>
         </Container>
     )
 }

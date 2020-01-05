@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import { FontStyle } from '../../../../../assets/style/style';
 import LikeGreyIco from '../../../../../assets/img/Mobile/heart-grey.svg';
-import LikeRedIco from '../../../../../assets/img/Mobile/heart-red.svg';
+import LikeRedIco from '../../../../../assets/img/Mobile/heart-green.svg';
 import { BrowserRouter as Router, useParams } from 'react-router-dom';
 import { fadeIn } from 'react-animations';
 // Firebase

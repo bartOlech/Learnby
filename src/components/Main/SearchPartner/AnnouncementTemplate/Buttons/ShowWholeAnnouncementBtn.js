@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { FontStyle } from '../../../../../assets/style/style';
 import { FindAnnouncementConsumer } from '../../../../../context/CurrentUser.context';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
+import firebase from '../../../../../Firebase.config';
 
 const Button = styled.div`
     width: 194px;
@@ -26,12 +27,18 @@ const Button = styled.div`
 `
 
 const ShowWholeAnnouncementBtn = (props) => {
+    const currentUid = firebase.getCurrentUid()
 
     return (
         <FindAnnouncementConsumer>
-           {({ getAnnouncementById }) => (
+           {({ getAnnouncementById, announcementIsLiked }) => (
                 <React.Fragment>
-                    <Link to={{ pathname:`/announcement/${props.id}` }}><Button  onClick={() => { getAnnouncementById(props.id);}}>Sprawdź</Button></Link>
+                    <Link to={{ pathname:`/announcement/${props.id}` }}><Button  onClick={() => { 
+                        getAnnouncementById(props.id);
+                        if(currentUid !== null) {
+                            announcementIsLiked();
+                        }
+                        }}>Sprawdź</Button></Link>
                 </React.Fragment>
            )} 
         </FindAnnouncementConsumer> 

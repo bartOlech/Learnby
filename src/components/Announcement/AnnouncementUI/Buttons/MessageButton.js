@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import messageIco from '../../../../assets/img/Mobile/message.svg';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 const Container = styled.div`
    
@@ -15,10 +16,10 @@ const Button = styled.div`
     margin-right: 10px;
 `
 
-const MessageButton = () => {
+const MessageButton = (props) => {
     return (
         <Container>
-            <Button></Button>
+            <Link to={{pathname: `/chat/${props.selectedAnnouncementData[0].AnnouncementCreator.UserId}`}}><Button></Button></Link>
         </Container>
     )
 }

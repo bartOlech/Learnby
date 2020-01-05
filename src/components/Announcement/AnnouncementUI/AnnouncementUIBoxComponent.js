@@ -20,12 +20,13 @@ const AnnouncementUIBoxComponent = () => {
     
     return (
         <FindAnnouncementConsumer>
-            {({ selectedAnnouncementData, getAnnouncementByIdRepeatToRefreshPage }) => (
+            {({ selectedAnnouncementData, getAnnouncementByIdRepeatToRefreshPage, announcementIsLiked }) => (
                 <Container>
                     
                     {/* {console.log(selectedAnnouncemenUserData)} */}
                     {executed ? (
                         getAnnouncementByIdRepeatToRefreshPage(id),
+                        announcementIsLiked(),
                         setExecuted(false)
                     ) : null}
                      
@@ -36,7 +37,7 @@ const AnnouncementUIBoxComponent = () => {
                     <AnnouncementSpot 
                         remote={selectedAnnouncementData[0].Remote} 
                         spot={selectedAnnouncementData[0].Place}></AnnouncementSpot>
-                    <AnnouncementUIButtonsBox></AnnouncementUIButtonsBox>
+                    <AnnouncementUIButtonsBox selectedAnnouncementData={selectedAnnouncementData}></AnnouncementUIButtonsBox>
                     <MakeContactButton 
                         selectedAnnouncementData={selectedAnnouncementData}                       
                     ></MakeContactButton>

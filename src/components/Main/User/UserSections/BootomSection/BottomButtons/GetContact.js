@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontStyle } from '../../../../../../assets/style/style';
+import { BrowserRouter as Router, Link, useParams } from 'react-router-dom';
 
 const Button = styled.button`
     width: 275px;
@@ -16,8 +17,10 @@ const Button = styled.button`
 `
 
 const GetContact = () => {
+    let { id }  = useParams();
+
     return (
-        <Button>Nawiąż kontakt</Button>
+        <Link to={{pathname: `/chat/${id}`}}><Button>Nawiąż kontakt</Button></Link>
     )
 }
 

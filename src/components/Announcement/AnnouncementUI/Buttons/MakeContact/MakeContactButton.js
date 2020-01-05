@@ -10,29 +10,25 @@ const Container = styled.div`
     justify-content: center;
     margin-top: 45px;
 `
-const Button = styled.div`
+const Button = styled.button`
     width: 275px;
     height: 50px;
     border-radius: 25px;
     background-color: #4DB6AC;  
-    display: flex;
-    flex-direction:column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-`
-const Text = styled.div`
+    border: none;
     font-family: ${FontStyle.family};
-    font-size: 1.4em;
+    text-align: center;
     font-weight: 600;
-    margin-top: -5px;
     color: #fff;
+    font-size: 1.4em;
+    cursor: pointer;
+    outline: none;
 `
 
 const MakeContactButton = (props) => {
     return (
         <Container>
-            <Link to={{pathname: `/chat/${props.selectedAnnouncementData[0].AnnouncementCreator.UserId}`}}><Button><Text>Nawiąż kontakt</Text></Button></Link>
+            <Link to={{pathname: `/chat/${props.selectedAnnouncementData[0].AnnouncementCreator.UserId}`}}><Button>Nawiąż kontakt</Button></Link>
         </Container>
     )
 }
