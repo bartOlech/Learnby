@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import StarIco from '../../../../../../assets/img/Mobile/star.svg';
+import ico from '../../../../../../assets/img/Mobile/high-five.svg';
 
 const Container = styled.div`
 
@@ -16,7 +16,7 @@ const Box = styled.div`
 const Ico = styled.div`
     width: 29px;
     height: 29px;
-    background-image: url(${StarIco});
+    background-image: url(${ico});
     background-repeat: no-repeat;
     background-size: 29px 29px;
     position: absolute;
@@ -26,9 +26,13 @@ const Ico = styled.div`
 `
 
 const LikeButton = () => {
+    const sendContactMessage = () => {
+        console.log('to high-five')
+    }
+
     return (
         <Container>
-            <Box>
+            <Box onClick={sendContactMessage}>
                 <Ico></Ico>
             </Box>
         </Container>

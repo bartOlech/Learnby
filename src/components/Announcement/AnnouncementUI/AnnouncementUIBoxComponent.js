@@ -20,13 +20,12 @@ const AnnouncementUIBoxComponent = () => {
     
     return (
         <FindAnnouncementConsumer>
-            {({ selectedAnnouncementData, getAnnouncementByIdRepeatToRefreshPage, announcementIsLiked }) => (
+            {({ selectedAnnouncementData, getAnnouncementByIdRepeatToRefreshPage }) => (
                 <Container>
                     
                     {/* {console.log(selectedAnnouncemenUserData)} */}
                     {executed ? (
                         getAnnouncementByIdRepeatToRefreshPage(id),
-                        announcementIsLiked(),
                         setExecuted(false)
                     ) : null}
                      

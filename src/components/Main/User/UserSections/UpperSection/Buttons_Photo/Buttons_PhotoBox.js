@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import LikeButton from './LikeButton';
+import LikeButton from './HighFiveIco';
 import MessageButton from './MessageButton';
 import UserPhoto from './UserPhoto';
 

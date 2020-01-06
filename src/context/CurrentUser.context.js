@@ -48,7 +48,6 @@ export class CurrentUserProvider extends Component {
         userDataFromUserCollection: '',
         // announcements created by the user
         userAnnouncements: new Map(),
-        AnnouncementLikes: ['example-value']
     }
 
     logout = () => {
@@ -384,26 +383,8 @@ export class CurrentUserProvider extends Component {
         })
     }
 
-    // get info if annuncement is liked
-    announcementIsLiked = () => {
-        firebase.isInitialized().then(() => {
-            const currentUid = firebase.getCurrentUid()
-            const{ AnnouncementLikes } = this.state;
-            if(currentUid !== null) {
-                firebase.getDataFromFirestore('user').doc(currentUid).get().then(doc => {
-                    AnnouncementLikes.splice(0)
-                    AnnouncementLikes.push(doc.data().AnnouncementLikes)
-                    this.setState({
-                        AnnouncementLikes
-                    })
-                })
-            }
-          })
-    }
-
     // Like or unlike announcement and send info to the firestore
     announcementSetLike = (id) => {
-        const{ AnnouncementLikes } = this.state;
         const currentUid = firebase.getCurrentUid()
         if(currentUid !== null) {
             firebase.getDataFromFirestore('user').doc(currentUid).get().then(doc => {
@@ -423,13 +404,6 @@ export class CurrentUserProvider extends Component {
                         AnnouncementLikes: likesArray
                     }).catch(err => console.log(err))
                 }
-                firebase.getDataFromFirestore('user').doc(currentUid).get().then(doc => {
-                    AnnouncementLikes.splice(0)
-                    AnnouncementLikes.push(doc.data().AnnouncementLikes)
-                    this.setState({
-                        AnnouncementLikes
-                    })
-                })
             }).catch(err => console.log(err))
         } 
     }
@@ -488,8 +462,6 @@ export class CurrentUserProvider extends Component {
                         getUserAnnouncementsFromUserCollection: this.getUserAnnouncementsFromUserCollection,
                         userAnnouncements,
                         // Like announcement
-                        announcementIsLiked: this.announcementIsLiked,
-                        AnnouncementLikes,
                         announcementSetLike: this.announcementSetLike
                     }}
                 >

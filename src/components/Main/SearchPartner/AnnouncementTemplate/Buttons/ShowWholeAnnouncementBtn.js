@@ -31,13 +31,10 @@ const ShowWholeAnnouncementBtn = (props) => {
 
     return (
         <FindAnnouncementConsumer>
-           {({ getAnnouncementById, announcementIsLiked }) => (
+           {({ getAnnouncementById }) => (
                 <React.Fragment>
                     <Link to={{ pathname:`/announcement/${props.id}` }}><Button  onClick={() => { 
                         getAnnouncementById(props.id);
-                        if(currentUid !== null) {
-                            announcementIsLiked();
-                        }
                         }}>Sprawdź</Button></Link>
                 </React.Fragment>
            )} 

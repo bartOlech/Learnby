@@ -32,22 +32,25 @@ const LikeButton = () => {
     useEffect(() => {
         firebase.isInitialized().then(() => {
             const currentUid = firebase.getCurrentUid()
-
-            firebase.getDataFromFirestore('user').doc(currentUid).get().then(doc => {
-                likeArray.push(doc.data().AnnouncementLikes)
-                setLikeArray(likeArray)
-
-                // console.log(likeArray[0][0])
-                console.log(likeArray[0].indexOf(id))
-
-                if(likeArray[0].indexOf(id) !== -1) {
-                    setIsLike(true)
-                    console.log('t')
-                } else {
-                    setIsLike(false)
-                    console.log('f')
-                }
-            })
+            if(currentUid !== null){
+                firebase.getDataFromFirestore('user').doc(currentUid).get().then(doc => {
+                    likeArray.push(doc.data().AnnouncementLikes)
+                    setLikeArray(likeArray)
+    
+                    // console.log(likeArray[0][0])
+                    console.log(likeArray[0].indexOf(id))
+    
+                    if(likeArray[0].indexOf(id) !== -1) {
+                        setIsLike(true)
+                        console.log('t')
+                    } else {
+                        setIsLike(false)
+                        console.log('f')
+                    }
+                })
+            } else {
+                console.log('not logged!')
+            }
         })
     }, [])
 
@@ -63,7 +66,7 @@ const LikeButton = () => {
 
     return (
         <FindAnnouncementConsumer>
-            {({ AnnouncementLikes, announcementSetLike, announcementIsLiked }) => (
+            {({ announcementSetLike }) => (
                 <Container>
                     {/* {console.log(isLike)} */}
                     {checkLiked()}
