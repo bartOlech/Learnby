@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import likeIco from '../../../../assets/img/Mobile/like.svg';
 import likeIcoGreen from '../../../../assets/img/Mobile/heart-green.svg';
@@ -25,7 +25,31 @@ const bounceAnimation = keyframes`${fadeIn}`;
 
 const LikeButton = () => {
     const[isLike, setIsLike] = useState(false)
+    const[likeArray, setLikeArray] = useState([])
     let{ id } = useParams()
+
+    // componentDidMount
+    useEffect(() => {
+        firebase.isInitialized().then(() => {
+            const currentUid = firebase.getCurrentUid()
+
+            firebase.getDataFromFirestore('user').doc(currentUid).get().then(doc => {
+                likeArray.push(doc.data().AnnouncementLikes)
+                setLikeArray(likeArray)
+
+                // console.log(likeArray[0][0])
+                console.log(likeArray[0].indexOf(id))
+
+                if(likeArray[0].indexOf(id) !== -1) {
+                    setIsLike(true)
+                    console.log('t')
+                } else {
+                    setIsLike(false)
+                    console.log('f')
+                }
+            })
+        })
+    }, [])
 
     const likeAnnouncement = () => { 
         isLike ? setIsLike(false) : setIsLike(true)
@@ -33,17 +57,7 @@ const LikeButton = () => {
 
     const checkLiked = (likesArray) => {
         firebase.isInitialized().then(() => {
-            let wasLiked = ''
-
-            if(likesArray !== undefined) {
-                wasLiked = likesArray[0].includes(id)
-            }
-
-            if(wasLiked) {
-                setIsLike(true)
-            } else {
-                setIsLike(false)
-            }
+            
         })  
     } 
 
@@ -51,7 +65,8 @@ const LikeButton = () => {
         <FindAnnouncementConsumer>
             {({ AnnouncementLikes, announcementSetLike, announcementIsLiked }) => (
                 <Container>
-                    {checkLiked(AnnouncementLikes)}
+                    {/* {console.log(isLike)} */}
+                    {checkLiked()}
                     <Button 
                     // animation={AnnouncementLikes.includes(id) ? css`1s ${bounceAnimation}` : 'none'}  
                     ico={isLike ? likeIcoGreen : likeIco} 
