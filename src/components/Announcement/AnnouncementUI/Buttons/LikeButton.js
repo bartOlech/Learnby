@@ -37,15 +37,10 @@ const LikeButton = () => {
                     likeArray.push(doc.data().AnnouncementLikes)
                     setLikeArray(likeArray)
     
-                    // console.log(likeArray[0][0])
-                    console.log(likeArray[0].indexOf(id))
-    
                     if(likeArray[0].indexOf(id) !== -1) {
                         setIsLike(true)
-                        console.log('t')
                     } else {
                         setIsLike(false)
-                        console.log('f')
                     }
                 })
             } else {

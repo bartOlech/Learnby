@@ -38,7 +38,7 @@ function App() {
       <Router>
         <CurrentUserProvider>
           <Route>
-            <div>{firebase.getCurrentUser()}</div>
+            {/* <div>{firebase.getCurrentUser()}</div> */}
             <Route path='/' exact component={StartPage}></Route>
             {/* <Route path='/findPartner/' component={Example}></Route> */}
             <Route path='/login/' component={SignInContainer}></Route>

@@ -5,7 +5,7 @@ import AddNotice from './AddNotice/AddNotice';
 import Login from './Login/Login';
 import { BrowserRouter as Router, Link} from 'react-router-dom';
 import { CurrentUserConsumer } from '../../context/CurrentUser.context';
-import { FontStyle } from '../../assets/style/style';
+import firebase from '../../Firebase.config';
 
 const Container = styled.div`
     width: 100%;
@@ -21,32 +21,28 @@ const UserSection = styled.div`
     height: 100px;
     position: relative;
 `
-const LogoutButton = styled.p`
-    font-family: ${FontStyle.family};
-    color: ${FontStyle.color};
-    font-size: 1.3em;
-    padding-top: 5px;
-    padding-right: 17px;
-    cursor: pointer;
-`
-const TextUnderLine = styled.div`
-    width: 72px;
-    height: 2px;
-    background-color: ${FontStyle.color};
-    position: absolute;
-    top: 52px;
+const Image = styled.div`
+    margin: 17px 0 0 40px;
+    width: 41px;
+    height: 41px;
+    border: none;
+    border-radius: 50%;
+    background-image: url(${props => props.image});
+    background-repeat: no-repeat;
+    background-size: 41px 41px;
+    outline: none;
 `
 const Header = (props) => {
     return (
         <Container background={props.background}>
-            <Logo></Logo>
-            <Link to='/createAnnouncement'><AddNotice></AddNotice></Link>
+            <Logo></Logo><AddNotice></AddNotice>
             <CurrentUserConsumer>
                 {({logout, user, }) => (
                     user ? (
                         <UserSection>
-                            <LogoutButton onClick={logout}>Wyloguj</LogoutButton>
-                            <TextUnderLine></TextUnderLine>
+                            {firebase.getCurrentUserAllData() !== null} {
+                                <Image image={firebase.getCurrentUserAllData().photoURL}></Image>
+                            }
                         </UserSection> 
                     ):(
                         <React.Fragment>
