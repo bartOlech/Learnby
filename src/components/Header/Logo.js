@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import logo from '../../assets/img/logo-LearnBy.svg'
+import { BrowserRouter as Router, Link} from 'react-router-dom';
 
 const Container = styled.div`
     width: 42px;
@@ -13,7 +14,7 @@ const Container = styled.div`
 
 const Logo = () => {
     return (
-        <Container></Container>
+        <Link to='/'><Container></Container></Link>
     )   
 }
 
