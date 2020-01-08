@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Logo from './Logo';
 import AddNotice from './AddNotice/AddNotice';
@@ -6,6 +6,7 @@ import Login from './Login/Login';
 import { BrowserRouter as Router, Link} from 'react-router-dom';
 import { CurrentUserConsumer } from '../../context/CurrentUser.context';
 import firebase from '../../Firebase.config';
+import UserMenu from './UserMenu/UserMenu';
 
 const Container = styled.div`
     width: 100%;
@@ -31,25 +32,34 @@ const Image = styled.div`
     background-repeat: no-repeat;
     background-size: 41px 41px;
     outline: none;
+    cursor: pointer;
 `
 const Header = (props) => {
+    const[isHideImage, setIsHideImage] = useState(true)
+
+    const clickImage = () => {
+        isHideImage ? setIsHideImage(false) : setIsHideImage(true)
+    }
+
     return (
         <Container background={props.background}>
             <Logo></Logo><AddNotice></AddNotice>
             <CurrentUserConsumer>
-                {({logout, user, }) => (
+                {({ user }) => (
                     user ? (
-                        <UserSection>
-                            {firebase.getCurrentUserAllData() !== null} {
-                                <Image image={firebase.getCurrentUserAllData().photoURL}></Image>
-                            }
-                        </UserSection> 
+                        <React.Fragment>
+                            <UserSection>
+                                {firebase.getCurrentUserAllData() !== null} {
+                                    <Image onClick={clickImage} image={`${firebase.getCurrentUserAllData().photoURL}?type=normal`}></Image>
+                                }
+                            </UserSection> 
+                            {!isHideImage && <UserMenu isHideImage={isHideImage}/>}
+                        </React.Fragment>
                     ):(
                         <React.Fragment>
                             <Link to='/login'><Login></Login></Link> 
                         </React.Fragment>
                     )
-                    
                 )}
             </CurrentUserConsumer>    
         </Container>
