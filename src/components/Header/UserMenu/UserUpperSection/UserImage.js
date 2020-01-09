@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import firebase from '../../../../Firebase.config';
+import userIco from '../../../../assets/img/Mobile/logUser.svg';
 
 const Container = styled.div`
 

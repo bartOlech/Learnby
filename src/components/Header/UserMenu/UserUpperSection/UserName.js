@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import firebase from '../../../../Firebase.config';
 import { FontStyle } from '../../../../assets/style/style';
@@ -14,10 +14,18 @@ const Text = styled.span`
 `
 
 const UserName = () => {
+    const[name, setName] = useState('')
+
+    useEffect(() => {
+        firebase.getDataFromFirestore('user').doc(firebase.getCurrentUid()).get().then(doc => {
+            setName(doc.data().Name)
+        })
+    }, [])
+
     return (
         <Container>
             {firebase.getCurrentUserAllData() !== null} {
-                <Text>{firebase.getCurrentUserAllData().displayName.replace(/ .*/,'')}</Text>
+                <Text>{name.replace(/ .*/,'')}</Text>
             }
         </Container>
     )

@@ -15,11 +15,13 @@ const Container = styled.div`
     border-radius: 3px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    border: 1px solid #E5E5E5;
     position: absolute;
     right: 0;
     top: 70px;
     background-color: #fff;
     animation: ${props => props.animation};
+    z-index: 5;
     &&:before {
         content: '';
         width: 0;

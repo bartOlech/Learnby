@@ -35,12 +35,11 @@ const SendBtn = (props) => {
     const registerUser = (e) => {
         props.validationCallback()
         if (props.emailValidation && props.passwordValidation ) {
-            console.log('validate is true')
             setLoading(true)
             firebase.register(props.email, props.password).then(() => {
                 setLoading(false)
                 // redirect to the homepage
-                history.push("/");
+                history.push("/appendData");
             }).catch((error) => {
                 props.getAuthAlert(error.code)
                 console.log(error)

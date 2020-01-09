@@ -99,7 +99,7 @@ const StartPage = () => {
         <Container>
             <Header background='#DEF3EB'></Header>
             <Main>
-                <MainText>Szukasz partnera do nauki?<br></br>Załóz konto juz teraz!</MainText>
+                <MainText>Szukasz partnera do nauki?<br></br>Załóż konto juz teraz!</MainText>
                 <AuxiliaryText>
                     <CompanyName>Learnby </CompanyName> 
                     zrzesza osoby chcące urozmaicić swoją naukę poprzez prace w parze lub grupie osób

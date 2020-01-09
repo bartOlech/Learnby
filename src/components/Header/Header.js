@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Link} from 'react-router-dom';
 import { CurrentUserConsumer } from '../../context/CurrentUser.context';
 import firebase from '../../Firebase.config';
 import UserMenu from './UserMenu/UserMenu';
+import userIco from '../../assets/img/Mobile/logUser.svg';
 
 const Container = styled.div`
     width: 100%;
@@ -50,7 +51,11 @@ const Header = (props) => {
                         <React.Fragment>
                             <UserSection>
                                 {firebase.getCurrentUserAllData() !== null} {
-                                    <Image onClick={clickImage} image={`${firebase.getCurrentUserAllData().photoURL}?type=normal`}></Image>
+                                    !firebase.getCurrentUserAllData().photoURL ? (
+                                        <Image onClick={clickImage} image={userIco}></Image>
+                                    ) : (
+                                        <Image onClick={clickImage} image={`${firebase.getCurrentUserAllData().photoURL}?type=normal`}></Image>
+                                    )
                                 }
                             </UserSection> 
                             {!isHideImage && <UserMenu isHideImage={isHideImage}/>}

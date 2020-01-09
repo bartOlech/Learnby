@@ -5,7 +5,8 @@ import WavyBackground from '../../../assets/img/Mobile/wave-bck-header-mobile.sv
 import UpperSection from './UserSections/UpperSection/UpperSection';
 import BottomSection from './UserSections/BootomSection/BottomSection';
 import { FindAnnouncementConsumer } from '../../../context/CurrentUser.context';
-import { BrowserRouter as Router, useParams } from 'react-router-dom'
+import { BrowserRouter as Router, useParams } from 'react-router-dom';
+import firebase from '../../../Firebase.config';
 
 const Container = styled.div`
     width: 100%;
@@ -36,7 +37,7 @@ const User = () => {
                         <React.Fragment>
                             <Header background={`url(${WavyBackground}) no-repeat `}></Header>
                             <UpperSection 
-                                photo={userDataFromUserCollection.PhotoUrl}
+                                photo={`${firebase.getCurrentUserAllData().photoURL}?type=normal`}
                                 name={userDataFromUserCollection.Name}
                                 age={userDataFromUserCollection.Age}
                                 description='Jestem studentem Akademi Górniczo-Hutniczej w Krakowie.  Od roku uczę się języka niemieckiego'
