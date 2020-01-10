@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import firebase from '../Firebase.config';
 import _ from 'lodash';
 import uniqid from 'uniqid';
+import generateKeywords from './GenerateKeywords';
 
 const CurrentUserContext = React.createContext();
 const FindAnnouncementContext = React.createContext();
@@ -313,6 +314,7 @@ export class CurrentUserProvider extends Component {
             Remote: addAnnouncementData.remote,
             Place: addAnnouncementData.city,
             Subject: addAnnouncementData.subject,
+            Keywords: generateKeywords(addAnnouncementData.subject)
         })
         .then((docRef) => {
             console.log("Document successfully written!");
@@ -408,6 +410,11 @@ export class CurrentUserProvider extends Component {
         } 
     }
 
+    // search queries
+    searchKeyword = () => {
+        
+    }
+
 
     render() {
         
@@ -462,7 +469,8 @@ export class CurrentUserProvider extends Component {
                         getUserAnnouncementsFromUserCollection: this.getUserAnnouncementsFromUserCollection,
                         userAnnouncements,
                         // Like announcement
-                        announcementSetLike: this.announcementSetLike
+                        announcementSetLike: this.announcementSetLike,
+                        searchKeyword: this.searchKeyword
                     }}
                 >
                     {children}

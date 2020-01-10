@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import MagnifierIco from '../../../assets/img/Mobile/magnifying-glass.svg';
 import { FontStyle } from '../../../assets/style/style';
@@ -43,13 +43,25 @@ const Ico = styled.div`
 `
 
 const FindUserSection = () => {
+    const[searchedPhrase, setSearchedPhrase] = useState('')
         
     return (
         <Container>
                 <FindAnnouncementConsumer>
-                    {({ announcementsArray }) => (
+                    {({ announcementsArray, searchKeyword }) => (
                         <Box>
-                            <InputText onChange={() => console.log(announcementsArray)} type='text' placeholder='Czego obecnie się uczysz?'>   
+                            <InputText 
+                            onClick={searchKeyword}
+
+                            onChange={(e) => {
+                                setSearchedPhrase(e.target.value)
+                                if(searchedPhrase.length > 1) {
+                                    console.log(announcementsArray)
+                                }
+                            }} 
+                            value={searchedPhrase}
+                            type='text' 
+                            placeholder='Czego obecnie się uczysz?'>   
                             </InputText>
                             <Ico></Ico>
                         </Box>
