@@ -43,7 +43,7 @@ const Ico = styled.div`
     position: absolute;
 `
 
-const FindUserSection = () => {
+const FindUserSection = (props) => {
     const[searchedPhrase, setSearchedPhrase] = useState('')
         
     return (
@@ -53,8 +53,8 @@ const FindUserSection = () => {
                         <Box>
                             <InputText 
                             onChange={(e) => {
-                                searchKeyword(e.target.value)
                                 setSearchedPhrase(e.target.value)
+                                searchKeyword(e.currentTarget.value)
                             }}
                             value={searchedPhrase}
                             type='text' 

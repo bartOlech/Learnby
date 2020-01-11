@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, isValidElement } from 'react';
 import AnnouncementBoxTemplate from './AnnouncementTemplate/AnnouncementBoxTemplate';
 import styled from 'styled-components';
 import { FontStyle } from '../../../assets/style/style';
@@ -27,7 +27,24 @@ const Text = styled.h2`
 `
 
 const FoundAnnouncementSection = (props) => {
-    const[announcementUser, setAnnouncementUser] = useState([])
+
+    const getAnnouncements = (announcementList) => {
+        let list = []
+        for(let [key, value] of announcementList.entries()) {
+            list.push(
+                <AnnouncementBoxTemplate
+                    key={key}
+                    id={key}
+                    Subject={value.Subject}
+                    UserName={value.AnnouncementCreator.UserName}
+                    Description={value.Description}
+                    Place={value.Place}
+                    UserPhoto={value.AnnouncementCreator.PhotoUrl}
+                ></AnnouncementBoxTemplate>
+            )
+        }
+        return list
+    }
 
     const settings = {
         dots: false,
@@ -40,33 +57,14 @@ const FoundAnnouncementSection = (props) => {
       };
 
     return (
-        <FindAnnouncementConsumer>
-            {({ searchedAnnouncements, announcementListId }) => (
-                <div>  
-                    {console.log(searchedAnnouncements)}
-                    <Container>
-                    <Text style={{marginTop: '50px'}} size='1.6em'>{props.tittle}</Text>
-                    <Slider {...settings}>
-                        {searchedAnnouncements.length > 1 ? (
-                            searchedAnnouncements.map((el, index) => {
-                                return (
-                                    <AnnouncementBoxTemplate
-                                        key={index}
-                                        id={announcementListId[index]}
-                                        Subject={el.Subject}
-                                        UserName={el.AnnouncementCreator.UserName}
-                                        Description={el.Description}
-                                        Place={el.Place}
-                                        UserPhoto={el.AnnouncementCreator.PhotoUrl}
-                                    ></AnnouncementBoxTemplate>
-                                )
-                            }) 
-                        ): null}
-                    </Slider>
-                </Container>
-                </div>
-            )}
-        </FindAnnouncementConsumer>
+        <div>  
+            <Container>
+            <Text style={{marginTop: '50px'}} size='1.6em'>{props.tittle}</Text>
+            <Slider {...settings}>
+                {getAnnouncements(props.announcementList)}
+            </Slider>
+        </Container>
+        </div>
     )
 }
 

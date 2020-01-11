@@ -33,40 +33,37 @@ const LoaderBox = styled.div`
 const MainSectionComponent = () => {
 
     return (
-        <Container>
-            <Header background={`url(${WavyBackground}) no-repeat `}></Header>
-            <Text size='1.7em'>Wyszukaj partnera</Text>
-            <FindAnnouncementSection></FindAnnouncementSection>
-            {2 > 1 ? (
-                <React.Fragment>
-                    <FoundAnnouncementSection 
-                        tittle='Dopasowane osoby:'
-                    ></FoundAnnouncementSection>
+        <FindAnnouncementConsumer>
+            {({ announcementList, randomAnnouncement }) => (
+                <Container>
+                    <Header background={`url(${WavyBackground}) no-repeat `}></Header>
+                    <Text size='1.7em'>Wyszukaj partnera</Text>
+                    <FindAnnouncementSection></FindAnnouncementSection>
+                    {announcementList.size > 0 ? (
+                        <React.Fragment>
+                            <FoundAnnouncementSection 
+                                tittle='Dopasowane osoby:'
+                                announcementList={announcementList}
+                            ></FoundAnnouncementSection>
 
-                    {/* <FoundAnnouncementSection 
-                        tittle='Może cię zainteresować:'
-                        announcementsArray={announcementsArray}
-                        usersArray={usersArray}
-                        listID={listID}
-                    ></FoundAnnouncementSection> */}
-                </React.Fragment>
-            ) : (
-                // <LoaderBox>
-                //     <Loader
-                //         type="TailSpin"
-                //         color="#4DB6AC"
-                //         height={60}
-                //         width={60}
-                //         style={{marginTop: '50px', marginLeft: '-20px'}}
-                //     />
-                // </LoaderBox>
-                null
+                            
+                        </React.Fragment>
+                    ) : (
+                        randomAnnouncement !== undefined ? (
+                            <FoundAnnouncementSection 
+                            tittle='Może cię zainteresować:'
+                            announcementList={randomAnnouncement}
+                        ></FoundAnnouncementSection>
+                        ) : null 
+                    )}
+                    
+                    
+                    {/* Footer */}
+                    <MainComponent></MainComponent>
+                </Container>
             )}
-            
-            
-            {/* Footer */}
-            <MainComponent></MainComponent>
-        </Container>
+        </FindAnnouncementConsumer>
+      
     )
 }
 
