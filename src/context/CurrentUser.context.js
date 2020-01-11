@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import firebase from '../Firebase.config';
 import _ from 'lodash';
 import uniqid from 'uniqid';
-import generateKeywords from './GenerateKeywords';
+
+// functions 
+import generateKeywords from './functions/GenerateKeywords';
 
 const CurrentUserContext = React.createContext();
 const FindAnnouncementContext = React.createContext();
@@ -16,11 +18,7 @@ export class CurrentUserProvider extends Component {
         photo: '',
         loading: false,
         ex: false,
-        // Data from the found Announcements
-        announcementsArray: [],
         usersArray: [],
-
-        listID: [], 
         // Add data to arrays if announcement has been clicked
         selectedAnnouncementData: [{AnnouncementCreator: {
             Age: '',
@@ -49,6 +47,8 @@ export class CurrentUserProvider extends Component {
         userDataFromUserCollection: '',
         // announcements created by the user
         userAnnouncements: new Map(),
+        searchedAnnouncements: [],
+        announcementListId: []
     }
 
     logout = () => {
@@ -114,7 +114,7 @@ export class CurrentUserProvider extends Component {
     }
 
     componentDidMount() {
-        const{ announcementsArray, listID, usersArray } = this.state;
+        const{ usersArray } = this.state;
 
         firebase.isInitialized().then(val => {
             this.setState({
@@ -126,19 +126,10 @@ export class CurrentUserProvider extends Component {
         // Get announcements from database
         firebase.getDataFromFirestore('Announcements').get().then((snapshot) => {
             snapshot.docs.forEach(doc => {
-                announcementsArray.push(doc.data())
                 // get user info
                 usersArray.push(doc.data().AnnouncementCreator)
-
-                listID.push(doc.id)
             })   
-        }).then(() => {
-            this.setState({
-                announcementsArray,
-            })
-        }).catch(error => {
-            console.log("Error getting document:", error);
-        });
+        })
     }
 
     getAnnouncementById = (id) => {
@@ -410,20 +401,36 @@ export class CurrentUserProvider extends Component {
         } 
     }
 
-    // search queries
-    searchKeyword = () => {
+    searchKeyword = (val) => {
+        const { searchedAnnouncements, announcementListId } = this.state;
         
+        if(val.length > 2) {
+            searchedAnnouncements.splice(0)
+            firebase.getDataFromFirestore('Announcements')
+            .where('Keywords', 'array-contains', val.toLowerCase()).get().then(doc => {
+                
+            doc.forEach(val => {
+                announcementListId.push(val.id)
+                searchedAnnouncements.push(val.data()) 
+
+                // this.setState({
+                //     searchedAnnouncements
+                //   })
+                
+              })
+              this.setState({
+                searchedAnnouncements
+              })
+            })
+          }
     }
 
 
     render() {
-        
         const { children } = this.props;
         const { 
             user,
             loading, 
-            announcementsArray, 
-            listID, 
             selectedAnnouncementData, 
             usersArray, 
             commentsMap,
@@ -432,7 +439,8 @@ export class CurrentUserProvider extends Component {
             addAnnouncementData,
             userDataFromUserCollection,
             userAnnouncements,
-            AnnouncementLikes
+            searchedAnnouncements,
+            announcementListId
         } = this.state;
         return (
             <CurrentUserContext.Provider
@@ -442,13 +450,10 @@ export class CurrentUserProvider extends Component {
                     loginWithGoogle: this.loginWithGoogle,
                     loginWithFacebook: this.loginWithFacebook,
                     loading,
-                    announcementsArray,
                 }}
                 >
                 <FindAnnouncementContext.Provider 
                     value={{
-                        announcementsArray,
-                        listID,
                         getAnnouncementById: this.getAnnouncementById,
                         selectedAnnouncementData,
                         getAnnouncementByIdRepeatToRefreshPage: this.getAnnouncementByIdRepeatToRefreshPage,
@@ -470,7 +475,9 @@ export class CurrentUserProvider extends Component {
                         userAnnouncements,
                         // Like announcement
                         announcementSetLike: this.announcementSetLike,
-                        searchKeyword: this.searchKeyword
+                        searchKeyword: this.searchKeyword,
+                        searchedAnnouncements,
+                        announcementListId
                     }}
                 >
                     {children}

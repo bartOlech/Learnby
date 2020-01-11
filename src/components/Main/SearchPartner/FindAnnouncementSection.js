@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import MagnifierIco from '../../../assets/img/Mobile/magnifying-glass.svg';
 import { FontStyle } from '../../../assets/style/style';
 import { FindAnnouncementConsumer } from '../../../context/CurrentUser.context';
+import firebase from '../../../Firebase.config';
 
 const Container = styled.div`
     width: 100%;
@@ -48,17 +49,13 @@ const FindUserSection = () => {
     return (
         <Container>
                 <FindAnnouncementConsumer>
-                    {({ announcementsArray, searchKeyword }) => (
+                    {({ searchKeyword }) => (
                         <Box>
                             <InputText 
-                            onClick={searchKeyword}
-
                             onChange={(e) => {
+                                searchKeyword(e.target.value)
                                 setSearchedPhrase(e.target.value)
-                                if(searchedPhrase.length > 1) {
-                                    console.log(announcementsArray)
-                                }
-                            }} 
+                            }}
                             value={searchedPhrase}
                             type='text' 
                             placeholder='Czego obecnie się uczysz?'>   
