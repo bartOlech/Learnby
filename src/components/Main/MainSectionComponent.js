@@ -7,7 +7,7 @@ import FoundAnnouncementSection from './SearchPartner/FoundAnnouncementSections'
 import { FontStyle } from '../../assets/style/style';
 import { FindAnnouncementConsumer } from '../../context/CurrentUser.context';
 import MainComponent from './Footer/MainComponent';
-import Loader from 'react-loader-spinner';
+// import Loader from 'react-loader-spinner';
 
 const Container = styled.div`
     width: 100%;
@@ -23,12 +23,12 @@ const Text = styled.h2`
     font-weight: 600;
     margin-top: -30px;
 `
-const LoaderBox = styled.div`
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
-    margin-bottom: 50px;  
-`
+// const LoaderBox = styled.div`
+//     display: flex;
+//     justify-content: center;
+//     margin-top: 50px;
+//     margin-bottom: 50px;  
+// `
 
 const MainSectionComponent = () => {
 
@@ -45,8 +45,6 @@ const MainSectionComponent = () => {
                                 tittle='Dopasowane osoby:'
                                 announcementList={announcementList}
                             ></FoundAnnouncementSection>
-
-                            
                         </React.Fragment>
                     ) : (
                         randomAnnouncement !== undefined ? (

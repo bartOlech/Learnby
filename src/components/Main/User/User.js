@@ -26,11 +26,11 @@ const User = () => {
 
     return (
         <FindAnnouncementConsumer>
-            {({ userDataFromUserCollection, getUserDataIfRefresh, userAnnouncements, getUserAnnouncementsFromUserCollection }) => (
+            {({ userDataFromUserCollection, getUserDataIfRefresh, userAnnouncements, getUserAnnouncementsFromUserCollectionRefresh }) => (
                 <Container>
                     {executed ? (
                         getUserDataIfRefresh(id),
-                        getUserAnnouncementsFromUserCollection(id),
+                        getUserAnnouncementsFromUserCollectionRefresh(id),
                         setExecuted(false)
                     ) : null}
                     {userDataFromUserCollection ? (

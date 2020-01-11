@@ -22,7 +22,7 @@ import AnnouncementComonent from './components/Announcement/AnnouncementBoxCompo
 import User from './components/Main/User/User';
 // Chat
 import MessagesListBox from './components/Chat/MessagesList/MessagesListBox';
-import UserChatBox from './components/Chat/UserChat/UserChatBox';
+import Chatroom from './components/Chat/UserChat/Chatroom';
 // append user data during the registration
 import AppendUserData from './components/Login/SignUp/AppendUserData/AppendUserData';
 
@@ -50,7 +50,7 @@ function App() {
             <Route path='/announcement/:id' component={AnnouncementComonent}></Route>
             <Route path='/user/:id' component={User}></Route>
             <Route path='/messagesList' component={MessagesListBox}></Route>
-            <Route path='/chat/:id' component={UserChatBox}></Route>
+            <Route path='/chat/:id' component={Chatroom}></Route>
             <Route path='/appendData' component={AppendUserData}></Route>
             {/* footer */}
             <Route path='/about/' component={AboutSection}></Route>

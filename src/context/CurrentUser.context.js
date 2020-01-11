@@ -124,7 +124,7 @@ export class CurrentUserProvider extends Component {
           })
 
         // here create function that will be draws lots announcement
-        firebase.getDataFromFirestore('Announcements').doc('QLGhSxQ1kKcHWov5jRDS').get().then(doc => {
+        firebase.getDataFromFirestore('Announcements').doc('LqB5OyvGsoTp3hf6DB6o').get().then(doc => {
             randomAnnouncement.clear()
             randomAnnouncement.set(doc.id, doc.data())
         }).then(() => {
@@ -368,7 +368,7 @@ export class CurrentUserProvider extends Component {
         })
     }
     // get user announcements from user collection after refresh
-    getUserAnnouncementsFromUserCollection = (id) => {
+    getUserAnnouncementsFromUserCollectionRefresh = (id) => {
         const{ userAnnouncements } = this.state;
         firebase.getDataFromFirestore('user').doc(id).get().then(snapshot => {
             userAnnouncements.clear()
@@ -464,7 +464,7 @@ export class CurrentUserProvider extends Component {
                         getUserDataIfRefresh: this.getUserDataIfRefresh,
                         userDataFromUserCollection,
                         getUserAnnouncementsFromUserCollection: this.getUserAnnouncementsFromUserCollection,
-                        getUserAnnouncementsFromUserCollection: this.getUserAnnouncementsFromUserCollection,
+                        getUserAnnouncementsFromUserCollectionRefresh: this.getUserAnnouncementsFromUserCollectionRefresh,
                         userAnnouncements,
                         // Like announcement
                         announcementSetLike: this.announcementSetLike,
