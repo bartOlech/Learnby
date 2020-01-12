@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { createGlobalStyle } from 'styled-components'
 import StartPage from './components/Start/StartPage';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import CreateAnnouncementSection from './components/Main/CreateAnnouncement/CreateAnnouncementSection';
@@ -26,6 +27,12 @@ import Chatroom from './components/Chat/UserChat/Chatroom';
 // append user data during the registration
 import AppendUserData from './components/Login/SignUp/AppendUserData/AppendUserData';
 
+const GlobalStyle = createGlobalStyle`
+  body, html {
+  height: 100%;
+}
+`
+
 function App() {
 
   const [firebaseInitialized, setFirebaseInitialized] = useState('');
@@ -40,6 +47,7 @@ function App() {
       <Router>
         <CurrentUserProvider>
           <Route>
+            <GlobalStyle/>
             {/* <div>{firebase.getCurrentUser()}</div> */}
             <Route path='/' exact component={StartPage}></Route>
             {/* <Route path='/findPartner/' component={Example}></Route> */}

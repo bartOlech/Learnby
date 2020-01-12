@@ -34,6 +34,7 @@ const Input = styled.input`
     padding-left: 10px;
 `
 const SendButton = styled.div`
+    margin-top: 200px;
     width: 50px;
     height: 50px;
     background-image: url(${sendIco});
@@ -62,6 +63,118 @@ class UserChatBox extends Component{
             createdOn: new Date(),
             isSend: true
           },
+          {
+            id: 1,
+            authorId: 1,
+            message: "Sample message",
+            createdOn: new Date(),
+            isSend: true
+          },
+          {
+            id: 2,
+            authorId: 2,
+            message: "Second sample message",
+            createdOn: new Date(),
+            isSend: true
+          },
+          {
+            id: 1,
+            authorId: 1,
+            message: "Sample message",
+            createdOn: new Date(),
+            isSend: true
+          },
+          {
+            id: 2,
+            authorId: 2,
+            message: "Second sample message",
+            createdOn: new Date(),
+            isSend: true
+          },
+          {
+            id: 1,
+            authorId: 1,
+            message: "Sample message",
+            createdOn: new Date(),
+            isSend: true
+          },
+          {
+            id: 2,
+            authorId: 2,
+            message: "Second sample message",
+            createdOn: new Date(),
+            isSend: true
+          },
+          {
+            id: 1,
+            authorId: 1,
+            message: "Sample message",
+            createdOn: new Date(),
+            isSend: true
+          },
+          {
+            id: 2,
+            authorId: 2,
+            message: "Second sample message",
+            createdOn: new Date(),
+            isSend: true
+          },
+          {
+            id: 1,
+            authorId: 1,
+            message: "Sample message",
+            createdOn: new Date(),
+            isSend: true
+          },
+          {
+            id: 2,
+            authorId: 2,
+            message: "Second sample message",
+            createdOn: new Date(),
+            isSend: true
+          },
+          {
+            id: 1,
+            authorId: 1,
+            message: "Sample message",
+            createdOn: new Date(),
+            isSend: true
+          },
+          {
+            id: 2,
+            authorId: 2,
+            message: "Second sample message",
+            createdOn: new Date(),
+            isSend: true
+          },
+          {
+            id: 1,
+            authorId: 1,
+            message: "Sample message",
+            createdOn: new Date(),
+            isSend: true
+          },
+          {
+            id: 2,
+            authorId: 2,
+            message: "Second sample message",
+            createdOn: new Date(),
+            isSend: true
+          },
+          {
+            id: 1,
+            authorId: 1,
+            message: "Sample message",
+            createdOn: new Date(),
+            isSend: true
+          },
+          {
+            id: 2,
+            authorId: 2,
+            message: "last",
+            createdOn: new Date(),
+            isSend: true
+          },
         ],
         authors: [
           {
@@ -81,7 +194,6 @@ class UserChatBox extends Component{
         ]
       };
 
-      
 
     render() {
         const { isExecuted } = this.state;
@@ -108,12 +220,13 @@ class UserChatBox extends Component{
                                 name=''
                             ></Header>
                         )}
-                        
                         <ChatFeed
                             messages={this.state.messages} // Array: list of message objects
                             authors={this.state.authors} // Array: list of authors
                             yourAuthorId={2} // Number: Your author id (corresponds with id from list of authors)
-                        />
+                            // maxHeight='140vw'
+                            style={{position: 'absolute', top: '100px', bottom: '50px', width: '100%'}}
+                        />  
                         <Form>
                             <FormBox>
                                 <Input placeholder='Napisz wiadomość...'>      
