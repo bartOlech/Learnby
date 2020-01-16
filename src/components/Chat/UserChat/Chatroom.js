@@ -6,6 +6,7 @@ import Header from './Header';
 import { FontStyle } from '../../../assets/style/style';
 // import smileIco from '../../../assets/img/Mobile/smile.svg';
 import sendIco from '../../../assets/img/Mobile/sendMessage1.svg';
+import firebase from '../../../Firebase.config';
  
 const Container = styled.div`
 
@@ -48,6 +49,8 @@ const SendButton = styled.div`
 class UserChatBox extends Component{
     state = {
         isExecuted: false,
+        messageInputValue: '',
+        
         messages: [
           {
             id: 1,
@@ -61,119 +64,7 @@ class UserChatBox extends Component{
             authorId: 2,
             message: "Second sample message",
             createdOn: new Date(),
-            isSend: true
-          },
-          {
-            id: 1,
-            authorId: 1,
-            message: "Sample message",
-            createdOn: new Date(),
-            isSend: true
-          },
-          {
-            id: 2,
-            authorId: 2,
-            message: "Second sample message",
-            createdOn: new Date(),
-            isSend: true
-          },
-          {
-            id: 1,
-            authorId: 1,
-            message: "Sample message",
-            createdOn: new Date(),
-            isSend: true
-          },
-          {
-            id: 2,
-            authorId: 2,
-            message: "Second sample message",
-            createdOn: new Date(),
-            isSend: true
-          },
-          {
-            id: 1,
-            authorId: 1,
-            message: "Sample message",
-            createdOn: new Date(),
-            isSend: true
-          },
-          {
-            id: 2,
-            authorId: 2,
-            message: "Second sample message",
-            createdOn: new Date(),
-            isSend: true
-          },
-          {
-            id: 1,
-            authorId: 1,
-            message: "Sample message",
-            createdOn: new Date(),
-            isSend: true
-          },
-          {
-            id: 2,
-            authorId: 2,
-            message: "Second sample message",
-            createdOn: new Date(),
-            isSend: true
-          },
-          {
-            id: 1,
-            authorId: 1,
-            message: "Sample message",
-            createdOn: new Date(),
-            isSend: true
-          },
-          {
-            id: 2,
-            authorId: 2,
-            message: "Second sample message",
-            createdOn: new Date(),
-            isSend: true
-          },
-          {
-            id: 1,
-            authorId: 1,
-            message: "Sample message",
-            createdOn: new Date(),
-            isSend: true
-          },
-          {
-            id: 2,
-            authorId: 2,
-            message: "Second sample message",
-            createdOn: new Date(),
-            isSend: true
-          },
-          {
-            id: 1,
-            authorId: 1,
-            message: "Sample message",
-            createdOn: new Date(),
-            isSend: true
-          },
-          {
-            id: 2,
-            authorId: 2,
-            message: "Second sample message",
-            createdOn: new Date(),
-            isSend: true
-          },
-          {
-            id: 1,
-            authorId: 1,
-            message: "Sample message",
-            createdOn: new Date(),
-            isSend: true
-          },
-          {
-            id: 2,
-            authorId: 2,
-            message: "last",
-            createdOn: new Date(),
-            isSend: true
+            isSend: false
           },
         ],
         authors: [
@@ -181,22 +72,66 @@ class UserChatBox extends Component{
             id: 1,
             name: 'Mark',
             isTyping: true,
-            lastSeenMessageId: 1,
+            // lastSeenMessageId: 1,
             bgImageUrl: undefined
           },
           {
             id: 2,
             name: 'Peter',
             isTyping: false,
-            lastSeenMessageId: 2,
+            // lastSeenMessageId: 2,
             bgImageUrl: undefined
           }
         ]
       };
 
+    componentDidMount () {
+      firebase.isInitialized().then(() => {
+        firebase.getDataFromFirestore('user').doc(firebase.getCurrentUid()).get().then(doc => {
+
+          // console.log(doc.data().messages)
+          let message = []
+          let authors = []
+
+          for(let[key, value] of Object.entries(doc.data().messages)) {
+            message.push(value.message)
+            authors.push(value.authors)
+          }
+          this.setState({
+            messages: message,
+            authors
+          })
+         
+        })
+      })
+    }
+
+    handleSendMessage = (val) => {
+      this.setState({
+        messageInputValue: val.target.value
+      })
+
+    }
+
+    sendMessage = () => {
+      const{ messageInputValue } = this.state;
+
+      this.setState({
+        messageInputValue: ''
+      })
+      console.log(messageInputValue)
+    }
+
+    handleKeyDown = (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault()
+        this.sendMessage()
+      }
+    }
+
 
     render() {
-        const { isExecuted } = this.state;
+        const { isExecuted, messageInputValue } = this.state;
 
         return (
             <FindAnnouncementConsumer>
@@ -208,7 +143,6 @@ class UserChatBox extends Component{
                                 isExecuted: true
                             })
                         ) : null}
-                        {console.log(userDataFromUserCollection)}
                         {userDataFromUserCollection.Name !== undefined ? (
                             <Header 
                                 image={userDataFromUserCollection.PhotoUrl}
@@ -229,10 +163,15 @@ class UserChatBox extends Component{
                         />  
                         <Form>
                             <FormBox>
-                                <Input placeholder='Napisz wiadomość...'>      
+                                <Input 
+                                  placeholder='Napisz wiadomość...'
+                                  value={messageInputValue}
+                                  onChange={this.handleSendMessage}
+                                  onKeyDown={this.handleKeyDown}
+                                  >      
                                 </Input>
                                 {/* <SmileButton></SmileButton> */}
-                                <SendButton></SendButton>
+                                <SendButton onClick={this.sendMessage}></SendButton>
                             </FormBox>
                         </Form>
                     </Container>
