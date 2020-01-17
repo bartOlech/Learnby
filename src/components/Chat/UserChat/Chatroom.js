@@ -7,6 +7,7 @@ import { FontStyle } from '../../../assets/style/style';
 // import smileIco from '../../../assets/img/Mobile/smile.svg';
 import sendIco from '../../../assets/img/Mobile/sendMessage1.svg';
 import firebase from '../../../Firebase.config';
+import SecondsToDate from './SecondsToDate';
  
 const Container = styled.div`
 
@@ -87,21 +88,50 @@ class UserChatBox extends Component{
 
     componentDidMount () {
       firebase.isInitialized().then(() => {
-        firebase.getDataFromFirestore('user').doc(firebase.getCurrentUid()).get().then(doc => {
 
-          // console.log(doc.data().messages)
+        // get the user messages
+        firebase.getDataFromFirestore('user').doc(firebase.getCurrentUid()).get().then(doc => {
           let message = []
           let authors = []
 
           for(let[key, value] of Object.entries(doc.data().messages)) {
-            message.push(value.message)
+            for(let[key, value] of Object.entries(value.message)) {
+              const date = {createdOn: SecondsToDate(value.date.seconds)}
+
+              let id = {authorId: 2}
+              let messagesObject = {...value, ...id, ...date} 
+              
+              message.push(messagesObject)
+            }
             authors.push(value.authors)
           }
           this.setState({
-            messages: message,
-            authors
+            messages: message
           })
-         
+        }).then(() => {
+
+          // get the interlocutor messages
+          firebase.getDataFromFirestore('user').doc(this.props.match.params.id).get().then(doc => {
+
+            let message = this.state.messages
+            let authors = []
+
+            for(let[key, value] of Object.entries(doc.data().messages)) {
+              for(let[key, value] of Object.entries(value.message)) {
+                const date = {createdOn: SecondsToDate(value.date.seconds)}
+
+                let id = {authorId: 1}
+                let messagesObject = {...value, ...id, ...date} 
+                
+                message.push(messagesObject)
+              }
+              authors.push(value.authors)
+            }
+            this.setState({
+              messages: message,
+            })
+            console.log(this.state.messages)
+          })
         })
       })
     }
