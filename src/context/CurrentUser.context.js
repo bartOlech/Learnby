@@ -439,7 +439,7 @@ export class CurrentUserProvider extends Component {
                     MessagesId: objectToUpdate
                 })
 
-                // save to interlocutor
+                // save to interlocutor document(in the firestore)
                 firebase.getDataFromFirestore('user').doc(interlocutorId).get().then(doc => {
                     const currentObject = doc.data().MessagesId;
 
@@ -453,7 +453,7 @@ export class CurrentUserProvider extends Component {
                     })
                 })
             } else {
-                console.log('exist')
+                console.log('exists')
             }
         })
     }

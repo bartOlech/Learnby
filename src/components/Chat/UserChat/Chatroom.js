@@ -89,30 +89,38 @@ class UserChatBox extends Component{
 
     componentDidMount () {
       firebase.isInitialized().then(() => {
-
-        // get the user messages
-        firebase.getDataFromFirestore('Messages').doc(`${this.props.match.params.id}_${firebase.getCurrentUid()}`).get().then(doc => {
+        // get user message
+        firebase.getDataFromFirestore('user').doc(firebase.getCurrentUid()).get().then(doc => {
+          const userId = this.props.match.params.id
           let message = []
-          if(doc.data() !== undefined) {
-              for(let[key, value] of Object.entries(doc.data().messages)) {
-                const date = {createdOn: SecondsToDate(value.date.seconds)}
-                let id = {}
 
-                // adjust authorId
-                value.authorId === this.props.match.params.id ? (
-                  id = {authorId: 1}
-                ) : (
-                  id = {authorId: 2}
-                )
-
-                let messagesObject = {...value, ...id, ...date} 
-                message.push(messagesObject)
-              // authors.push(value.authors)
+          for(let[key, value] of Object.entries(doc.data().MessagesId)) {
+            if(key === userId) {
+              firebase.getDataFromFirestore('Messages').doc(value).get().then(doc => {
+                if(doc.exists) {
+                  for(let[key, value] of Object.entries(doc.data().messages)) {
+                    const date = {createdOn: SecondsToDate(value.date.seconds)}
+                    let id = {}
+    
+                    // adjust authorId
+                    value.authorId === this.props.match.params.id ? (
+                      id = {authorId: 1}
+                    ) : (
+                      id = {authorId: 2}
+                    )
+    
+                    let messagesObject = {...value, ...id, ...date} 
+                    message.push(messagesObject)
+                  // authors.push(value.authors)
+                  }
+                  this.setState({
+                    messages: message
+                  })
+                }
+              })
             }
-            this.setState({
-              messages: message
-            })
           }
+
         })
       })
     }
@@ -126,39 +134,75 @@ class UserChatBox extends Component{
 
     sendMessage = () => {
       const{ messageInputValue } = this.state;
+      const userId = this.props.match.params.id
       const uniqueKey = uniqid()
 
       firebase.getDataFromFirestore('user').doc(firebase.getCurrentUid()).get().then(doc => {
-        
-      })
-      
-      if(messageInputValue.length > 0) {
-        firebase.getDataFromFirestore('Messages').doc(`${this.props.match.params.id}_${firebase.getCurrentUid()}`).get().then(doc => {
-          let messagesFromFirestore = doc.data().messages;
-  
-          const newMessage = {
-            authorId: firebase.getCurrentUid(),
-            date: new Date(),
-            message: messageInputValue
-          }
-          // assing new object with key
-          const map = new Map();
-          map.set(uniqueKey, newMessage)
-  
-          const objectWithKey = Object.fromEntries(map);
-          const mergerObject = Object.assign(messagesFromFirestore, objectWithKey)
+        for(let[key, value] of Object.entries(doc.data().MessagesId)) {
+          if(key === userId) {
+            firebase.getDataFromFirestore('Messages').doc(value).get().then(doc => {
+              
+              const objectMessage = {         // new message to firestore
+                authorId: firebase.getCurrentUid(),
+                date: new Date(),
+                message: messageInputValue
+              }
+              if(doc.exists) {
+                // update document in firestore
+                const messagesFromFirestore = doc.data().messages
+                const map = new Map();
+                map.set(uniqueKey, objectMessage)
+                const mapToObject = Object.fromEntries(map)
 
-          // send message to firestore
-          firebase.sendDataToFirestore('Messages').doc(`${this.props.match.params.id}_${firebase.getCurrentUid()}`).set({
-            messages: mergerObject
-          })
-        }).then(() => console.log('the message has been sended'))
-  
+                const mergeObject = Object.assign(messagesFromFirestore, mapToObject)
+
+                firebase.sendDataToFirestore('Messages').doc(value).update({
+                  messages: mergeObject
+                })
+              
+              } else {
+                // create a new document in firestore
+                const map = new Map();
+                map.set(uniqueKey, objectMessage)
+
+                const mapToObject = Object.fromEntries(map)
+                firebase.sendDataToFirestore('Messages').doc(value).set({
+                  messages: mapToObject
+                })
+              }
+            })
+          }
+        }
         // clear message field
         this.setState({
           messageInputValue: ''
         })
-      }
+      })
+      
+      // if(messageInputValue.length > 0) {
+      //   firebase.getDataFromFirestore('Messages').doc(`${this.props.match.params.id}_${firebase.getCurrentUid()}`).get().then(doc => {
+      //     let messagesFromFirestore = doc.data().messages;
+  
+      //     const newMessage = {
+      //       authorId: firebase.getCurrentUid(),
+      //       date: new Date(),
+      //       message: messageInputValue
+      //     }
+      //     // assing new object with key
+      //     const map = new Map();
+      //     map.set(uniqueKey, newMessage)
+  
+      //     const objectWithKey = Object.fromEntries(map);
+      //     const mergerObject = Object.assign(messagesFromFirestore, objectWithKey)
+
+      //     // send message to firestore
+      //     firebase.sendDataToFirestore('Messages').doc(`${this.props.match.params.id}_${firebase.getCurrentUid()}`).set({
+      //       messages: mergerObject
+      //     })
+      //   }).then(() => console.log('the message has been sended'))
+  
+      
+      // }
     }
 
     handleKeyDown = (e) => {
