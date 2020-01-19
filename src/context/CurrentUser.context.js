@@ -421,6 +421,43 @@ export class CurrentUserProvider extends Component {
           }
     }
 
+    // create users chatRoom if doesn't exists
+    createUserChatRoom = (interlocutorId) => {
+        firebase.getDataFromFirestore('user').doc(firebase.getCurrentUid()).get().then(doc => {
+            const uniqueKey = uniqid()
+            // console.log(interlocutorId)
+
+            if(!doc.data().MessagesId.hasOwnProperty(interlocutorId)) {
+                const currentObject = doc.data().MessagesId;
+
+                const newElement = new Map();
+                newElement.set(interlocutorId, uniqueKey)
+                const mapToObject = Object.fromEntries(newElement)
+
+                const objectToUpdate = Object.assign(currentObject, mapToObject)
+                firebase.getDataFromFirestore('user').doc(firebase.getCurrentUid()).update({
+                    MessagesId: objectToUpdate
+                })
+
+                // save to interlocutor
+                firebase.getDataFromFirestore('user').doc(interlocutorId).get().then(doc => {
+                    const currentObject = doc.data().MessagesId;
+
+                    const newElement = new Map();
+                    newElement.set(firebase.getCurrentUid(), uniqueKey)
+                    const mapToObject = Object.fromEntries(newElement)
+
+                    const objectToUpdate = Object.assign(currentObject, mapToObject)
+                    firebase.getDataFromFirestore('user').doc(interlocutorId).update({
+                        MessagesId: objectToUpdate
+                    })
+                })
+            } else {
+                console.log('exist')
+            }
+        })
+    }
+
     render() {
         const { children } = this.props;
         const { 
@@ -470,7 +507,8 @@ export class CurrentUserProvider extends Component {
                         announcementSetLike: this.announcementSetLike,
                         searchKeyword: this.searchKeyword,
                         announcementList,
-                        randomAnnouncement
+                        randomAnnouncement,
+                        createUserChatRoom: this.createUserChatRoom
                     }}
                 >
                     {children}

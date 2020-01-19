@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import MessageIco from '../../../../../../assets/img/Mobile/chat.svg';
 import { BrowserRouter as Router, Link, useParams } from 'react-router-dom';
+import { FindAnnouncementConsumer } from '../../../../../../context/CurrentUser.context';
 
 const Container = styled.div`
 
@@ -30,13 +31,17 @@ const MessageButton = () => {
     let { id }  = useParams();
 
     return (
-        <Container>
-            <Link to={{pathname: `/chat/${id}`}}>
-                <Box>
-                <Ico></Ico>
-                </Box>
-            </Link>
-        </Container>
+        <FindAnnouncementConsumer>
+            {({ createUserChatRoom }) => (
+                <Container>
+                    <Link to={{pathname: `/chat/${id}`}}>
+                        <Box onClick={() => createUserChatRoom(id)}>
+                        <Ico></Ico>
+                        </Box>
+                    </Link>
+                </Container>
+            )}
+        </FindAnnouncementConsumer>
     )
 }
 

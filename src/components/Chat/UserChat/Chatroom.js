@@ -8,6 +8,7 @@ import { FontStyle } from '../../../assets/style/style';
 import sendIco from '../../../assets/img/Mobile/sendMessage1.svg';
 import firebase from '../../../Firebase.config';
 import SecondsToDate from './SecondsToDate';
+import uniqid from 'uniqid';
  
 const Container = styled.div`
 
@@ -90,48 +91,28 @@ class UserChatBox extends Component{
       firebase.isInitialized().then(() => {
 
         // get the user messages
-        firebase.getDataFromFirestore('user').doc(firebase.getCurrentUid()).get().then(doc => {
+        firebase.getDataFromFirestore('Messages').doc(`${this.props.match.params.id}_${firebase.getCurrentUid()}`).get().then(doc => {
           let message = []
-          let authors = []
-
-          for(let[key, value] of Object.entries(doc.data().messages)) {
-            for(let[key, value] of Object.entries(value.message)) {
-              const date = {createdOn: SecondsToDate(value.date.seconds)}
-
-              let id = {authorId: 2}
-              let messagesObject = {...value, ...id, ...date} 
-              
-              message.push(messagesObject)
-            }
-            authors.push(value.authors)
-          }
-          this.setState({
-            messages: message
-          })
-        }).then(() => {
-
-          // get the interlocutor messages
-          firebase.getDataFromFirestore('user').doc(this.props.match.params.id).get().then(doc => {
-
-            let message = this.state.messages
-            let authors = []
-
-            for(let[key, value] of Object.entries(doc.data().messages)) {
-              for(let[key, value] of Object.entries(value.message)) {
+          if(doc.data() !== undefined) {
+              for(let[key, value] of Object.entries(doc.data().messages)) {
                 const date = {createdOn: SecondsToDate(value.date.seconds)}
+                let id = {}
 
-                let id = {authorId: 1}
+                // adjust authorId
+                value.authorId === this.props.match.params.id ? (
+                  id = {authorId: 1}
+                ) : (
+                  id = {authorId: 2}
+                )
+
                 let messagesObject = {...value, ...id, ...date} 
-                
                 message.push(messagesObject)
-              }
-              authors.push(value.authors)
+              // authors.push(value.authors)
             }
             this.setState({
-              messages: message,
+              messages: message
             })
-            console.log(this.state.messages)
-          })
+          }
         })
       })
     }
@@ -145,11 +126,39 @@ class UserChatBox extends Component{
 
     sendMessage = () => {
       const{ messageInputValue } = this.state;
+      const uniqueKey = uniqid()
 
-      this.setState({
-        messageInputValue: ''
+      firebase.getDataFromFirestore('user').doc(firebase.getCurrentUid()).get().then(doc => {
+        
       })
-      console.log(messageInputValue)
+      
+      if(messageInputValue.length > 0) {
+        firebase.getDataFromFirestore('Messages').doc(`${this.props.match.params.id}_${firebase.getCurrentUid()}`).get().then(doc => {
+          let messagesFromFirestore = doc.data().messages;
+  
+          const newMessage = {
+            authorId: firebase.getCurrentUid(),
+            date: new Date(),
+            message: messageInputValue
+          }
+          // assing new object with key
+          const map = new Map();
+          map.set(uniqueKey, newMessage)
+  
+          const objectWithKey = Object.fromEntries(map);
+          const mergerObject = Object.assign(messagesFromFirestore, objectWithKey)
+
+          // send message to firestore
+          firebase.sendDataToFirestore('Messages').doc(`${this.props.match.params.id}_${firebase.getCurrentUid()}`).set({
+            messages: mergerObject
+          })
+        }).then(() => console.log('the message has been sended'))
+  
+        // clear message field
+        this.setState({
+          messageInputValue: ''
+        })
+      }
     }
 
     handleKeyDown = (e) => {
