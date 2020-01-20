@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontStyle } from '../../../../../../assets/style/style';
 import { BrowserRouter as Router, Link, useParams } from 'react-router-dom';
+import { FindAnnouncementConsumer } from '../../../../../../context/CurrentUser.context';
 
 const Button = styled.button`
     width: 275px;
@@ -20,7 +21,11 @@ const GetContact = () => {
     let { id }  = useParams();
 
     return (
-        <Link to={{pathname: `/chat/${id}`}}><Button>Nawiąż kontakt</Button></Link>
+        <FindAnnouncementConsumer>
+            {({ createUserChatRoom }) => (
+                <Link onClick={createUserChatRoom} to={{pathname: `/chat/${id}`}}><Button>Nawiąż kontakt</Button></Link>
+            )}
+        </FindAnnouncementConsumer>
     )
 }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontStyle } from '../../../../../assets/style/style';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { FindAnnouncementConsumer } from '../../../../../context/CurrentUser.context';
 
 const Container = styled.div`
     width: 100%;
@@ -27,9 +28,13 @@ const Button = styled.button`
 
 const MakeContactButton = (props) => {
     return (
-        <Container>
-            <Link to={{pathname: `/chat/${props.selectedAnnouncementData[0].AnnouncementCreator.UserId}`}}><Button>Nawiąż kontakt</Button></Link>
-        </Container>
+        <FindAnnouncementConsumer>
+            {({ createUserChatRoom }) => (
+                <Container>
+                    <Link onClick={createUserChatRoom} to={{pathname: `/chat/${props.selectedAnnouncementData[0].AnnouncementCreator.UserId}`}}><Button>Nawiąż kontakt</Button></Link>
+                </Container>
+            )}
+        </FindAnnouncementConsumer>
     )
 }
 

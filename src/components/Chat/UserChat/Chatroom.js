@@ -54,41 +54,35 @@ class UserChatBox extends Component{
         messageInputValue: '',
         
         messages: [
-          {
-            id: 1,
-            authorId: 1,
-            message: "Sample message",
-            createdOn: new Date(),
-            isSend: true
-          },
-          {
-            id: 2,
-            authorId: 2,
-            message: "Second sample message",
-            createdOn: new Date(),
-            isSend: false
-          },
-        ],
-        authors: [
-          {
-            id: 1,
-            name: 'Mark',
-            isTyping: true,
-            // lastSeenMessageId: 1,
-            bgImageUrl: undefined
-          },
-          {
-            id: 2,
-            name: 'Peter',
-            isTyping: false,
-            // lastSeenMessageId: 2,
-            bgImageUrl: undefined
-          }
+          
         ]
+        // authors: [
+        //   {
+        //     id: 1,
+        //     name: 'Mark',
+        //     isTyping: true,
+        //     // lastSeenMessageId: 1,
+        //     bgImageUrl: undefined
+        //   },
+        //   {
+        //     id: 2,
+        //     name: 'Peter',
+        //     isTyping: false,
+        //     // lastSeenMessageId: 2,
+        //     bgImageUrl: undefined
+        //   }
+        // ]
       };
 
     componentDidMount () {
       firebase.isInitialized().then(() => {
+        // get realtime firebase 
+        firebase.getRealtimeData('Messages').onSnapshot(querySnapshot => {
+          querySnapshot.forEach((doc) => {
+            console.log("Docs data: ", doc.data().messages);
+          })
+        })
+
         // get user message
         firebase.getDataFromFirestore('user').doc(firebase.getCurrentUid()).get().then(doc => {
           const userId = this.props.match.params.id
@@ -178,31 +172,6 @@ class UserChatBox extends Component{
           messageInputValue: ''
         })
       })
-      
-      // if(messageInputValue.length > 0) {
-      //   firebase.getDataFromFirestore('Messages').doc(`${this.props.match.params.id}_${firebase.getCurrentUid()}`).get().then(doc => {
-      //     let messagesFromFirestore = doc.data().messages;
-  
-      //     const newMessage = {
-      //       authorId: firebase.getCurrentUid(),
-      //       date: new Date(),
-      //       message: messageInputValue
-      //     }
-      //     // assing new object with key
-      //     const map = new Map();
-      //     map.set(uniqueKey, newMessage)
-  
-      //     const objectWithKey = Object.fromEntries(map);
-      //     const mergerObject = Object.assign(messagesFromFirestore, objectWithKey)
-
-      //     // send message to firestore
-      //     firebase.sendDataToFirestore('Messages').doc(`${this.props.match.params.id}_${firebase.getCurrentUid()}`).set({
-      //       messages: mergerObject
-      //     })
-      //   }).then(() => console.log('the message has been sended'))
-  
-      
-      // }
     }
 
     handleKeyDown = (e) => {

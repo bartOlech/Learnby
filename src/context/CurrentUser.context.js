@@ -425,7 +425,6 @@ export class CurrentUserProvider extends Component {
     createUserChatRoom = (interlocutorId) => {
         firebase.getDataFromFirestore('user').doc(firebase.getCurrentUid()).get().then(doc => {
             const uniqueKey = uniqid()
-            // console.log(interlocutorId)
 
             if(!doc.data().MessagesId.hasOwnProperty(interlocutorId)) {
                 const currentObject = doc.data().MessagesId;
