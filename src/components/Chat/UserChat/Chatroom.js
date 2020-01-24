@@ -9,6 +9,7 @@ import sendIco from '../../../assets/img/Mobile/sendMessage1.svg';
 import firebase from '../../../Firebase.config';
 import SecondsToDate from './SecondsToDate';
 import uniqid from 'uniqid';
+import _ from 'lodash';
  
 const Container = styled.div`
 
@@ -51,61 +52,43 @@ const SendButton = styled.div`
 class UserChatBox extends Component{
     state = {
         isExecuted: false,
+        messageKeys: [],
         messageInputValue: '',
         
         messages: [
           
         ]
-        // authors: [
-        //   {
-        //     id: 1,
-        //     name: 'Mark',
-        //     isTyping: true,
-        //     // lastSeenMessageId: 1,
-        //     bgImageUrl: undefined
-        //   },
-        //   {
-        //     id: 2,
-        //     name: 'Peter',
-        //     isTyping: false,
-        //     // lastSeenMessageId: 2,
-        //     bgImageUrl: undefined
-        //   }
-        // ]
       };
 
     componentDidMount () {
       firebase.isInitialized().then(() => {
         // get realtime firebase 
-        firebase.getRealtimeData('Messages').onSnapshot(querySnapshot => {
-          querySnapshot.forEach((doc) => {
-            console.log("Docs data: ", doc.data().messages);
-          })
-        })
-
-        // get user message
         firebase.getDataFromFirestore('user').doc(firebase.getCurrentUid()).get().then(doc => {
           const userId = this.props.match.params.id
+          const{ messageKeys } = this.state;
           let message = []
 
           for(let[key, value] of Object.entries(doc.data().MessagesId)) {
             if(key === userId) {
-              firebase.getDataFromFirestore('Messages').doc(value).get().then(doc => {
-                if(doc.exists) {
-                  for(let[key, value] of Object.entries(doc.data().messages)) {
+              firebase.getDataFromFirestore('Messages').doc(value).onSnapshot(querySnapshot => {
+                // console.log(doc)
+                if(querySnapshot.exists) {
+                  for(let[key, value] of Object.entries(querySnapshot.data().messages)) {
                     const date = {createdOn: SecondsToDate(value.date.seconds)}
                     let id = {}
-    
-                    // adjust authorId
-                    value.authorId === this.props.match.params.id ? (
-                      id = {authorId: 1}
-                    ) : (
-                      id = {authorId: 2}
-                    )
-    
-                    let messagesObject = {...value, ...id, ...date} 
-                    message.push(messagesObject)
-                  // authors.push(value.authors)
+
+                    if(!messageKeys.includes(key)){
+                      // adjust authorId
+                      value.authorId === this.props.match.params.id ? (
+                        id = {authorId: 1}
+                      ) : (
+                        id = {authorId: 2}
+                      )
+
+                      let messagesObject = {...value, ...id, ...date} 
+                      message.push(messagesObject)
+                      messageKeys.push(key)
+                    }
                   }
                   this.setState({
                     messages: message
