@@ -9,7 +9,6 @@ import sendIco from '../../../assets/img/Mobile/sendMessage1.svg';
 import firebase from '../../../Firebase.config';
 import SecondsToDate from './SecondsToDate';
 import uniqid from 'uniqid';
-import _ from 'lodash';
  
 const Container = styled.div`
 
@@ -87,10 +86,13 @@ class UserChatBox extends Component{
                       let messagesObject = {...value, ...id, ...date} 
                       message.push(messagesObject)
                       messageKeys.push(key)
+                      
                     }
                   }
                   this.setState({
                     messages: message
+                  }, () => {
+                    this.chat && this.chat.onMessageSend()
                   })
                 }
               })
@@ -145,11 +147,8 @@ class UserChatBox extends Component{
                 firebase.sendDataToFirestore('Messages').doc(value).set({
                   messages: mapToObject
                 })
-              }
-            })
-            this.setState({
-              messages: this.state.messages
-            })
+              }           
+            })       
           }
         }
         // clear message field
@@ -165,7 +164,6 @@ class UserChatBox extends Component{
         this.sendMessage()
       }
     }
-
 
     render() {
         const { isExecuted, messageInputValue } = this.state;
@@ -193,13 +191,17 @@ class UserChatBox extends Component{
                             ></Header>
                         )}
                         <ChatFeed
+                            ref={e => this.chat = e}
                             messages={this.state.messages} // Array: list of message objects
                             authors={this.state.authors} // Array: list of authors
                             yourAuthorId={2} // Number: Your author id (corresponds with id from list of authors)
                             // maxHeight='140vw'
                             style={{position: 'absolute', top: '100px', bottom: '50px', width: '100%'}}
+                            
                         />  
+                       
                         <Form>
+                          
                             <FormBox>
                                 <Input 
                                   placeholder='Napisz wiadomość...'
