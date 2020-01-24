@@ -19,6 +19,7 @@ const StartButton = styled.button`
     cursor: pointer;
     outline: none;
     margin-top: 40px;
+    margin-top: 20px;
 `
 
 const Button = (props) => {
@@ -39,9 +40,11 @@ const Button = (props) => {
                 Announcements: {},
                 Email: firebase.getCurrentUserAllData().email,
                 Name: props.nameVal,
-                photoUrl: 'https://lh4.googleusercontent.com/-XlbJc4pbXew/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rfE4ATokRPUHPEPsU0eS4_CEkqmZw/photo.jpg',
+                Description: props.descriptionVal,
+                PhotoUrl: 'https://lh4.googleusercontent.com/-XlbJc4pbXew/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rfE4ATokRPUHPEPsU0eS4_CEkqmZw/photo.jpg',
                 Uid: firebase.getCurrentUid(),
-                type: 'normal'
+                type: 'normal',
+                MessagesId: {}
             }).then(() => history.push("/"))
         }
     }

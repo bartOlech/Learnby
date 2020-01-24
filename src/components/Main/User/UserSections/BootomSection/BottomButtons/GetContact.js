@@ -23,7 +23,10 @@ const GetContact = () => {
     return (
         <FindAnnouncementConsumer>
             {({ createUserChatRoom }) => (
-                <Link onClick={createUserChatRoom} to={{pathname: `/chat/${id}`}}><Button>Nawiąż kontakt</Button></Link>
+                <Link onClick={() => {
+                    createUserChatRoom(id)
+                }
+                } to={{pathname: `/chat/${id}`}}><Button>Nawiąż kontakt</Button></Link>
             )}
         </FindAnnouncementConsumer>
     )

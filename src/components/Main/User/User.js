@@ -37,10 +37,10 @@ const User = () => {
                         <React.Fragment>
                             <Header background={`url(${WavyBackground}) no-repeat `}></Header>
                             <UpperSection 
-                                photo={`${firebase.getCurrentUserAllData().photoURL}?type=normal`}
+                                photo={userDataFromUserCollection.PhotoUrl}
                                 name={userDataFromUserCollection.Name}
                                 age={userDataFromUserCollection.Age}
-                                description='Jestem studentem Akademi Górniczo-Hutniczej w Krakowie.  Od roku uczę się języka niemieckiego'
+                                description={userDataFromUserCollection.Description ? userDataFromUserCollection.Description : 'Konto social, dodać funkcje, która tworzy opis'}
                                 place={userDataFromUserCollection.Place}
                                 sex={userDataFromUserCollection.Sex}
                             ></UpperSection>

@@ -29,9 +29,11 @@ const Button = styled.button`
 const MakeContactButton = (props) => {
     return (
         <FindAnnouncementConsumer>
-            {({ createUserChatRoom }) => (
+            {({ createUserChatRoom, selectedAnnouncementData }) => (
                 <Container>
-                    <Link onClick={createUserChatRoom} to={{pathname: `/chat/${props.selectedAnnouncementData[0].AnnouncementCreator.UserId}`}}><Button>Nawiąż kontakt</Button></Link>
+                    <Link onClick={() => {
+                        createUserChatRoom(selectedAnnouncementData[0].AnnouncementCreator.UserId)
+                    }} to={{pathname: `/chat/${props.selectedAnnouncementData[0].AnnouncementCreator.UserId}`}}><Button>Nawiąż kontakt</Button></Link>
                 </Container>
             )}
         </FindAnnouncementConsumer>

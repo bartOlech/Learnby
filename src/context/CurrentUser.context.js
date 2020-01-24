@@ -81,7 +81,8 @@ export class CurrentUserProvider extends Component {
                         PhotoUrl: photo,
                         Uid: firebase.getCurrentUid(),
                         Announcements: {},
-                        AnnouncementLikes: []
+                        AnnouncementLikes: [],
+                        MessagesId: {}
                     })
                 }
             })
@@ -106,7 +107,8 @@ export class CurrentUserProvider extends Component {
                         PhotoUrl: photo,
                         Uid: firebase.getCurrentUid(),
                         Announcements: {},
-                        AnnouncementLikes: []
+                        AnnouncementLikes: [],
+                        MessagesId: {}
                     })
                 }
             })
@@ -430,6 +432,7 @@ export class CurrentUserProvider extends Component {
                 const currentObject = doc.data().MessagesId;
 
                 const newElement = new Map();
+                
                 newElement.set(interlocutorId, uniqueKey)
                 const mapToObject = Object.fromEntries(newElement)
 

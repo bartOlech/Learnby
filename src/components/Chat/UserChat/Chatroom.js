@@ -71,7 +71,6 @@ class UserChatBox extends Component{
           for(let[key, value] of Object.entries(doc.data().MessagesId)) {
             if(key === userId) {
               firebase.getDataFromFirestore('Messages').doc(value).onSnapshot(querySnapshot => {
-                // console.log(doc)
                 if(querySnapshot.exists) {
                   for(let[key, value] of Object.entries(querySnapshot.data().messages)) {
                     const date = {createdOn: SecondsToDate(value.date.seconds)}
@@ -148,6 +147,9 @@ class UserChatBox extends Component{
                 })
               }
             })
+            this.setState({
+              messages: this.state.messages
+            })
           }
         }
         // clear message field
@@ -179,6 +181,7 @@ class UserChatBox extends Component{
                             })
                         ) : null}
                         {userDataFromUserCollection.Name !== undefined ? (
+                          
                             <Header 
                                 image={userDataFromUserCollection.PhotoUrl}
                                 name={userDataFromUserCollection.Name.replace(/ .*/,'')}
