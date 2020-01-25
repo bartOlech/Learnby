@@ -39,6 +39,7 @@ const Header = (props) => {
     const[isHideImage, setIsHideImage] = useState(true)
 
     const clickImage = () => {
+        console.log('ss')
         isHideImage ? setIsHideImage(false) : setIsHideImage(true)
     }
 

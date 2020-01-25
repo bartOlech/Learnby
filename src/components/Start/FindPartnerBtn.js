@@ -30,6 +30,10 @@ const Button = styled.button`
         top: 0;
         left: 0;
         transform: translate(25%, 34%);
+    };
+    @media (min-width: 1000px) {
+        margin: -50px 0 0 -15px;
+        background-color: #3AB397;
     }
 `
 const FindPartnerBtn = () => {

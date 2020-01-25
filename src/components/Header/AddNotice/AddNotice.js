@@ -9,6 +9,14 @@ const Container = styled.div`
     height: 41px;
     margin-top: 17px;
     margin-right: -100px;
+    position: absolute;
+    right: 200px;
+    top: 0;
+    @media (min-width: 1000px) {
+        position: absolute;
+        right: 350px;
+        top: 0;
+    }
 `
 const Box = styled.button`
     width: 152px;
@@ -20,6 +28,9 @@ const Box = styled.button`
     position: relative;
     outline: none;
     cursor: pointer;
+    @media (min-width: 1000px) {
+        background-color: #DD9A76;
+    }
 `
 const Ico = styled.div`
     width: 15px;
