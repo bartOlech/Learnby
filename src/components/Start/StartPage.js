@@ -20,8 +20,7 @@ import BackgroundImgMobile from '../../assets/img/Mobile/main-background-img.svg
 import WaveBckVector from '../../assets/img/wave-bck-mobile-main-page.svg';
 import WavesDesktop from '../../assets/img/Desktop/wavesBck-desktop.svg';
 import PersonIco from '../../assets/img/Desktop/main-page-person-desktop.svg';
-// get window dimensions
-// import useWindowDimensions from '../../context/functions/DetectWindowDimension'
+import SideTextSectionDesktop from './StartLayout/SideTextSectioDesktop/SideTextSectioDesktop';
 
 const Container = styled.div`
     width: 100%;
@@ -98,6 +97,11 @@ const AboutSection = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    @media (min-width: 1000px) {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
 `
 const BackgroundMainImg = styled.div`
     width: 304px;
@@ -105,6 +109,12 @@ const BackgroundMainImg = styled.div`
     background-image: url(${BackgroundImgMobile});
     background-repeat: no-repeat;
     background-size: cover;
+    @media (min-width: 1000px) {
+        margin-top: 100px;
+        width: 404px;
+        height: 290px;
+        background-size: 404px 290px;
+    }
 `
 const AboutMainText = styled.h3`
     font-family: ${FontStyle.family};
@@ -113,6 +123,10 @@ const AboutMainText = styled.h3`
     color: ${FontStyle.color};
     text-align: center;
     margin-top: 50px;
+    @media (min-width: 1000px) {
+        width: 30%;
+        padding-top: 80px;
+    }
 `
 // Desktop styles
 const BackgroundWavesDesktop = styled.div`
@@ -124,7 +138,7 @@ const BackgroundWavesDesktop = styled.div`
     position: absolute;
 `
 const CompanyNameDesktop = styled.h1`
-    font-family: ${FontStyle.family};
+    
     font-size: 3.5em;
     font-weight: 600;
     color: #3AB397;
@@ -143,17 +157,25 @@ const VectorPersonImage = styled.div`
     bottom: 0;
     right: 0;
 `
-
+const AuthorText = styled.span`
+    font-family: ${FontStyle.family};
+    color: ${FontStyle.color};
+    font-size: 1.1em;
+    padding-top: 20px;
+    font-weight: 200;
+`
 const StartPage = () => {
     // const { height, width } = useWindowDimensions();
 
     return (
         <Container>
+                {/* Phone */}
                 <Media query="(max-width: 1000px)" render={() =>
                     (
                         <Header background='#DEF3EB'></Header>
                     )}
                 />
+                {/* Desktop */}
                 <Media query="(min-width: 1000px)" render={() =>
                     (
                         <React.Fragment>
@@ -165,11 +187,13 @@ const StartPage = () => {
                     )}
                 />
                 <Main>
+                    {/* Phone */}
                     <Media query="(max-width: 1000px)" render={() =>
                         (
                             <MainText>Szukasz partnera do nauki?<br></br>Załóż konto juz teraz!</MainText>
                         )}
                     />
+                    {/* Desktop */}
                     <Media query="(min-width: 1000px)" render={() =>
                         (
                             <CompanyNameDesktop>Uczmy się razem </CompanyNameDesktop> 
@@ -187,13 +211,48 @@ const StartPage = () => {
                     )}
                 />
                 <LearnMoreBtn></LearnMoreBtn>
-            <AboutSection>
-                <BackgroundMainImg></BackgroundMainImg>
-                <AboutMainText>
-                    Nauka samemu często nie jest ciekawa, przez co twoja efektywność i zapał może szybko wygasnąć
-                </AboutMainText>
-            </AboutSection>
-            <SideTextSection></SideTextSection>
+                {/* Desktop */}
+                <Media query="(min-width: 1000px)" render={() =>
+                    (
+                        <AboutSection>              
+                            <AboutMainText>
+                                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                                    "Nie mogłam znaleźć nikogo kto podzielałby wraz ze mną te same pasję. Ta platforma jest rozwiązaniem"
+                                    <AuthorText>Weronika</AuthorText>
+                                </div>
+                            </AboutMainText>
+                            <BackgroundMainImg></BackgroundMainImg>
+                            <AboutMainText>
+                                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                                    "Fajny pomysł. Na pewno wykorzystam platformę do poprawy mojego Jezyka Angielskiego"
+                                    <AuthorText>Mateusz</AuthorText>
+                                </div>
+                            </AboutMainText>
+                            </AboutSection>
+                    )}
+                />
+                {/* Phone */}
+                <Media query="(max-width: 1000px)" render={() =>
+                    (
+                        <AboutSection>              
+                            <BackgroundMainImg></BackgroundMainImg>
+                            <AboutMainText>
+                                Nauka samemu często nie jest ciekawa, przez co twoja efektywność i zapał może szybko wygasnąć
+                            </AboutMainText>
+                        </AboutSection>
+                    )}
+                />
+            
+            <Media query="(max-width: 1000px)" render={() =>
+                (
+                    <SideTextSection></SideTextSection>
+                )}
+            />
+            <Media query="(min-width: 1000px)" render={() =>
+                (
+                    <SideTextSectionDesktop></SideTextSectionDesktop>
+                )}
+            />
             <HowItWorkSection></HowItWorkSection>
             <Join></Join>
             <HorizontalLine></HorizontalLine>
