@@ -11,7 +11,7 @@ const Container = styled.div`
 const Text = styled.div`
     padding-left: 20px;
     font-family: ${FontStyle.family};
-    color: ${FontStyle.color};
+    color: #76849D;
     font-size: 1.4em;
     font-weight: 600;
     padding-right: 10px;

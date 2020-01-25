@@ -10,8 +10,8 @@ const Container = styled.div`
 const TittleDescription = styled.div`
     padding: 15px 0 15px 20px;
     font-family: ${FontStyle.family};
-    color: ${FontStyle.color};
-    font-size: 1.2em;
+    color: #76849D;
+    font-size: 1.4em;
     position: relative;
     font-weight: 600;
     &&:before {

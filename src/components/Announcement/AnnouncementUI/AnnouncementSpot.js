@@ -11,14 +11,14 @@ const Container = styled.div`
 const Text = styled.div`
     padding-left: 20px;
     font-family: ${FontStyle.family};
-    color: ${FontStyle.color};
+    color: #76849D;
     font-size: 1.4em;
     font-weight: 600;
     padding-right: 10px;
 `
 const Spot = styled.div`
     font-family: ${FontStyle.family};
-    color: #A0A6B1;
+    color: ${FontStyle.color};
     font-size: 1.3em;
     margin-top: 3px;
 `
