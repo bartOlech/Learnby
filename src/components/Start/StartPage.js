@@ -164,6 +164,46 @@ const AuthorText = styled.span`
     padding-top: 20px;
     font-weight: 200;
 `
+const AboutMainTextDesktop = styled.h3`
+    font-family: ${FontStyle.family};
+    font-size: 2.6em;
+    font-weight: 300;
+    color: ${FontStyle.color};
+    text-align: center;
+    margin-top: 50px;
+    position: relative;
+    z-index: 1;
+    @media (min-width: 1000px) {
+        width: 80%;
+        display: flex;
+    }
+    &&:after {
+        content: '';
+        width: 97px;
+        height: 25px;
+        background-color: #DEF3EB;
+        position: absolute;
+        opacity: .65;
+        top: 15px;
+        left: 15px;
+        border-radius: 1px;
+        z-index: -1;
+    }
+    &&:before {
+        content: '';
+        width: 60px;
+        height: 5px;
+        background-color: #33BFAC;
+        position: absolute;
+        opacity: .65;
+        top: -55px;
+        left: 0; 
+        right: 0; 
+        margin-left: auto; 
+        margin-right: auto; 
+        border-radius: 5px;
+    }
+`
 const StartPage = () => {
     // const { height, width } = useWindowDimensions();
 
@@ -232,17 +272,23 @@ const StartPage = () => {
                     )}
                 />
                 {/* Phone */}
-                <Media query="(max-width: 1000px)" render={() =>
-                    (
-                        <AboutSection>              
-                            <BackgroundMainImg></BackgroundMainImg>
-                            <AboutMainText>
-                                Nauka samemu często nie jest ciekawa, przez co twoja efektywność i zapał może szybko wygasnąć
-                            </AboutMainText>
-                        </AboutSection>
-                    )}
-                />
-            
+                <AboutSection> 
+                    <Media query="(max-width: 1000px)" render={() =>
+                        (
+                            <React.Fragment>
+                                <BackgroundMainImg></BackgroundMainImg>
+                                <AboutMainText>
+                                    Nauka samemu często nie jest ciekawa, przez co twoja efektywność i zapał może szybko wygasnąć
+                                </AboutMainText>
+                            </React.Fragment>    
+                        )}
+                    />
+                    
+                    {/* Desktop */}
+                    <AboutMainTextDesktop>
+                        Nauka samemu często nie jest ciekawa, przez co twoja efektywność i zapał może szybko wygasnąć
+                    </AboutMainTextDesktop>
+                </AboutSection>
             <Media query="(max-width: 1000px)" render={() =>
                 (
                     <SideTextSection></SideTextSection>
