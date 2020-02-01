@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import TemplateBox from './AboutTemplates/TemplateBox';
+import UpperBackgroundBox from './UpperBackground/UpperBackgroundBox';
 
 const Container = styled.div`
     width: 100%;
@@ -12,6 +13,7 @@ const Container = styled.div`
 const SideTextSectioDesktop = () => {
     return (
         <Container>
+            <UpperBackgroundBox></UpperBackgroundBox>
             <TemplateBox></TemplateBox>
         </Container>
     )  

@@ -7,6 +7,21 @@ const Container = styled.div`
     height: 100%;
     margin-top: 80px;
     margin-left: -40px;
+    z-index: 2;
+    @media (max-width: 1035px) {
+        text-align: center;
+        margin: 0;
+        margin-top: -60px;
+        margin-bottom: 30px;
+    }
+    @media (max-width: 550px) {
+        width: 400px;
+        
+    }
+    @media (max-width: 410px) {
+        width: 300px;
+        
+    }
 `
 const MainText = styled.h2`
     font-family: ${FontStyle.family};

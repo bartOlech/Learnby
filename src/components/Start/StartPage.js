@@ -5,8 +5,7 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 import FindPartnerBtn from './FindPartnerBtn';
 import Header from '../Header/Header';
 import LearnMoreBtn from './LearnMoreBtn';
-import SideTextSection from './StartLayout/SideTextSection';
-import HowItWorkSection from './StartLayout/HowItWorksSection';
+import HowItWorkSection from './StartLayout/SideTextSectioDesktop/HowItWorks/HowItWorksSection';
 import HorizontalLine from './StartLayout/HorizontalLine';
 import Join from './StartLayout/JoinSection/Join';
 // footer
@@ -184,10 +183,16 @@ const AboutMainTextDesktop = styled.h3`
         background-color: #DEF3EB;
         position: absolute;
         opacity: .65;
-        top: 15px;
-        left: 15px;
+        top: 13px;
+        left: -797px; 
+        right: 0; 
+        margin-left: auto; 
+        margin-right: auto; 
         border-radius: 1px;
         z-index: -1;
+        @media (max-width: 1111px) {
+            left: -692px; 
+    }
     }
     &&:before {
         content: '';
@@ -283,22 +288,16 @@ const StartPage = () => {
                             </React.Fragment>    
                         )}
                     />
-                    
-                    {/* Desktop */}
-                    <AboutMainTextDesktop>
-                        Nauka samemu często nie jest ciekawa, przez co twoja efektywność i zapał może szybko wygasnąć
-                    </AboutMainTextDesktop>
+                {/* Desktop */}
+                <Media query="(min-width: 1000px)" render={() =>
+                    (
+                        <AboutMainTextDesktop>
+                            Nauka samemu często nie jest ciekawa, przez co twoja efektywność i zapał może szybko wygasnąć
+                        </AboutMainTextDesktop>
+                    )}
+                />
                 </AboutSection>
-            <Media query="(max-width: 1000px)" render={() =>
-                (
-                    <SideTextSection></SideTextSection>
-                )}
-            />
-            <Media query="(min-width: 1000px)" render={() =>
-                (
-                    <SideTextSectionDesktop></SideTextSectionDesktop>
-                )}
-            />
+            <SideTextSectionDesktop></SideTextSectionDesktop>
             <HowItWorkSection></HowItWorkSection>
             <Join></Join>
             <HorizontalLine></HorizontalLine>
