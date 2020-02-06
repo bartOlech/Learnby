@@ -137,7 +137,6 @@ const BackgroundWavesDesktop = styled.div`
     position: absolute;
 `
 const CompanyNameDesktop = styled.h1`
-    
     font-size: 3.5em;
     font-weight: 600;
     color: #3AB397;

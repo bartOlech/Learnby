@@ -11,20 +11,28 @@ const Container = styled.div`
 `
 const HowItWorksText = styled.h2`
     font-family: ${FontStyle.family};
-    font-size: 2.8em;
+    font-size: 3.1em;
     color: ${FontStyle.color};
     text-align: left;
     margin-left: 58px;
     font-weight: 500;
+    @media (max-width: 1000px) {
+        text-align: center;
+        margin-left: 0;
+    }
 `
 const HowItWorksExtraText = styled.h4`
     font-family: ${FontStyle.family};
-    font-size: 1.4em;
+    font-size: 1.6em;
     color: #8CA2C5;
     text-align: left;
     margin-left: 57px;
     font-weight: 400;
     margin-top: -20px;
+    @media (max-width: 1000px) {
+        text-align: center;
+        margin-left: 0;
+    }
 `
 
 const HowItWorksSection = () => {

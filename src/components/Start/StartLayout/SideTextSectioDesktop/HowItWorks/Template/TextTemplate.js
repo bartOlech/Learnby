@@ -3,11 +3,15 @@ import styled from 'styled-components';
 import { FontStyle } from '../../../../../../assets/style/style'
 
 const Container = styled.div`
-    width: 100%;
+    width: 300px;
     height: 100%;
     font-family: ${FontStyle.family};
-    font-size: 1.5em;
+    font-size: 1.7em;
     color: ${FontStyle.color};
+    @media (max-width: 1000px) {
+        margin-top: 100px;
+        font-size: 1.7em;
+    }
 `
 
 const TextTemplate = (props) => {
