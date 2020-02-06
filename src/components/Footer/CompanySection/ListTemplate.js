@@ -4,12 +4,13 @@ import { FontStyle } from '../../../assets/style/style';
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
 const Container = styled.div`
-    width: 100%;
+    width: 350px;
     height: 100%;
-    margin-left: 170px;
+    margin: 0 auto;
 `
 const List = styled.ul`
     list-style-position: inside;
+    margin-left: 85px;
 `
 const Text = styled.li`
     font-family: ${FontStyle.family};

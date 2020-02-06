@@ -17,6 +17,7 @@ const Text = styled.h2`
     font-size: 1.8em;    
     text-align: center;
     font-weight: 600;
+    margin-top: 40px;
 `
 
 const CompanyBox = () => {
@@ -27,8 +28,7 @@ const CompanyBox = () => {
             <ListTemplate link='/about' text='O nas'></ListTemplate>
             <ListTemplate link='/media' text='Dla mediów'></ListTemplate>
             <ListTemplate link='/policy' text='Polityka prywatności'></ListTemplate>
-            <ListTemplate link='/regulations' text='Regulamin'></ListTemplate>
-            <Text style={{marginTop: '40px 0 20px 0',}}>Kontakt</Text>
+            <ListTemplate link='/regulations' text='Regulamin'></ListTemplate>  
         </Container>
     )
 }
