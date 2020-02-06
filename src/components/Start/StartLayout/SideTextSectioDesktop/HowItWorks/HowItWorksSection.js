@@ -7,7 +7,7 @@ const Container = styled.div`
     width: 100%;
     height: 100%;
     position: relative;
-    margin-top: -350px;
+    margin-top: -300px;
 `
 const HowItWorksText = styled.h2`
     font-family: ${FontStyle.family};
