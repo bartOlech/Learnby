@@ -17,6 +17,10 @@ const Box = styled.div`
     height: 45px;
     position: relative;
     margin-right: 20px;
+    @media (min-width: 1000px) {
+        width: 510px;
+
+    }
 `
 const InputText = styled.input`
     width: 300px;
@@ -30,6 +34,10 @@ const InputText = styled.input`
     padding-left: 20px;
     &&::placeholder {
         font-size: .9em;
+    }
+    @media (min-width: 1000px) {
+        width: 510px;
+        box-shadow: none;
     }
 `
 const Ico = styled.div`

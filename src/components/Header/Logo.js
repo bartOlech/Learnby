@@ -19,7 +19,7 @@ const LogoDesktop = styled.div`
     background-image: url(${desktopLogo});
     background-size: 240px 240px;
     background-repeat: no-repeat;
-    margin: -80px 0 15px 50px;
+    margin: -85px 0 15px 50px;
 `
 
 const Logo = () => {

@@ -8,6 +8,7 @@ import { CurrentUserConsumer } from '../../context/CurrentUser.context';
 import firebase from '../../Firebase.config';
 import UserMenu from './UserMenu/UserMenu';
 import userIco from '../../assets/img/Mobile/logUser.svg';
+import MobilePlusIco from '../../assets/img/Mobile/plus.svg';
 
 const Container = styled.div`
     width: 100%;
@@ -45,7 +46,7 @@ const Header = (props) => {
 
     return (
         <Container background={props.background}>
-            <Logo></Logo><AddNotice></AddNotice>
+            <Logo></Logo><AddNotice background='#DD9A76' image={`url(${MobilePlusIco})`} color='#fff'></AddNotice>
             <CurrentUserConsumer>
                 {({ user }) => (
                     user ? (
@@ -63,7 +64,7 @@ const Header = (props) => {
                         </React.Fragment>
                     ):(
                         <React.Fragment>
-                            <Link to='/login'><Login></Login></Link> 
+                            <Link to='/login'><Login background='#3AB397'></Login></Link> 
                         </React.Fragment>
                     )
                 )}

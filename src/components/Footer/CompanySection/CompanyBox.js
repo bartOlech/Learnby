@@ -10,6 +10,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: -5px;
 `
 const Text = styled.h2`
     font-family: ${FontStyle.family};
@@ -18,6 +19,7 @@ const Text = styled.h2`
     text-align: center;
     font-weight: 600;
     margin-top: 40px;
+    margin-bottom: 0;
 `
 
 const CompanyBox = () => {

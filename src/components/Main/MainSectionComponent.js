@@ -7,7 +7,10 @@ import FoundAnnouncementSection from './SearchPartner/FoundAnnouncementSections'
 import { FontStyle } from '../../assets/style/style';
 import { FindAnnouncementConsumer } from '../../context/CurrentUser.context';
 import MainComponent from './Footer/MainComponent';
-// import Loader from 'react-loader-spinner';
+// media queries
+import Media from 'react-media';
+// desktop components
+import DesktopHeader from '../Header/DesktopHeader/DesktopHeader';
 
 const Container = styled.div`
     width: 100%;
@@ -23,12 +26,6 @@ const Text = styled.h2`
     font-weight: 600;
     margin-top: -30px;
 `
-// const LoaderBox = styled.div`
-//     display: flex;
-//     justify-content: center;
-//     margin-top: 50px;
-//     margin-bottom: 50px;  
-// `
 
 const MainSectionComponent = () => {
 
@@ -36,9 +33,27 @@ const MainSectionComponent = () => {
         <FindAnnouncementConsumer>
             {({ announcementList, randomAnnouncement }) => (
                 <Container>
-                    <Header background={`url(${WavyBackground}) no-repeat `}></Header>
-                    <Text size='1.7em'>Wyszukaj partnera</Text>
-                    <FindAnnouncementSection></FindAnnouncementSection>
+                    {/* Desktop */}
+                    <Media query="(min-width: 1000px)" render={() =>
+                        (
+                            <DesktopHeader></DesktopHeader>                     
+                        )}
+                    />
+                    {/* Phone */}
+                    <Media query="(max-width: 1000px)" render={() =>
+                        (
+                            <Header background={`url(${WavyBackground}) no-repeat `}></Header>
+                        )}
+                    />
+                    {/* Phone */}
+                    <Media query="(max-width: 1000px)" render={() =>
+                        (
+                            <React.Fragment>
+                                <Text size='1.7em'>Wyszukaj partnera</Text>
+                                <FindAnnouncementSection></FindAnnouncementSection>
+                            </React.Fragment>
+                        )}
+                    />
                     {announcementList.size > 0 ? (
                         <React.Fragment>
                             <FoundAnnouncementSection 
@@ -54,7 +69,6 @@ const MainSectionComponent = () => {
                         ></FoundAnnouncementSection>
                         ) : null 
                     )}
-                    
                     
                     {/* Footer */}
                     <MainComponent></MainComponent>
