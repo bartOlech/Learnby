@@ -14,9 +14,18 @@ import { GetMainAnnouncements, GetSideAnnouncements } from './AnnouncementTempla
 
 const Container = styled.div`
     margin-top: 10px;
-    @media (min-width: 500px) {
-        width: 900px;
-        
+    width: 100%;
+    @media (max-width: 1200px) {
+        width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-left: -80px;
+    }
+    @media (min-width: 1000px) {
+        margin-left: -20px;
+    }
+    @media (max-width: 500px) {
+        margin-left: 20px;
     }
 `
 
@@ -29,6 +38,27 @@ const Text = styled.h2`
     margin-top: -30px;
     padding-bottom: 10px;
     margin-left: 20px;
+`
+const AnnouncementsBox = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+`
+const MainAnnouncements = styled.div`
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+`
+const SideAnnouncement = styled.div`
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    @media(max-width: 1300px) {
+        display: none;
+    }
 `
 
 const FoundAnnouncementSection = (props) => {
@@ -60,13 +90,16 @@ const FoundAnnouncementSection = (props) => {
                 {/* Desktop */}
                 <Media query="(min-width: 500px)" render={() =>
                     (
-                        <React.Fragment>
-                            <div style={{display: 'flex', flexDirection: 'row'}}>
+                        <AnnouncementsBox>
+                            <MainAnnouncements>
                                 <Text style={{marginTop: '50px', marginLeft: '50px'}} size='1.6em'>{props.tittle}</Text>
-                                <Text style={{marginTop: '50px', marginLeft: '680px'}} size='1.6em'>Najnowsze:</Text>
-                            </div>
-                            {GetMainAnnouncements(props.announcementList)}
-                        </React.Fragment>                        
+                                {GetMainAnnouncements(props.announcementList)}
+                            </MainAnnouncements>
+                            <SideAnnouncement>
+                                <Text style={{marginTop: '50px', marginLeft: 0}} size='1.6em'>Najnowsze:</Text>
+                                {GetSideAnnouncements(props.newestAnnouncement)}
+                            </SideAnnouncement>
+                        </AnnouncementsBox>                        
                     )}
                 />
             

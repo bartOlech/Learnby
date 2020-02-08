@@ -33,7 +33,7 @@ const MainSectionComponent = () => {
 
     return (
         <FindAnnouncementConsumer>
-            {({ announcementList, randomAnnouncement }) => (
+            {({ announcementList, randomAnnouncement, newestAnnouncement }) => (
                 <Container>
                     {/* Desktop */}
                     <Media query="(min-width: 1000px)" render={() =>
@@ -61,6 +61,7 @@ const MainSectionComponent = () => {
                             <FoundAnnouncementSection 
                                 tittle='Dopasowane osoby:'
                                 announcementList={announcementList}
+                                newestAnnouncement={newestAnnouncement}
                             ></FoundAnnouncementSection>
                         </React.Fragment>
                     ) : (
@@ -68,6 +69,7 @@ const MainSectionComponent = () => {
                             <FoundAnnouncementSection 
                             tittle='Może cię zainteresować:'
                             announcementList={randomAnnouncement}
+                            newestAnnouncement={newestAnnouncement}
                         ></FoundAnnouncementSection>
                         ) : null 
                     )}

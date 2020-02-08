@@ -28,14 +28,16 @@ const Container = styled.div`
     box-shadow: 2px 2px 3px #D5D9DF;
     position: relative;
     animation: 1s ${bounceAnimation};
+    z-index: 1;
     &&::before {
         content: '';
-        width: 10px;
+        width: 7px;
         height: 35px;
-        background-color: #F2D274;
-        border-radius: 3px;
+        background-color: #35AC9D;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
         position: absolute;
-        left: -6px;
+        left: -7px;
         top: 15px;
         z-index: -1;
     }
@@ -61,10 +63,6 @@ const Container = styled.div`
     }
     @media(min-width: 1000px) {
         height: 35vh;
-        max-width: 750px;
-        margin-bottom: 50px;
-        box-shadow: 0px 0px 2px 0px rgba(82,82,82,.3);
-        margin-left: 50px;
     }
 `
 // Branch of science section
@@ -134,6 +132,9 @@ const Description = styled.p`
     @media(min-width: 500px) {
         margin-top: -8px;
         padding-left: 10px;
+    }
+    @media(max-width: 500px) {
+        margin-bottom: -5px;
     }
 `
 const SpotSection = styled.div`

@@ -13,9 +13,7 @@ const bounceAnimation = keyframes`${fadeIn}`;
 const Container = styled.div`
     width: 80vw;
     max-width: 400px;
-    height: 320px;
-    margin: 0;
-    margin-left: 15px;
+    height: 40vh;
     padding: 0;
     padding-left: 20px;
     padding-right: 10px;
@@ -25,9 +23,44 @@ const Container = styled.div`
     align-items: flex-start;
     border-radius: 17px;
     background-color: #fff;
-    box-shadow: 2px 2px 3px #D5D9DF;
+    box-shadow: 0px 0px 2px 0px rgba(82,82,82,.3);
     position: relative;
     animation: 1s ${bounceAnimation};
+    z-index: 1;
+    &&::before {
+        content: '';
+        width: 7px;
+        height: 35px;
+        background-color: #35AC9D;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+        position: absolute;
+        left: -7px;
+        top: 15px;
+        z-index: -1;
+    }
+    &&::after {
+        content: '';
+        width: 95px;
+        height: 4px;
+        background-color: #35AC9D;
+        border-radius: 5px;
+        position: absolute;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+        bottom: -15px;
+    }
+    @media(max-width: 1300px) {
+        display: none;
+    }
+    @media(min-width: 500px) {
+        height: 40vh;
+    }
+    @media(min-width: 1000px) {
+        height: 35vh;
+    }
 `
 // Branch of science section
 const ScienceSection = styled.div`
@@ -75,17 +108,6 @@ const DescriptionTittle = styled.p`
     margin-top: -10px;
     position: relative;
     z-index: 2;
-    /* &&:before {
-        content: '';
-        width: 40px;
-        height: 13px;
-        background-color: #F7E3A8;
-        opacity: .5;
-        border-radius: 2px;
-        top: 7px;
-        position: absolute;
-        z-index: -1;
-    } */
 `
 const Description = styled.p`
     font-family: ${FontStyle.family};
@@ -101,7 +123,7 @@ const SpotSection = styled.div`
     justify-content: flex-start;
     @media(min-width: 500px) {
         position: absolute;
-        right: 0;
+        right: -60px;
         top: -7px;
     }
 `
@@ -124,44 +146,8 @@ const UserLearnInfoText = styled.p`
     margin-top: 5px;
     padding-right: 10px;
 `
-const UserLevelText = styled.div`
-    font-family: ${FontStyle.family};
-    color: #76849D;
-    font-size: 1.3em;
-`
-// Level of knowledge styles
-const LevelOfLearning = styled.div`
-    display: flex;
-    justify-content: space-around;
-    position: absolute;
-    right: 15px;
-    top: 68px;
-`
-const LevelDotted = styled.div`
-    display: flex;
-`
-const Dot = styled.div`
-    margin-left: 5px;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #3AAF9F;
-    background-color: ${props => props.background};
-    border-radius: 50%;
-`
-const AnnouncementBoxTemplate = (props) => {
-    const knowledgeDots = (val) => {
-        let indents = [];
-        let emptyDots = 5 - val
 
-        for (let i = 0; i < val; i++) {
-            indents.push(<Dot background='#3AAF9F'></Dot>);
-        }
-        for (let i = 0; i < emptyDots; i++) {
-            indents.push(<Dot background='#fff'></Dot>);
-        }
-        return indents;
-    }
-    
+const AnnouncementBoxTemplate = (props) => {
     return (
         <Container>
             {/* Desktop */}
@@ -174,14 +160,6 @@ const AnnouncementBoxTemplate = (props) => {
                         </UserDataSection>
                         <ScienceSection>
                             <UserLearnInfoText>Uczy się:</UserLearnInfoText><BranchOfScienece>{props.Subject}</BranchOfScienece>
-                            {/* Level of knowledge */}
-                            <LevelOfLearning>
-                            <UserLevelText>Poziom: </UserLevelText>
-                                <LevelDotted>
-                                    {/* function that return quantity of green dots */}
-                                    {knowledgeDots(props.levelOfKnowledge)}
-                                </LevelDotted>
-                            </LevelOfLearning>
                             {/* city */}
                             <SpotSection>
                                 <SpotTittle>Miejsce:</SpotTittle>
