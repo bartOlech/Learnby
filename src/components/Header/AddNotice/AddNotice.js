@@ -17,6 +17,7 @@ const Container = styled.div`
         position: absolute;
         right: 350px;
         top: 0;
+        margin: ${props => props.margin};
     }
 `
 const Box = styled.button`
@@ -58,7 +59,7 @@ const Text = styled.p`
 
 const AddNotice = (props) => {
     return (
-        <Container>
+        <Container margin={props.margin}>
             <Link to='/createAnnouncement'>
                 <Box background={props.background}>
                     <Ico image={props.image}></Ico>

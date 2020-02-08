@@ -29,6 +29,8 @@ const Image = styled.div`
     width: 41px;
     height: 41px;
     border: none;
+    box-shadow: -1px 2px 14px -6px rgba(0,0,0,0.75);
+
     border-radius: 50%;
     background-image: url(${props => props.image});
     background-repeat: no-repeat;
