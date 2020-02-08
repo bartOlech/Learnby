@@ -7,6 +7,8 @@ import FoundAnnouncementSection from './SearchPartner/FoundAnnouncementSections'
 import { FontStyle } from '../../assets/style/style';
 import { FindAnnouncementConsumer } from '../../context/CurrentUser.context';
 import MainComponent from './Footer/MainComponent';
+import FooterSection from '../Footer/FooterSection';
+import HorizontalLine from '../Start/StartLayout/HorizontalLine';
 // media queries
 import Media from 'react-media';
 // desktop components
@@ -72,6 +74,8 @@ const MainSectionComponent = () => {
                     
                     {/* Footer */}
                     <MainComponent></MainComponent>
+                    <HorizontalLine></HorizontalLine>
+                    <FooterSection></FooterSection>
                 </Container>
             )}
         </FindAnnouncementConsumer>

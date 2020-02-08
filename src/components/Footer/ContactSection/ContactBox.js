@@ -41,7 +41,7 @@ const MainText = styled.h2`
     font-size: 1.8em;    
     text-align: center;
     font-weight: 600;
-    margin-top: 40px;
+    margin-top: 35px;
 `
 
 const ContactBox = () => {
