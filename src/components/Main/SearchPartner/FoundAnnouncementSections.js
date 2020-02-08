@@ -6,13 +6,18 @@ import { FontStyle } from '../../../assets/style/style';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-// Context
-import { FindAnnouncementConsumer } from '../../../context/CurrentUser.context';
-// firebase
-import firebase from '../../../Firebase.config';
+// media queries
+import Media from 'react-media';
+// get announcements functions
+import { GetMainAnnouncements, GetSideAnnouncements } from './AnnouncementTemplate/Functions/GetAnnouncement'
+
 
 const Container = styled.div`
     margin-top: 10px;
+    @media (min-width: 500px) {
+        width: 900px;
+        
+    }
 `
 
 const Text = styled.h2`
@@ -28,24 +33,6 @@ const Text = styled.h2`
 
 const FoundAnnouncementSection = (props) => {
 
-    const getAnnouncements = (announcementList) => {
-        let list = []
-        for(let [key, value] of announcementList.entries()) {
-            list.push(
-                <AnnouncementBoxTemplate
-                    key={key}
-                    id={key}
-                    Subject={value.Subject}
-                    UserName={value.AnnouncementCreator.UserName}
-                    Description={value.Description}
-                    Place={value.Place}
-                    UserPhoto={value.AnnouncementCreator.PhotoUrl}
-                ></AnnouncementBoxTemplate>
-            )
-        }
-        return list
-    }
-
     const settings = {
         dots: false,
         infinite: true,
@@ -59,10 +46,30 @@ const FoundAnnouncementSection = (props) => {
     return (
         <div>  
             <Container>
-            <Text style={{marginTop: '50px'}} size='1.6em'>{props.tittle}</Text>
-            <Slider {...settings}>
-                {getAnnouncements(props.announcementList)}
-            </Slider>
+                {/* Phone */}
+                <Media query="(max-width: 500px)" render={() =>
+                    (
+                        <React.Fragment>
+                            <Text style={{marginTop: '50px'}} size='1.6em'>{props.tittle}</Text>
+                            <Slider {...settings}>
+                                {GetMainAnnouncements(props.announcementList)}
+                            </Slider>
+                        </React.Fragment>
+                    )}
+                />
+                {/* Desktop */}
+                <Media query="(min-width: 500px)" render={() =>
+                    (
+                        <React.Fragment>
+                            <div style={{display: 'flex', flexDirection: 'row'}}>
+                                <Text style={{marginTop: '50px', marginLeft: '50px'}} size='1.6em'>{props.tittle}</Text>
+                                <Text style={{marginTop: '50px', marginLeft: '680px'}} size='1.6em'>Najnowsze:</Text>
+                            </div>
+                            {GetMainAnnouncements(props.announcementList)}
+                        </React.Fragment>                        
+                    )}
+                />
+            
         </Container>
         </div>
     )

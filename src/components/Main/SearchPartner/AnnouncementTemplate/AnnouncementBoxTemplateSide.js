@@ -28,44 +28,6 @@ const Container = styled.div`
     box-shadow: 2px 2px 3px #D5D9DF;
     position: relative;
     animation: 1s ${bounceAnimation};
-    &&::before {
-        content: '';
-        width: 10px;
-        height: 35px;
-        background-color: #F2D274;
-        border-radius: 3px;
-        position: absolute;
-        left: -6px;
-        top: 15px;
-        z-index: -1;
-    }
-    &&::after {
-        content: '';
-        width: 95px;
-        height: 4px;
-        background-color: #4DB6AC;
-        border-radius: 5px;
-        position: absolute;
-        margin-left: auto;
-        margin-right: auto;
-        left: 0;
-        right: 0;
-        bottom: -15px;
-    }
-    @media(min-width: 500px) {
-        height: 40vh;
-        max-width: 750px;
-        margin-bottom: 50px;
-        box-shadow: 0px 0px 2px 0px rgba(82,82,82,.3);
-        margin-left: 50px;
-    }
-    @media(min-width: 1000px) {
-        height: 35vh;
-        max-width: 750px;
-        margin-bottom: 50px;
-        box-shadow: 0px 0px 2px 0px rgba(82,82,82,.3);
-        margin-left: 50px;
-    }
 `
 // Branch of science section
 const ScienceSection = styled.div`
@@ -129,12 +91,8 @@ const Description = styled.p`
     font-family: ${FontStyle.family};
     color: ${FontStyle.color};
     font-size: 1.2em;
-    margin-top: 18px;
-    padding-left: 0px;
-    @media(min-width: 500px) {
-        margin-top: -8px;
-        padding-left: 10px;
-    }
+    margin-top: -8px;
+    padding-left: 10px;
 `
 const SpotSection = styled.div`
     width: 228px;
@@ -206,28 +164,6 @@ const AnnouncementBoxTemplate = (props) => {
     
     return (
         <Container>
-        {/* Phone */}
-        <Media query="(max-width: 500px)" render={() =>
-                (
-                    <React.Fragment>
-                        <UserDataSection>
-                            <Photo image={props.UserPhoto}></Photo>
-                            <Name>{props.UserName}</Name>
-                        </UserDataSection>
-                        <ScienceSection>
-                            <UserLearnInfoText>Uczy się:</UserLearnInfoText><BranchOfScienece>{props.Subject}</BranchOfScienece>
-                            <MoreButton></MoreButton>
-                        </ScienceSection>
-                        <DescriptionTittle>Opis:</DescriptionTittle>
-                        <Description>{props.Description}</Description>
-                        <SpotSection>
-                            <SpotTittle>Miejsce:</SpotTittle>
-                            <Spot>{props.Place}</Spot>
-                        </SpotSection>
-                        <ShowWholeAnnouncementBtn id={props.id}></ShowWholeAnnouncementBtn>
-                    </React.Fragment>   
-                )}
-            />
             {/* Desktop */}
             <Media query="(min-width: 500px)" render={() =>
                 (
