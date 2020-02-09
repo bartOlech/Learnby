@@ -8,7 +8,7 @@ import firebase from '../../../Firebase.config';
 const Container = styled.div`
     width: 100%;
     height: 100%;
-    display: flex;
+    display: ${props => props.display};
     justify-content: center;
     position: relative;
 `
@@ -55,7 +55,7 @@ const FindUserSection = (props) => {
     const[searchedPhrase, setSearchedPhrase] = useState('')
         
     return (
-        <Container>
+        <Container display={props.display}>
                 <FindAnnouncementConsumer>
                     {({ searchKeyword }) => (
                         <Box>

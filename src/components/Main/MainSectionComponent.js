@@ -38,7 +38,7 @@ const MainSectionComponent = () => {
                     {/* Desktop */}
                     <Media query="(min-width: 1000px)" render={() =>
                         (
-                            <DesktopHeader></DesktopHeader>                     
+                            <DesktopHeader displayText='inline' height='262px' displaySearchInput='flex'></DesktopHeader>                     
                         )}
                     />
                     {/* Phone */}
@@ -52,7 +52,7 @@ const MainSectionComponent = () => {
                         (
                             <React.Fragment>
                                 <Text size='1.7em'>Wyszukaj partnera</Text>
-                                <FindAnnouncementSection></FindAnnouncementSection>
+                                <FindAnnouncementSection display='flex'></FindAnnouncementSection>
                             </React.Fragment>
                         )}
                     />

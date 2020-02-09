@@ -102,7 +102,6 @@ const FoundAnnouncementSection = (props) => {
                         </AnnouncementsBox>                        
                     )}
                 />
-            
         </Container>
         </div>
     )

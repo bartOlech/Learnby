@@ -10,6 +10,9 @@ const Container = styled.div`
     display: flex;
     margin-top: -50px;
     margin-bottom: -100px;
+    @media(min-width: 1000px) {
+        margin-top: 35px;
+    }
 `
 
 const UserUIBoxComponent = () => {

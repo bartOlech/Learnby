@@ -16,7 +16,7 @@ const Button = styled.button`
     height: 55px;
     font-family: ${FontStyle.family};
     color: #fff;
-    background-color: #37b2a6;
+    background-color: #3AAF9F;
     border: none;
     border-radius: 35px;
     font-size: 1.8em;

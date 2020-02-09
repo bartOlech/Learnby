@@ -14,7 +14,7 @@ import firebase from '../../../Firebase.config';
 
 const Container = styled.div`
     width: 100%;
-    height: 262px;
+    height: ${props => props.height};
     background: linear-gradient(#22A795, #3AAF9F);
     /* background: #3AAF9F; */
     display: flex;
@@ -54,6 +54,7 @@ const Text = styled.h1`
     margin-left: auto; 
     margin-right: auto;
     font-weight: 600;
+    display: ${props => props.displayText};
 `
 const UserSection = styled.div`
     width: 100px;
@@ -74,16 +75,15 @@ const Image = styled.div`
     cursor: pointer;
 `
 
-const DesktopHeader = () => {
+const DesktopHeader = (props) => {
     const[isHideImage, setIsHideImage] = useState(true)
 
     const clickImage = () => {
-        console.log('ss')
         isHideImage ? setIsHideImage(false) : setIsHideImage(true)
     }
 
     return (
-        <Container>
+        <Container height={props.height}>
             <UpperList>
                 <Link to='/'><LogoDesktop></LogoDesktop></Link>
                 <RightButtons>
@@ -114,8 +114,8 @@ const DesktopHeader = () => {
                     </CurrentUserConsumer>    
                 </RightButtons>
             </UpperList>
-            <Text>Najlepsze miejsce w sieci do wspólnej nauki.</Text>
-            <FindAnnouncementSection></FindAnnouncementSection>
+            <Text displayText={props.displayText}>Najlepsze miejsce w sieci do wspólnej nauki.</Text>
+            <FindAnnouncementSection display={props.displaySearchInput}></FindAnnouncementSection>
         </Container>
     )
 }

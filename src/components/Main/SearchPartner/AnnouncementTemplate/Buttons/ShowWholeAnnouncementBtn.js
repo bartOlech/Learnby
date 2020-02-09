@@ -10,7 +10,7 @@ const Button = styled.div`
     height: 36px;
     border: none;
     border-radius: 24px;
-    background-color: #4DB6AC;
+    background-color: #3AAF9F;
     color: #fff;
     font-family: ${FontStyle.family};
     font-size: 1.4em;
