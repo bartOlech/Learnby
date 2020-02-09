@@ -5,15 +5,15 @@ import { FontStyle } from '../../../../../assets/style/style';
 import firebase from '../../../../../Firebase.config';
 
 const Container = styled.div`
-    display: flex;
-    justify-content: space-around;
+    
 `
 const Input = styled.input`
-    width: 250px;
+    width: 80%;
+    max-width: 608px;
     height: 40px;
     border: none;
     border-radius: 10px;
-    box-shadow: 1px 1px 2px #A0A6B1;
+    box-shadow: 0px 0px 2px 0px rgba(82,82,82,.5);
     outline:  none;
     padding-left: 10px;
     padding-top: 10px;
@@ -26,6 +26,9 @@ const Input = styled.input`
 `
 const InputBox = styled.div`
     position: relative;
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 16px;
 `
 const InputText = styled.span`
     position: absolute;
@@ -79,8 +82,9 @@ const CreateCommentBox = () => {
                         type='text' 
                         >
                     </Input>
+                    <CommentSendButton clear={clear} commentValue={commentValue}></CommentSendButton>
             </InputBox>
-            <CommentSendButton clear={clear} commentValue={commentValue}></CommentSendButton>
+            
         </Container>
     )
 }

@@ -196,6 +196,10 @@ export class CurrentUserProvider extends Component {
             commentsMap.forEach((val, key) => {
                 commentsArray.push({ key, value: val });
             }); 
+            // remove duplicate elements
+            this.setState({
+                commentsArray: _.uniqBy(commentsArray, 'key')
+            })
         }).then(
 
         )   

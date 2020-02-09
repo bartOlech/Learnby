@@ -10,7 +10,7 @@ import Media from 'react-media';
 import DesktopHeader from '../Header/DesktopHeader/DesktopHeader';
 
 const Container = styled.div`
-    background-color: #F8FAFB;
+    background-color: #fff;
 `
 
 const BoxComponent = () => {

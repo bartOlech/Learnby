@@ -108,7 +108,7 @@ const AnnouncementUIBoxComponent = () => {
                                         </AnnouncementDescription>
                                     </RightContent>
                                 </MainContentBox>
-                                <HorizontalLine></HorizontalLine>
+                                {/* <HorizontalLine></HorizontalLine> */}
                                 <AnnouncementCommentSection></AnnouncementCommentSection>
                             </Container>                     
                         )}

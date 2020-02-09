@@ -6,7 +6,7 @@ import firebase from '../../../../../Firebase.config';
 import { BrowserRouter as Router, useParams } from 'react-router-dom'
 
 const Container = styled.div`
-    
+    margin-left: 20px;
 `
 const Button = styled.div`
     width: 58px;

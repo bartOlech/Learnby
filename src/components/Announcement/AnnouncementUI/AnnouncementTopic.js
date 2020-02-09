@@ -21,7 +21,7 @@ const Topic = styled.h2`
     color: ${FontStyle.color};
     font-size: 1.3em;
     font-weight: 500;
-    margin-top: -1px;
+    margin-top: 0;
 `
 
 const AnnouncementTopic = (props) => {

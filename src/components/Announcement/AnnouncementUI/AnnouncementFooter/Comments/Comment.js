@@ -12,15 +12,14 @@ const Container = styled.div`
     width: 90%;
     min-width: 100px;
     height: 100%;
-    min-height: 65px;
+    /* min-height: 65px; */
     background-color: #fff;
     position: relative;
     margin-left: 15px;
     margin-top: 50px;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    position: relative;
+    flex-direction: column;
+    align-items: flex-start;
 `
 const FirstRow = styled.div`
     display: flex;
@@ -37,6 +36,9 @@ const UserImage = styled.div`
     margin-left: 10px;
 `    
 const Text = styled.div`
+    width: 100%;
+    max-width: 650px;
+    height: 100%;
     font-family: ${FontStyle.family};
     color: ${FontStyle.color};
     font-size: 1.4em;
@@ -45,19 +47,24 @@ const Text = styled.div`
     font-size: 1.2em;
 `
 const LikeContainer = styled.div`
+    width: 50px;
+    height: 30px;
     display: flex;
     flex-direction: row;
     align-items: center;
+    position: relative;
+    margin-left: 60px;
+    margin-top: 10px;
 `
 const LikeAmount = styled.div`
     font-family: ${FontStyle.family};
     color: #5C5C5C;
     position: absolute;
-    right: 40px;
+    right: 10px;
 `
 const LikeBox = styled.div`
     position: absolute;
-    right: 15px;
+    right: 40px;
     cursor: pointer;
 `
 const LikeBackground = styled.div`
@@ -84,7 +91,11 @@ const LikeIco = styled.div`
     transform: translate(-50%, -50%);
     animation: ${props => props.animation};
 `
-
+const TextContainer = styled.div`
+    display: flex;
+    margin-left: 40px;
+    margin-top: -35px;
+`
 
 const Comment = (props) => {
     let { id }  = useParams();
@@ -138,18 +149,21 @@ const Comment = (props) => {
     return (
         <Container>
             <UserImage userImage={userImage}></UserImage>
-            <FirstRow>
-                <Text style={{marginTop: '-10px', marginBottom: '10px'}}>{TextOfName}</Text>
-                <Text style={{fontWeight: 300, marginTop: '1px'}}>{textOfComment}</Text>
-            </FirstRow>
+            <TextContainer>
+                
+                <FirstRow>
+                    <Text style={{marginTop: '-10px', marginBottom: '10px'}}>{TextOfName}</Text>
+                    <Text style={{fontWeight: 300, marginTop: '1px'}}>{textOfComment}</Text>
+                </FirstRow>
+            </TextContainer>
             <LikeContainer>
-                <LikeAmount>{likeArray.length}</LikeAmount>
-                <LikeBox onClick={likeComment}>
-                    <LikeBackground display='inline'></LikeBackground>
-                    <LikeIco 
-                    animation={likeArray.includes(currentUid) ? css`1s ${bounceAnimation}` : 'none'} 
-                    image={likeArray.includes(currentUid) ? LikeRedIco : LikeGreyIco}></LikeIco>
-                </LikeBox>
+            <LikeAmount>{likeArray.length}</LikeAmount>
+            <LikeBox onClick={likeComment}>
+                <LikeBackground display='inline'></LikeBackground>
+                <LikeIco 
+                animation={likeArray.includes(currentUid) ? css`1s ${bounceAnimation}` : 'none'} 
+                image={likeArray.includes(currentUid) ? LikeRedIco : LikeGreyIco}></LikeIco>
+            </LikeBox>
             </LikeContainer>
         </Container>
     )
