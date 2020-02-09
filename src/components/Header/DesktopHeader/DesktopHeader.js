@@ -16,7 +16,7 @@ const Container = styled.div`
     width: 100%;
     height: ${props => props.height};
     background: linear-gradient(#22A795, #3AAF9F);
-    /* background: #3AAF9F; */
+    box-shadow: -1px 2px 10px -6px rgba(0,0,0,0.75);
     display: flex;
     flex-direction: column;
 `

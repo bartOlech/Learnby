@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Header from '../Header/Header';
-import WavyBackground from '../../assets/img/Mobile/wave-bck-header-mobile.svg'
 import UserBoxComponent from './UserUI/UserUIBoxComponent';
 import AnnouncementUIBoxComponent from './AnnouncementUI/AnnouncementUIBoxComponent';
 // media queries
@@ -26,7 +25,7 @@ const BoxComponent = () => {
             {/* Phone */}
             <Media query="(max-width: 1000px)" render={() =>
                 (
-                    <Header background={`url(${WavyBackground}) no-repeat `}></Header>
+                    <Header background='linear-gradient(#22A795, #3AAF9F);'></Header>
                 )}
             />
             <UserBoxComponent></UserBoxComponent>

@@ -54,12 +54,12 @@ const Container = styled.div`
         right: 0;
         bottom: -15px;
     }
-    @media(min-width: 500px) {
+    @media(min-width: 650px) {
         height: 40vh;
-        max-width: 750px;
         margin-bottom: 50px;
         box-shadow: 0px 0px 2px 0px rgba(82,82,82,.3);
         margin-left: 50px;
+        max-width: 750px;
     }
     @media(min-width: 1000px) {
         height: 35vh;
@@ -129,11 +129,11 @@ const Description = styled.p`
     font-size: 1.2em;
     margin-top: 18px;
     padding-left: 0px;
-    @media(min-width: 500px) {
+    @media(min-width: 650px) {
         margin-top: -8px;
         padding-left: 10px;
     }
-    @media(max-width: 500px) {
+    @media(max-width: 650px) {
         margin-bottom: -5px;
     }
 `
@@ -142,7 +142,7 @@ const SpotSection = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    @media(min-width: 500px) {
+    @media(min-width: 650px) {
         position: absolute;
         right: 0;
         top: -7px;
@@ -208,7 +208,7 @@ const AnnouncementBoxTemplate = (props) => {
     return (
         <Container>
         {/* Phone */}
-        <Media query="(max-width: 500px)" render={() =>
+        <Media query="(max-width: 650px)" render={() =>
                 (
                     <React.Fragment>
                         <UserDataSection>
@@ -230,7 +230,7 @@ const AnnouncementBoxTemplate = (props) => {
                 )}
             />
             {/* Desktop */}
-            <Media query="(min-width: 500px)" render={() =>
+            <Media query="(min-width: 650px)" render={() =>
                 (
                     <React.Fragment>
                         <UserDataSection>

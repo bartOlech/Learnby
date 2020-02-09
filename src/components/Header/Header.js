@@ -12,12 +12,13 @@ import MobilePlusIco from '../../assets/img/Mobile/plus.svg';
 
 const Container = styled.div`
     width: 100%;
-    height: 150px;
+    height: 80px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     background: ${props => props.background};
     background-size: cover;
+    box-shadow: -1px 2px 10px -6px rgba(0,0,0,0.75);
 `
 const UserSection = styled.div`
     width: 100px;

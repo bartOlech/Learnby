@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Header from '../Header/Header';
-import WavyBackground from '../../assets/img/Mobile/wave-bck-header-mobile.svg';
 import FindAnnouncementSection from './SearchPartner/FindAnnouncementSection';
 import FoundAnnouncementSection from './SearchPartner/FoundAnnouncementSections';
 import { FontStyle } from '../../assets/style/style';
@@ -26,7 +25,7 @@ const Text = styled.h2`
     font-family: ${FontStyle.family};
     font-size: ${props => props.size};
     font-weight: 600;
-    margin-top: -30px;
+    margin-top: 30px;
 `
 
 const MainSectionComponent = () => {
@@ -44,7 +43,7 @@ const MainSectionComponent = () => {
                     {/* Phone */}
                     <Media query="(max-width: 1000px)" render={() =>
                         (
-                            <Header background={`url(${WavyBackground}) no-repeat `}></Header>
+                            <Header background='linear-gradient(#22A795, #3AAF9F)'></Header>
                         )}
                     />
                     {/* Phone */}

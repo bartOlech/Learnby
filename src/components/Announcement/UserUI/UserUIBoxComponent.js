@@ -12,10 +12,9 @@ const Container = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
-    margin-top: -50px;
+    margin-top: 20px;
     margin-bottom: -100px;
     @media(min-width: 1000px) {
-        margin-top: 35px;
         position: relative;
     }
 `
