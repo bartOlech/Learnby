@@ -3,10 +3,15 @@ import styled from 'styled-components';
 import { FontStyle } from '../../../assets/style/style';
 
 const Container = styled.div`
-    width: 100%;
-    height: 100%;
+    width: 100px;
+    height: 50px;
     display: flex;
     margin-top: 10px;
+    @media(min-width: 1000px) {
+        position: absolute;
+        left: 0;
+        top: 47px;
+    }
 `
 const Text = styled.div`
     padding-left: 20px;
@@ -27,7 +32,7 @@ const Topic = styled.h2`
 const AnnouncementTopic = (props) => {
     return (
         <Container>
-            <Text>Uczy się: </Text><Topic>{props.topic}</Topic>
+            <Text>Wiek: </Text><Topic>{props.age}</Topic>
         </Container>
     )
 }
