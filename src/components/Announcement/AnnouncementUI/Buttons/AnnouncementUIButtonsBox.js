@@ -7,6 +7,7 @@ const Container = styled.div`
    display: flex;
    justify-content: space-around;
    margin-top: 30px;
+   z-index: 3;
 `
 
 const AnnouncementUIButtonsBox = (props) => {

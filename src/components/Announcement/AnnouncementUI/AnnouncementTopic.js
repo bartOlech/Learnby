@@ -4,7 +4,7 @@ import { FontStyle } from '../../../assets/style/style';
 
 const Container = styled.div`
     width: 100%;
-    height: 100%;
+    height: 50px;
     display: flex;
     margin-top: 10px;
 `

@@ -9,10 +9,17 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     margin-top: 50px;
+    @media(min-width: 1000px) { 
+        flex-direction: row;
+        margin-bottom: 40px;
+     }
 `
 const BoxLine = styled.div`
     display: flex;
     justify-content: center;
+    @media(min-width: 1000px) { 
+        margin: 0 30px 0 30px;
+     }
 `
 const Line = styled.div`
     width: 96px;

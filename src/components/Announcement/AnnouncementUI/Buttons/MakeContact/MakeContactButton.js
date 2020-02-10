@@ -15,6 +15,7 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     margin-bottom: 100px;
+    z-index: 2;
     /* position: absolute; */
     /* top: 230px; */
     @media(min-width: 1000px) {

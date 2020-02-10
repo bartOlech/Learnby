@@ -7,9 +7,7 @@ const Container = styled.div`
     width: 100%;
     height: 100%;
     padding-bottom: 30px;
-    background-image: #fff;
-    background-repeat: no-repeat;
-    background-size: 900px 800px;
+    background-color: #fff;
 `
 
 const CommentBox = (props) => {
