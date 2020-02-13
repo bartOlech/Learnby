@@ -4,6 +4,9 @@ import { Progress } from 'react-sweet-progress';
 import "react-sweet-progress/lib/style.css";
 
 const Container = styled.div`
+  @media(min-width: 1000px) {
+    margin-top: -52px;
+  }
 `
 const Bar = styled.div`
     &&::before {
