@@ -226,7 +226,7 @@ const StartPage = () => {
                             <BackgroundWavesDesktop>
                                 <VectorPersonImage></VectorPersonImage>
                             </BackgroundWavesDesktop>
-                            <Header background='#fff'></Header>
+                            <Header shadow='none' background='#fff'></Header>
                         </React.Fragment>                        
                     )}
                 />

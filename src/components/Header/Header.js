@@ -19,6 +19,7 @@ const Container = styled.div`
     background: ${props => props.background};
     background-size: cover;
     box-shadow: -1px 2px 10px -6px rgba(0,0,0,0.75);
+    box-shadow: ${props => props.shadow};
 `
 const UserSection = styled.div`
     width: 100px;
@@ -48,7 +49,7 @@ const Header = (props) => {
     }
 
     return (
-        <Container background={props.background}>
+        <Container background={props.background} shadow={props.shadow}>
             <Logo></Logo><AddNotice background='#DD9A76' image={`url(${MobilePlusIco})`} color='#fff'></AddNotice>
             <CurrentUserConsumer>
                 {({ user }) => (

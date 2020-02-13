@@ -15,11 +15,11 @@ const LogoMobile = styled.div`
 `
 const LogoDesktop = styled.div`
     width: 240px;
-    height: 240px;
+    height: 150px;
     background-image: url(${desktopLogo});
-    background-size: 240px 240px;
+    background-size: 240px 150px;
     background-repeat: no-repeat;
-    margin: -85px 0 15px 50px;
+    margin: -40px 0 15px 50px;
 `
 
 const Logo = () => {
