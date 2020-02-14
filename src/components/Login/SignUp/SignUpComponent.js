@@ -8,10 +8,10 @@ import Form from './Form';
 import Media from 'react-media';
 import SwitchLoginButton from './DesktopLayout/SwitchLoginButton';
 // shapes
-import Circle from './Background-shapes/Circle';
-import Triangle from './Background-shapes/Triangle';
-import SmallTriangle from './Background-shapes/Small-triangle';
-import Square from './Background-shapes/Square';
+import Circle from '../SignIn/Background-shapes/Circle';
+import Triangle from '../SignIn/Background-shapes/Triangle';
+import SmallTriangle from '../SignIn/Background-shapes/Small-triangle';
+import Square from '../SignIn/Background-shapes/Square';
 
 const Container = styled.div`
     width: 100%;
