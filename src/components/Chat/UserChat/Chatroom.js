@@ -9,6 +9,7 @@ import sendIco from '../../../assets/img/Mobile/sendMessage1.svg';
 import firebase from '../../../Firebase.config';
 import SecondsToDate from './SecondsToDate';
 import uniqid from 'uniqid';
+import Media from 'react-media';
  
 const Container = styled.div`
 
@@ -17,9 +18,18 @@ const Form = styled.form`
     width: 100%;
     height: 50px;
     position: absolute;
-    bottom: 0%;
+    bottom: 0;
     display: flex;
     border-top: 1px solid #D6D6D6;
+    @media(min-width: 1100px) {
+      width: 40%;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+      bottom: 10px;
+      border: none;
+    }
 `
 const FormBox = styled.div`
     width: 100%;
@@ -35,6 +45,13 @@ const Input = styled.input`
     font-size: 1.3em;
     outline: none;
     padding-left: 10px;
+    @media(min-width: 1100px) {
+      border-top-left-radius: 30px;
+      border-bottom-left-radius: 30px;
+      &&::placeholder {
+        padding-left: 12px;
+      }
+    }
 `
 const SendButton = styled.div`
     margin-top: 200px;
@@ -46,7 +63,43 @@ const SendButton = styled.div`
     margin-top: 10px;
     margin-left: 10px;
     cursor: pointer;
+    @media(min-width: 1100px) {
+      &&:before {
+      content: '';
+      width: 53px;
+      height: 52px;
+      background-color: #fff;
+      position: absolute;
+      right: 0px;
+      top: 0;
+      z-index: -1;
+      border-top-right-radius: 30px;
+      border-bottom-right-radius: 30px;
+    }
+    }
 `
+// Media queries for chat
+const ChatStylePhone = {
+  position: 'absolute', 
+  top: '100px', 
+  bottom: '50px', 
+  width: '100%',
+  background: '#EFEFEF',
+}
+const ChatStyleDesktop = {
+  position: 'absolute', 
+  top: 0, 
+  left:0,
+  right:0,
+  marginLeft: 'auto',
+  marginRight: 'auto',
+  bottom: '0',
+  paddingBottom: '100px', 
+  width: '50%',
+  background: '#EFEFEF',
+  zIndex: '-2'
+}
+
 
 class UserChatBox extends Component{
     state = {
@@ -172,6 +225,7 @@ class UserChatBox extends Component{
             <FindAnnouncementConsumer>
                 {({ userDataFromUserCollection, getUserDataIfRefresh }) => (
                     <Container>
+                      {console.log(userDataFromUserCollection)}
                         {!isExecuted ? (
                             getUserDataIfRefresh(this.props.match.params.id),
                             this.setState({
@@ -181,7 +235,7 @@ class UserChatBox extends Component{
                         {userDataFromUserCollection.Name !== undefined ? (
                           
                             <Header 
-                                image={userDataFromUserCollection.PhotoUrl}
+                                image={userDataFromUserCollection.PhotoUrl || userDataFromUserCollection.photoUrl}
                                 name={userDataFromUserCollection.Name.replace(/ .*/,'')}
                             ></Header>
                         ) : (
@@ -190,18 +244,35 @@ class UserChatBox extends Component{
                                 name=''
                             ></Header>
                         )}
-                        <ChatFeed
-                            ref={e => this.chat = e}
-                            messages={this.state.messages} // Array: list of message objects
-                            authors={this.state.authors} // Array: list of authors
-                            yourAuthorId={2} // Number: Your author id (corresponds with id from list of authors)
-                            // maxHeight='140vw'
-                            style={{position: 'absolute', top: '100px', bottom: '50px', width: '100%'}}
-                            
-                        />  
+                        {/* Phone */}
+                        <Media query="(max-width: 1100px)" render={() =>
+                            (
+                              <ChatFeed
+                                ref={e => this.chat = e}
+                                messages={this.state.messages} // Array: list of message objects
+                                authors={this.state.authors} // Array: list of authors
+                                yourAuthorId={2} // Number: Your author id (corresponds with id from list of authors)
+                                // maxHeight='140vw'
+                                style={ChatStylePhone}
+                              />  
+                            )}
+                        />
+                        {/* Desktop */}
+                        <Media query="(min-width: 1100px)" render={() =>
+                            (
+                              <ChatFeed
+                                ref={e => this.chat = e}
+                                messages={this.state.messages} // Array: list of message objects
+                                authors={this.state.authors} // Array: list of authors
+                                yourAuthorId={2} // Number: Your author id (corresponds with id from list of authors)
+                                // maxHeight='140vw'
+                                style={ChatStyleDesktop}
+                              />                        
+                            )}
+                        />
+                        
                        
                         <Form>
-                          
                             <FormBox>
                                 <Input 
                                   placeholder='Napisz wiadomość...'
@@ -215,6 +286,7 @@ class UserChatBox extends Component{
                             </FormBox>
                         </Form>
                     </Container>
+
                 )}
             </FindAnnouncementConsumer>
         )

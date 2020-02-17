@@ -18,7 +18,7 @@ const Container = styled.div`
     justify-content: space-between;
     background: ${props => props.background};
     background-size: cover;
-    box-shadow: -1px 2px 10px -6px rgba(0,0,0,0.75);
+    box-shadow: -1px 2px 10px -6px rgba(0,0,0,0.65);
     box-shadow: ${props => props.shadow};
 `
 const UserSection = styled.div`
@@ -31,7 +31,7 @@ const Image = styled.div`
     width: 41px;
     height: 41px;
     border: none;
-    box-shadow: -1px 2px 14px -6px rgba(0,0,0,0.75);
+    box-shadow: -1px 2px 5px -6px rgba(0,0,0,0.55);
 
     border-radius: 50%;
     background-image: url(${props => props.image});
