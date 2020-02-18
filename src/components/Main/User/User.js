@@ -55,7 +55,7 @@ const User = () => {
                                 )}
                             />
                             <UpperSection 
-                                photo={userDataFromUserCollection.PhotoUrl}
+                                photo={userDataFromUserCollection.PhotoUrl || userDataFromUserCollection.photoUrl}
                                 name={userDataFromUserCollection.Name}
                                 age={userDataFromUserCollection.Age}
                                 description={userDataFromUserCollection.Description ? userDataFromUserCollection.Description : 'Konto social, dodać funkcje, która tworzy opis'}

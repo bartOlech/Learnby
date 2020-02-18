@@ -12,6 +12,7 @@ const Container = styled.div`
 const BottomSection = (props) => {
     return (
         <Container>
+            {console.log(props.userAnnouncements)}
             <UserActualLearn userAnnouncements={props.userAnnouncements} name={props.name}></UserActualLearn>
             <BottomButtons></BottomButtons>
         </Container>

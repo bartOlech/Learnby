@@ -35,13 +35,16 @@ const SideAnnouncement = styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     position: absolute;
     right: 80px;
     top: -12px;
+    @media(max-width: 1200px) {
+        display: none;
+    }
 `
 const CommentContainer = styled.div`
-    
+
 `
 
 const AnnouncementFooterBox = () => {

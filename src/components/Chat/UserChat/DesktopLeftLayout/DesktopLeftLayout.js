@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import MessageTextLogoBox from './MessageTextLogoBox/MessageTextLogoBox';
+import ListOfUserMessages from './ListOfUserMessages/ListOfUserMessages';
 
 const Container = styled.div`
     width: 25%;
@@ -10,10 +11,11 @@ const Container = styled.div`
     }
 `
 
-const DesktopLeftLayout = () => {
+const DesktopLeftLayout = (props) => {
     return (
         <Container>
             <MessageTextLogoBox></MessageTextLogoBox>
+            <ListOfUserMessages userId={props.userId}></ListOfUserMessages>
         </Container>
     )
 }

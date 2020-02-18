@@ -236,7 +236,7 @@ class UserChatBox extends Component{
             <FindAnnouncementConsumer>
                 {({ userDataFromUserCollection, getUserDataIfRefresh }) => (
                   <DesktopBox>
-                    <DesktopLeftLayout></DesktopLeftLayout>
+                    <DesktopLeftLayout userId={this.props.match.params.id}></DesktopLeftLayout>
                     <Container>
                       {/* {console.log(userDataFromUserCollection)} */}
                         {!isExecuted ? (

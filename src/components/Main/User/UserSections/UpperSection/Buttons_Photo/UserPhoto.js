@@ -13,9 +13,9 @@ const Photo = styled.div`
     background-size: 101px 101px;
     border-radius: 50%;
     box-shadow:
-    0 0px 1.3px rgba(0, 0, 0, 0.073),
-    0 0px 4.5px rgba(0, 0, 0, 0.107),
-    0 0px 20px rgba(0, 0, 0, 0.18)
+    0 0px 2px rgba(0, 0, 0, 0.073),
+    0 0px 2px rgba(0, 0, 0, 0.107),
+    0 0px 2px rgba(0, 0, 0, 0.18)
     ;
 `
 

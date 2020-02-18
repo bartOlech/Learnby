@@ -49,7 +49,7 @@ export class CurrentUserProvider extends Component {
         // get values after searching
         announcementList: new Map(),
         randomAnnouncement: new Map(),
-        newestAnnouncement: new Map()
+        newestAnnouncement: new Map(),
     }
 
     logout = () => {
@@ -161,7 +161,6 @@ export class CurrentUserProvider extends Component {
             commentsMap.clear()
 
             
-
             for (const [key, value] of Object.entries(snapshot.data().Comments)) {
                 commentsMap.set(key, value)
             }
@@ -469,7 +468,6 @@ export class CurrentUserProvider extends Component {
                     })
                 })
             } else {
-                console.log('exists')
             }
         })
     }
@@ -488,7 +486,7 @@ export class CurrentUserProvider extends Component {
             userAnnouncements,
             announcementList,
             randomAnnouncement,
-            newestAnnouncement
+            newestAnnouncement,
         } = this.state;
         return (
             <CurrentUserContext.Provider
@@ -526,7 +524,7 @@ export class CurrentUserProvider extends Component {
                         announcementList,
                         randomAnnouncement,
                         createUserChatRoom: this.createUserChatRoom,
-                        newestAnnouncement
+                        newestAnnouncement,
                     }}
                 >
                     {children}

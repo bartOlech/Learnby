@@ -17,7 +17,7 @@ const Text = styled.p`
     color: #fff;
     font-size: 1.7em;
     position: absolute;
-    left: 5px;
+    left: 10px;
     top: 0;
     bottom: 5px;
     margin-top: auto;
