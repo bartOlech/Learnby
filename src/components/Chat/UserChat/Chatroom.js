@@ -10,6 +10,8 @@ import firebase from '../../../Firebase.config';
 import SecondsToDate from './SecondsToDate';
 import uniqid from 'uniqid';
 import Media from 'react-media';
+// desktop components
+import DesktopLeftLayout from './DesktopLeftLayout/DesktopLeftLayout';
  
 const Container = styled.div`
 
@@ -78,6 +80,15 @@ const SendButton = styled.div`
     }
     }
 `
+const DesktopBox = styled.div`
+  width: 100%;
+  height: 100%;
+  display: inline;
+  @media(min-width: 1100px) {
+    display: flex;
+  }
+`
+
 // Media queries for chat
 const ChatStylePhone = {
   position: 'absolute', 
@@ -224,6 +235,8 @@ class UserChatBox extends Component{
         return (
             <FindAnnouncementConsumer>
                 {({ userDataFromUserCollection, getUserDataIfRefresh }) => (
+                  <DesktopBox>
+                    <DesktopLeftLayout></DesktopLeftLayout>
                     <Container>
                       {console.log(userDataFromUserCollection)}
                         {!isExecuted ? (
@@ -269,9 +282,7 @@ class UserChatBox extends Component{
                                 style={ChatStyleDesktop}
                               />                        
                             )}
-                        />
-                        
-                       
+                        />   
                         <Form>
                             <FormBox>
                                 <Input 
@@ -286,7 +297,7 @@ class UserChatBox extends Component{
                             </FormBox>
                         </Form>
                     </Container>
-
+                  </DesktopBox>
                 )}
             </FindAnnouncementConsumer>
         )
