@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import wavySquareIco from '../../../../../assets/img/Desktop/Chat/message-wavy-box.svg';
+import firebase from '../../../../../Firebase.config';
 
 const Container = styled.div`
     width: 80px;
@@ -28,9 +29,17 @@ const NameLetterSquare = styled.div`
 `
 
 const LetterLogo = () => {
+    const[letterOfName, setLetterOfName] = useState('')
+
+    useEffect(() => {
+        firebase.isInitialized().then(() => {
+            setLetterOfName(firebase.getCurrentUserAllData().displayName.split('').splice(0, 1).join('').toUpperCase())
+        })
+        console.log(letterOfName)
+    }, [])
     return (
         <Container>
-            <NameLetterSquare>B</NameLetterSquare>
+            <NameLetterSquare>{letterOfName}</NameLetterSquare>
         </Container>
     )
 }

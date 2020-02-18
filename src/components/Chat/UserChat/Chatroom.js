@@ -238,7 +238,7 @@ class UserChatBox extends Component{
                   <DesktopBox>
                     <DesktopLeftLayout></DesktopLeftLayout>
                     <Container>
-                      {console.log(userDataFromUserCollection)}
+                      {/* {console.log(userDataFromUserCollection)} */}
                         {!isExecuted ? (
                             getUserDataIfRefresh(this.props.match.params.id),
                             this.setState({
