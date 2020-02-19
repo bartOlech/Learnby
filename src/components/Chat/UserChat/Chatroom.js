@@ -89,35 +89,12 @@ const DesktopBox = styled.div`
   }
 `
 
-// Media queries for chat
-const ChatStylePhone = {
-  position: 'absolute', 
-  top: '100px', 
-  bottom: '50px', 
-  width: '100%',
-  background: '#EFEFEF',
-}
-const ChatStyleDesktop = {
-  position: 'absolute', 
-  top: 0, 
-  left:0,
-  right:0,
-  marginLeft: 'auto',
-  marginRight: 'auto',
-  bottom: '0',
-  paddingBottom: '100px', 
-  width: '50%',
-  background: '#EFEFEF',
-  zIndex: '-2'
-}
-
-
 class UserChatBox extends Component{
     state = {
         isExecuted: false,
         messageKeys: [],
         messageInputValue: '',
-        
+        userIdValue: '',
         messages: [
           
         ]
@@ -130,6 +107,8 @@ class UserChatBox extends Component{
           const userId = this.props.match.params.id
           const{ messageKeys } = this.state;
           let message = []
+
+          
 
           for(let[key, value] of Object.entries(doc.data().MessagesId)) {
             if(key === userId) {
@@ -266,11 +245,17 @@ class UserChatBox extends Component{
                                 authors={this.state.authors} // Array: list of authors
                                 yourAuthorId={2} // Number: Your author id (corresponds with id from list of authors)
                                 // maxHeight='140vw'
-                                style={ChatStylePhone}
+                                style={{position: 'absolute', 
+                                top: '100px', 
+                                bottom: '50px', 
+                                width: '100%',
+                                background: '#EFEFEF',}}
                               />  
                             )}
                         />
                         {/* Desktop */}
+
+
                         <Media query="(min-width: 1100px)" render={() =>
                             (
                               <ChatFeed
@@ -279,7 +264,15 @@ class UserChatBox extends Component{
                                 authors={this.state.authors} // Array: list of authors
                                 yourAuthorId={2} // Number: Your author id (corresponds with id from list of authors)
                                 // maxHeight='140vw'
-                                style={ChatStyleDesktop}
+                                style={{position: 'absolute', top: 0, left:0,
+                                right:0,
+                                marginLeft: 'auto',
+                                marginRight: 'auto',
+                                bottom: '0',
+                                paddingBottom: '100px', 
+                                width: '50%',
+                                background: '#EFEFEF',
+                                zIndex: '-2'}}
                               />                        
                             )}
                         />   

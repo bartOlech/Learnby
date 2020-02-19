@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Image from './Image';
 import Name from './Name';
+import { BrowserRouter as Router, Link} from 'react-router-dom';
+import { FindAnnouncementConsumer } from '../../../../../../context/CurrentUser.context'
 
 const Container = styled.div`
     display: flex;
@@ -10,14 +12,22 @@ const Container = styled.div`
     background-color: ${props => props.background};
     border-top-left-radius: 25px;
     border-bottom-left-radius: 25px;
+    cursor: pointer;
 `
 
 const User = (props) => {
+
     return (
-        <Container background={props.background}>
-            <Image image={props.image}></Image>
-            <Name name={props.name}></Name>
-        </Container>
+        <FindAnnouncementConsumer>
+            {({ createUserChatRoom }) => (
+                <Link to={`${props.messageId}`}>
+                    <Container background={props.background} >
+                        <Image image={props.image}></Image>
+                        <Name name={props.name}></Name>
+                    </Container>
+                </Link>
+            )}
+        </FindAnnouncementConsumer>
     )
 }
 
