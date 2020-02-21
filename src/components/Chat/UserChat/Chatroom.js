@@ -12,6 +12,7 @@ import uniqid from 'uniqid';
 import Media from 'react-media';
 // desktop components
 import DesktopLeftLayout from './DesktopLeftLayout/DesktopLeftLayout';
+import DesktopRightLayout from './DesktopRightLayout/DesktopRightLayout';
  
 const Container = styled.div`
 
@@ -308,7 +309,6 @@ class UserChatBox extends Component{
                         />
                         {/* Desktop */}
 
-
                         <Media query="(min-width: 1100px)" render={() =>
                             (
                               <ChatFeed
@@ -346,6 +346,19 @@ class UserChatBox extends Component{
                             </FormBox>
                         </Form>
                     </Container>
+                    {userDataFromUserCollection.Name !== undefined ? (
+                          
+                      <DesktopRightLayout 
+                        name={userDataFromUserCollection.Name.replace(/ .*/,'')}
+                        image={userDataFromUserCollection.PhotoUrl || userDataFromUserCollection.photoUrl}>
+                      </DesktopRightLayout>
+                      ) : (
+                        <DesktopRightLayout 
+                          name=''
+                          image=''
+                        >
+                        </DesktopRightLayout>
+                      )}
                   </DesktopBox>
                 )}
             </FindAnnouncementConsumer>
