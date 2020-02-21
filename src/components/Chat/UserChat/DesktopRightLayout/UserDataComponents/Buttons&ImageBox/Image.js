@@ -29,7 +29,7 @@ const Container = styled.div`
         background-color: #28D0B9;
         border-radius: 10px;
         position: absolute;
-        top: 76px;
+        top: 80px;
         left: -1px;
     }
 `

@@ -347,10 +347,13 @@ class UserChatBox extends Component{
                         </Form>
                     </Container>
                     {userDataFromUserCollection.Name !== undefined ? (
-                          
                       <DesktopRightLayout 
                         name={userDataFromUserCollection.Name.replace(/ .*/,'')}
-                        image={userDataFromUserCollection.PhotoUrl || userDataFromUserCollection.photoUrl}>
+                        image={userDataFromUserCollection.PhotoUrl || userDataFromUserCollection.photoUrl}
+                        place={userDataFromUserCollection.Place}
+                        age={userDataFromUserCollection.Age}
+                        sex={userDataFromUserCollection.Sex}
+                        >
                       </DesktopRightLayout>
                       ) : (
                         <DesktopRightLayout 
