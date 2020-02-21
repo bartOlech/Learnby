@@ -36,14 +36,17 @@ class Users extends Component{
         })
     }
 
+    UpdateUserMessages = () => {
+        this.props.UpdateUserMessages();
+    }
+
     showUsers = () => {
         const { usersData } = this.state;
         const list = [];
 
         for (let [key, value] of usersData.entries()) {
-            // console.log(typeof value.Name)
             
-        list.push(<User messageId={key} background={key === this.props.userId? '#EFEFEF' : '#fff'} name={value.Name} image={value.PhotoUrl || value.photoUrl}></User>)
+        list.push(<User UpdateUserMessages={this.UpdateUserMessages} messageId={key} background={key === this.props.userId? '#EFEFEF' : '#fff'} name={value.Name} image={value.PhotoUrl || value.photoUrl}></User>)
         }
         return list
     }

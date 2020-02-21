@@ -24,10 +24,15 @@ const TittleText = styled.span`
 `
 
 const ListOfUsereMessages = (props) => {
+
+    const UpdateUserMessages = () => {
+        props.UpdateUserMessages()
+    }
+    
     return (
         <Container>
             <TittleBox><TittleText>Wszystkie</TittleText></TittleBox>
-            <Users userId={props.userId}></Users>
+            <Users UpdateUserMessages={UpdateUserMessages} userId={props.userId}></Users>
         </Container>
     )
 }

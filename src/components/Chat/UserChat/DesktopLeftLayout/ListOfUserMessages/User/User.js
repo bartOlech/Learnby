@@ -17,10 +17,14 @@ const Container = styled.div`
 
 const User = (props) => {
 
+    const UpdateUserMessages = () => {
+        props.UpdateUserMessages()
+    }
+
     return (
         <FindAnnouncementConsumer>
-            {({ createUserChatRoom }) => (
-                <Link to={`${props.messageId}`}>
+            {({ getUserDataIfRefresh }) => (
+                <Link onClick={UpdateUserMessages} style={{ textDecoration: 'none' }} to={`${props.messageId}`}>
                     <Container background={props.background} >
                         <Image image={props.image}></Image>
                         <Name name={props.name}></Name>

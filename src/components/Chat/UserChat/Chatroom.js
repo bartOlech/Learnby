@@ -208,6 +208,58 @@ class UserChatBox extends Component{
       }
     }
 
+    UpdateUserMessages = () => {
+      firebase.isInitialized().then(() => {
+        this.setState({
+          messageKeys: [],
+          messageInputValue: '',
+          userIdValue: '',
+          messages: [
+          
+          ]
+        })
+        // get realtime firebase 
+        firebase.getDataFromFirestore('user').doc(firebase.getCurrentUid()).get().then(doc => {
+          const userId = this.props.match.params.id
+          const{ messageKeys } = this.state;
+          let message = []
+
+          for(let[key, value] of Object.entries(doc.data().MessagesId)) {
+            if(key === userId) {
+              firebase.getDataFromFirestore('Messages').doc(value).onSnapshot(querySnapshot => {
+                if(querySnapshot.exists) {
+                  for(let[key, value] of Object.entries(querySnapshot.data().messages)) {
+                    const date = {createdOn: SecondsToDate(value.date.seconds)}
+                    let id = {}
+
+                    if(!messageKeys.includes(key)){
+                      // adjust authorId
+                      value.authorId === this.props.match.params.id ? (
+                        id = {authorId: 1}
+                      ) : (
+                        id = {authorId: 2}
+                      )
+
+                      let messagesObject = {...value, ...id, ...date} 
+                      message.push(messagesObject)
+                      messageKeys.push(key)
+                      
+                    }
+                  }
+                  this.setState({
+                    messages: message
+                  }, () => {
+                    this.chat && this.chat.onMessageSend()
+                  })
+                }
+              })
+            }
+          }
+
+        })
+      })
+    }
+
     render() {
         const { isExecuted, messageInputValue } = this.state;
 
@@ -215,7 +267,7 @@ class UserChatBox extends Component{
             <FindAnnouncementConsumer>
                 {({ userDataFromUserCollection, getUserDataIfRefresh }) => (
                   <DesktopBox>
-                    <DesktopLeftLayout userId={this.props.match.params.id}></DesktopLeftLayout>
+                    <DesktopLeftLayout UpdateUserMessages={this.UpdateUserMessages} userId={this.props.match.params.id}></DesktopLeftLayout>
                     <Container>
                       {/* {console.log(userDataFromUserCollection)} */}
                         {!isExecuted ? (
@@ -245,11 +297,12 @@ class UserChatBox extends Component{
                                 authors={this.state.authors} // Array: list of authors
                                 yourAuthorId={2} // Number: Your author id (corresponds with id from list of authors)
                                 // maxHeight='140vw'
-                                style={{position: 'absolute', 
-                                top: '100px', 
-                                bottom: '50px', 
-                                width: '100%',
-                                background: '#EFEFEF',}}
+                                style={{
+                                  position: 'absolute', 
+                                  top: '100px', 
+                                  bottom: '50px', 
+                                  width: '100%',
+                                  background: '#EFEFEF',}}
                               />  
                             )}
                         />
@@ -264,15 +317,18 @@ class UserChatBox extends Component{
                                 authors={this.state.authors} // Array: list of authors
                                 yourAuthorId={2} // Number: Your author id (corresponds with id from list of authors)
                                 // maxHeight='140vw'
-                                style={{position: 'absolute', top: 0, left:0,
-                                right:0,
-                                marginLeft: 'auto',
-                                marginRight: 'auto',
-                                bottom: '0',
-                                paddingBottom: '100px', 
-                                width: '50%',
-                                background: '#EFEFEF',
-                                zIndex: '-2'}}
+                                style={{
+                                  position: 'absolute', 
+                                  top: 0, 
+                                  left:0,
+                                  right:0,
+                                  marginLeft: 'auto',
+                                  marginRight: 'auto',
+                                  bottom: '0',
+                                  paddingBottom: '100px', 
+                                  width: '50%',
+                                  background: '#EFEFEF',
+                                  zIndex: '-2'}}
                               />                        
                             )}
                         />   

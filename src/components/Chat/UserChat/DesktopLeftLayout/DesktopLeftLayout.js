@@ -12,10 +12,15 @@ const Container = styled.div`
 `
 
 const DesktopLeftLayout = (props) => {
+
+    const UpdateUserMessages = () => {
+        props.UpdateUserMessages()
+    }
+    
     return (
         <Container>
             <MessageTextLogoBox></MessageTextLogoBox>
-            <ListOfUserMessages userId={props.userId}></ListOfUserMessages>
+            <ListOfUserMessages UpdateUserMessages={UpdateUserMessages} userId={props.userId}></ListOfUserMessages>
         </Container>
     )
 }

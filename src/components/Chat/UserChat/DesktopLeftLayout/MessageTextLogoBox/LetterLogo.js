@@ -35,7 +35,6 @@ const LetterLogo = () => {
         firebase.isInitialized().then(() => {
             setLetterOfName(firebase.getCurrentUserAllData().displayName.split('').splice(0, 1).join('').toUpperCase())
         })
-        console.log(letterOfName)
     }, [])
     return (
         <Container>
