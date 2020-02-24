@@ -18,8 +18,8 @@ const StartButton = styled.button`
     font-size: 1.6em;
     cursor: pointer;
     outline: none;
-    margin-top: 40px;
     margin-top: 20px;
+    margin-bottom: 20px;
 `
 
 const Button = (props) => {

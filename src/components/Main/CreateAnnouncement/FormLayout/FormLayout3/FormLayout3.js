@@ -35,6 +35,10 @@ const Textarea = styled.textarea`
     margin-bottom: 15px;
     outline: none;
     padding-left: 10px;
+    @media(min-width: 1000px) {
+        width: 600px;
+        height: 230px;
+    }
 `
 const CheckRegulationsSection = styled.div`
     width: 100%;
@@ -76,7 +80,7 @@ const FormLayout3 = () => {
                 <Container>
                     <Form>
                         <Label style={{fontSize: '1.7em', marginBottom: '25px'}}>Już prawie skończone!</Label>
-                        <Label style={{marginLeft: '-255px'}} htmlFor='description'>Opis</Label>
+                        <Label htmlFor='description'>Opis</Label>
                         <Textarea 
                             value={addAnnouncementData.description} 
                             onChange={val => {

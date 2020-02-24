@@ -98,7 +98,8 @@ class UserChatBox extends Component{
         userIdValue: '',
         messages: [
           
-        ]
+        ],
+        userData: ''
       };
 
     componentDidMount () {
@@ -210,6 +211,7 @@ class UserChatBox extends Component{
     }
 
     UpdateUserMessages = () => {
+
       firebase.isInitialized().then(() => {
         this.setState({
           messageKeys: [],
@@ -258,11 +260,17 @@ class UserChatBox extends Component{
           }
 
         })
+        // get user data
+        firebase.getDataFromFirestore('user').doc(this.props.match.params.id).get().then(snapshot => {
+          this.setState({
+            userData: snapshot.data()
+          })
+      })
       })
     }
 
     render() {
-        const { isExecuted, messageInputValue } = this.state;
+        const { isExecuted, messageInputValue, userData } = this.state;
 
         return (
             <FindAnnouncementConsumer>
@@ -270,7 +278,6 @@ class UserChatBox extends Component{
                   <DesktopBox>
                     <DesktopLeftLayout UpdateUserMessages={this.UpdateUserMessages} userId={this.props.match.params.id}></DesktopLeftLayout>
                     <Container>
-                      {/* {console.log(userDataFromUserCollection)} */}
                         {!isExecuted ? (
                             getUserDataIfRefresh(this.props.match.params.id),
                             this.setState({
@@ -347,14 +354,25 @@ class UserChatBox extends Component{
                         </Form>
                     </Container>
                     {userDataFromUserCollection.Name !== undefined ? (
-                      <DesktopRightLayout 
-                        name={userDataFromUserCollection.Name.replace(/ .*/,'')}
-                        image={userDataFromUserCollection.PhotoUrl || userDataFromUserCollection.photoUrl}
-                        place={userDataFromUserCollection.Place}
-                        age={userDataFromUserCollection.Age}
-                        sex={userDataFromUserCollection.Sex}
-                        >
-                      </DesktopRightLayout>
+                        userData === '' ? (
+                          <DesktopRightLayout 
+                            name={userDataFromUserCollection.Name.replace(/ .*/,'')}
+                            image={userDataFromUserCollection.PhotoUrl || userDataFromUserCollection.photoUrl}
+                            place={userDataFromUserCollection.Place}
+                            age={userDataFromUserCollection.Age}
+                            sex={userDataFromUserCollection.Sex}
+                            >
+                          </DesktopRightLayout>
+                        ) : (
+                          <DesktopRightLayout 
+                            name={userData.Name.replace(/ .*/,'')}
+                            image={userData.PhotoUrl || userData.photoUrl}
+                            place={userData.Place}
+                            age={userData.Age}
+                            sex={userData.Sex}
+                            >
+                          </DesktopRightLayout>
+                        )
                       ) : (
                         <DesktopRightLayout 
                           name=''

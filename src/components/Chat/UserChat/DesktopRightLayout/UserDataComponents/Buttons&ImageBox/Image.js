@@ -37,7 +37,7 @@ const Container = styled.div`
 const Image = (props) => {
     return (
         <Container image={props.image}>
-
+            
         </Container>
     )
 }
