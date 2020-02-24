@@ -14,6 +14,7 @@ import Media from 'react-media';
 import DesktopLeftLayout from './DesktopLeftLayout/DesktopLeftLayout';
 import DesktopRightLayout from './DesktopRightLayout/DesktopRightLayout';
 import WaveBackgroundImage from '../../../assets/img/Desktop/Chat/wave-background-chat.svg';
+import { RedditIcon } from 'react-share';
  
 const Container = styled.div`
 
@@ -52,9 +53,23 @@ const Input = styled.input`
     @media(min-width: 1100px) {
       border-top-left-radius: 30px;
       border-bottom-left-radius: 30px;
+      margin-top: -16px;
       &&::placeholder {
         padding-left: 12px;
       }
+    }
+`
+const SendButtonBox = styled.div`
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  cursor: pointer;
+  @media(min-width: 1100px) {
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    margin-top: -16px;
     }
 `
 const SendButton = styled.div`
@@ -68,18 +83,8 @@ const SendButton = styled.div`
     margin-left: 10px;
     cursor: pointer;
     @media(min-width: 1100px) {
-      &&:before {
-      content: '';
-      width: 53px;
-      height: 52px;
-      background-color: #fff;
-      position: absolute;
-      right: 0px;
-      top: 0;
-      z-index: -1;
-      border-top-right-radius: 30px;
-      border-bottom-right-radius: 30px;
-    }
+      margin-top: 18px;
+      margin-right: -5px;
     }
 `
 const DesktopBox = styled.div`
@@ -92,7 +97,7 @@ const DesktopBox = styled.div`
 `
 const WaveBackground = styled.div`
   width: 100%;
-  height: 120px;
+  height: 95px;
   background-image: url(${WaveBackgroundImage});
   background-repeat: no-repeat;
   background-size: cover;
@@ -335,7 +340,12 @@ class UserChatBox extends Component{
                                 messages={this.state.messages} // Array: list of message objects
                                 authors={this.state.authors} // Array: list of authors
                                 yourAuthorId={2} // Number: Your author id (corresponds with id from list of authors)
-                                // maxHeight='140vw'
+                                chatBubbleStyles={{
+                                  chatBubble: {
+                                    backgroundColor: '#33BFAC'
+                                  }
+                                }}
+
                                 style={{
                                   position: 'absolute', 
                                   top: 0, 
@@ -347,7 +357,7 @@ class UserChatBox extends Component{
                                   paddingBottom: '100px', 
                                   width: '50%',
                                   background: '#EFEFEF',
-                                  zIndex: '-2'}}
+                                  }}
                               />                        
                             )}
                         />   
@@ -361,7 +371,9 @@ class UserChatBox extends Component{
                                   >      
                                 </Input>
                                 {/* <SmileButton></SmileButton> */}
-                                <SendButton onClick={this.sendMessage}></SendButton>
+                                <SendButtonBox>
+                                  <SendButton onClick={this.sendMessage}></SendButton>
+                                </SendButtonBox>
                             </FormBox>
                         </Form>
                     </Container>
