@@ -13,6 +13,7 @@ import Media from 'react-media';
 // desktop components
 import DesktopLeftLayout from './DesktopLeftLayout/DesktopLeftLayout';
 import DesktopRightLayout from './DesktopRightLayout/DesktopRightLayout';
+import WaveBackgroundImage from '../../../assets/img/Desktop/Chat/wave-background-chat.svg';
  
 const Container = styled.div`
 
@@ -88,6 +89,17 @@ const DesktopBox = styled.div`
   @media(min-width: 1100px) {
     display: flex;
   }
+`
+const WaveBackground = styled.div`
+  width: 100%;
+  height: 120px;
+  background-image: url(${WaveBackgroundImage});
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  bottom: 0;
+  z-index: -3;
+  opacity: 1;
 `
 
 class UserChatBox extends Component{
@@ -380,6 +392,7 @@ class UserChatBox extends Component{
                         >
                         </DesktopRightLayout>
                       )}
+                      <WaveBackground></WaveBackground>
                   </DesktopBox>
                 )}
             </FindAnnouncementConsumer>

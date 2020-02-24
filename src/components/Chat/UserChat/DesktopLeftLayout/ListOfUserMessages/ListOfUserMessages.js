@@ -4,7 +4,10 @@ import { FontStyle } from '../../../../../assets/style/style';
 import Users from './Users';
 
 const Container = styled.div`
-
+    width: 100%;
+    height: 550px;
+    background: #fff;
+    overflow: auto;
 `
 const TittleBox = styled.div`
     width: 100%;

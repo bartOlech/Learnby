@@ -4,7 +4,7 @@ import User from './User/User';
 import firebase from '../../../../../Firebase.config';
 
 const Container = styled.div`
-
+    
 `
 
 class Users extends Component{
