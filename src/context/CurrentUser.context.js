@@ -48,7 +48,8 @@ export class CurrentUserProvider extends Component {
         userAnnouncements: new Map(),
         // get values after searching
         announcementList: new Map(),
-        randomAnnouncement: new Map()
+        randomAnnouncement: new Map(),
+        newestAnnouncement: new Map(),
     }
 
     logout = () => {
@@ -116,7 +117,7 @@ export class CurrentUserProvider extends Component {
     }
 
     componentDidMount() {
-        const{ randomAnnouncement } = this.state;
+        const{ randomAnnouncement, newestAnnouncement } = this.state;
 
         firebase.isInitialized().then(val => {
             this.setState({
@@ -132,6 +133,15 @@ export class CurrentUserProvider extends Component {
         }).then(() => {
             this.setState({
                 randomAnnouncement
+            })
+        }) 
+        // get the newest announcement (actual is selected announcement, not newest!!!)
+        firebase.getDataFromFirestore('Announcements').doc('WsafPRp30m9KhC6vET6R').get().then(doc => {
+            newestAnnouncement.clear()
+            newestAnnouncement.set(doc.id, doc.data())
+        }).then(() => {
+            this.setState({
+                newestAnnouncement
             })
         }) 
     }
@@ -151,7 +161,6 @@ export class CurrentUserProvider extends Component {
             commentsMap.clear()
 
             
-
             for (const [key, value] of Object.entries(snapshot.data().Comments)) {
                 commentsMap.set(key, value)
             }
@@ -186,6 +195,10 @@ export class CurrentUserProvider extends Component {
             commentsMap.forEach((val, key) => {
                 commentsArray.push({ key, value: val });
             }); 
+            // remove duplicate elements
+            this.setState({
+                commentsArray: _.uniqBy(commentsArray, 'key')
+            })
         }).then(
 
         )   
@@ -455,7 +468,6 @@ export class CurrentUserProvider extends Component {
                     })
                 })
             } else {
-                console.log('exists')
             }
         })
     }
@@ -473,7 +485,8 @@ export class CurrentUserProvider extends Component {
             userDataFromUserCollection,
             userAnnouncements,
             announcementList,
-            randomAnnouncement
+            randomAnnouncement,
+            newestAnnouncement,
         } = this.state;
         return (
             <CurrentUserContext.Provider
@@ -510,7 +523,8 @@ export class CurrentUserProvider extends Component {
                         searchKeyword: this.searchKeyword,
                         announcementList,
                         randomAnnouncement,
-                        createUserChatRoom: this.createUserChatRoom
+                        createUserChatRoom: this.createUserChatRoom,
+                        newestAnnouncement,
                     }}
                 >
                     {children}

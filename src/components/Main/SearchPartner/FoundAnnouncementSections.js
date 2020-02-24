@@ -6,13 +6,27 @@ import { FontStyle } from '../../../assets/style/style';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-// Context
-import { FindAnnouncementConsumer } from '../../../context/CurrentUser.context';
-// firebase
-import firebase from '../../../Firebase.config';
+// media queries
+import Media from 'react-media';
+// get announcements functions
+import { GetMainAnnouncements, GetSideAnnouncements } from './AnnouncementTemplate/Functions/GetAnnouncement'
+
 
 const Container = styled.div`
     margin-top: 10px;
+    width: 100%;
+    @media (max-width: 1200px) {
+        width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-left: -80px;
+    }
+    @media (min-width: 1000px) {
+        margin-left: -20px;
+    }
+    @media (max-width: 500px) {
+        margin-left: 20px;
+    }
 `
 
 const Text = styled.h2`
@@ -25,26 +39,29 @@ const Text = styled.h2`
     padding-bottom: 10px;
     margin-left: 20px;
 `
+const AnnouncementsBox = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+`
+const MainAnnouncements = styled.div`
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+`
+const SideAnnouncement = styled.div`
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    @media(max-width: 1300px) {
+        display: none;
+    }
+`
 
 const FoundAnnouncementSection = (props) => {
-
-    const getAnnouncements = (announcementList) => {
-        let list = []
-        for(let [key, value] of announcementList.entries()) {
-            list.push(
-                <AnnouncementBoxTemplate
-                    key={key}
-                    id={key}
-                    Subject={value.Subject}
-                    UserName={value.AnnouncementCreator.UserName}
-                    Description={value.Description}
-                    Place={value.Place}
-                    UserPhoto={value.AnnouncementCreator.PhotoUrl}
-                ></AnnouncementBoxTemplate>
-            )
-        }
-        return list
-    }
 
     const settings = {
         dots: false,
@@ -59,10 +76,32 @@ const FoundAnnouncementSection = (props) => {
     return (
         <div>  
             <Container>
-            <Text style={{marginTop: '50px'}} size='1.6em'>{props.tittle}</Text>
-            <Slider {...settings}>
-                {getAnnouncements(props.announcementList)}
-            </Slider>
+                {/* Phone */}
+                <Media query="(max-width: 500px)" render={() =>
+                    (
+                        <React.Fragment>
+                            <Text style={{marginTop: '50px'}} size='1.6em'>{props.tittle}</Text>
+                            <Slider {...settings}>
+                                {GetMainAnnouncements(props.announcementList)}
+                            </Slider>
+                        </React.Fragment>
+                    )}
+                />
+                {/* Desktop */}
+                <Media query="(min-width: 500px)" render={() =>
+                    (
+                        <AnnouncementsBox>
+                            <MainAnnouncements>
+                                <Text style={{marginTop: '50px', marginLeft: '50px'}} size='1.6em'>{props.tittle}</Text>
+                                {GetMainAnnouncements(props.announcementList)}
+                            </MainAnnouncements>
+                            <SideAnnouncement>
+                                <Text style={{marginTop: '50px', marginLeft: 0}} size='1.6em'>Najnowsze:</Text>
+                                {GetSideAnnouncements(props.newestAnnouncement)}
+                            </SideAnnouncement>
+                        </AnnouncementsBox>                        
+                    )}
+                />
         </Container>
         </div>
     )

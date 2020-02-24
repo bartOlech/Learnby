@@ -35,10 +35,19 @@ const Text = styled.div`
     font-family: ${FontStyle.family};
     color: ${props => props.color};
 `
+const MainText = styled.h2`
+    font-family: ${FontStyle.family};
+    color: ${FontStyle.color};
+    font-size: 1.8em;    
+    text-align: center;
+    font-weight: 600;
+    margin-top: 35px;
+`
 
 const ContactBox = () => {
     return (
         <Container>
+            <MainText>Kontakt</MainText>
             <Social>
                 <Ico ico={facebookIco}></Ico>
                 <Ico ico={LinkedInIco}></Ico>

@@ -2,15 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import WaveBck from '../../../assets/img/Mobile/wave-bck-header-mobile.svg';
 import MainLogo from '../../../assets/img/logo-LearnBy.svg';
+import MainLogoDesktop from '../../../assets/img/Desktop/Logo-desktop.svg'
 import HamburgerMenu from './HamburgerBtn';
 import { FontStyle } from '../../../assets/style/style';
 
 const Container = styled.div`
     width: 100%;
-    height: 130px;
-    background-image: url(${WaveBck});
-    background-repeat: no-repeat;
-    background-size: cover;
+    height: 70px;
+    background: #2DBAAD;
+    box-shadow: -1px 2px 10px -6px rgba(0,0,0,0.75);
     margin: 0;
     padding: 0;
     position: relative;
@@ -24,6 +24,7 @@ const Logo = styled.div`
     position: absolute;
     top: 11px;
     left: 11px;
+
     
 `
 const Text = styled.h2`

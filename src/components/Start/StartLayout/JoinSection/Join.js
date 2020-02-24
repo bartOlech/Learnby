@@ -14,6 +14,10 @@ const TittleText = styled.h2`
     font-weight: 500;
     color: ${FontStyle.color};
     text-align: center;
+    @media (min-width: 1000px) {
+        font-size: 2.2em;
+        margin-bottom: 0px;
+    }
 `
 
 const Join = () => {

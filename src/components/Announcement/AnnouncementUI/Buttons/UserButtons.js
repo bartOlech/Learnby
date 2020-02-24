@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import MessageButton from './MessageButton';
 import LikeButton from './LikeButton';
 
 const Container = styled.div`
@@ -12,7 +11,6 @@ const Container = styled.div`
 const UserButtons = (props) => {
     return (
         <Container>
-            <MessageButton selectedAnnouncementData={props.selectedAnnouncementData}></MessageButton>
             <LikeButton></LikeButton>
         </Container>
     )

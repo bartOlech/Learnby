@@ -1,13 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 import Header from '../Header/Header';
-import WavyBackground from '../../assets/img/Mobile/wave-bck-header-mobile.svg';
 import FindAnnouncementSection from './SearchPartner/FindAnnouncementSection';
 import FoundAnnouncementSection from './SearchPartner/FoundAnnouncementSections';
 import { FontStyle } from '../../assets/style/style';
 import { FindAnnouncementConsumer } from '../../context/CurrentUser.context';
 import MainComponent from './Footer/MainComponent';
-// import Loader from 'react-loader-spinner';
+import FooterSection from '../Footer/FooterSection';
+import HorizontalLine from '../Start/StartLayout/HorizontalLine';
+// media queries
+import Media from 'react-media';
+// desktop components
+import DesktopHeader from '../Header/DesktopHeader/DesktopHeader';
 
 const Container = styled.div`
     width: 100%;
@@ -21,29 +25,42 @@ const Text = styled.h2`
     font-family: ${FontStyle.family};
     font-size: ${props => props.size};
     font-weight: 600;
-    margin-top: -30px;
+    margin-top: 30px;
 `
-// const LoaderBox = styled.div`
-//     display: flex;
-//     justify-content: center;
-//     margin-top: 50px;
-//     margin-bottom: 50px;  
-// `
 
 const MainSectionComponent = () => {
 
     return (
         <FindAnnouncementConsumer>
-            {({ announcementList, randomAnnouncement }) => (
+            {({ announcementList, randomAnnouncement, newestAnnouncement }) => (
                 <Container>
-                    <Header background={`url(${WavyBackground}) no-repeat `}></Header>
-                    <Text size='1.7em'>Wyszukaj partnera</Text>
-                    <FindAnnouncementSection></FindAnnouncementSection>
+                    {/* Desktop */}
+                    <Media query="(min-width: 1000px)" render={() =>
+                        (
+                            <DesktopHeader displayText='inline' height='262px' displaySearchInput='flex'></DesktopHeader>                     
+                        )}
+                    />
+                    {/* Phone */}
+                    <Media query="(max-width: 1000px)" render={() =>
+                        (
+                            <Header background='linear-gradient(#22A795, #3AAF9F)'></Header>
+                        )}
+                    />
+                    {/* Phone */}
+                    <Media query="(max-width: 1000px)" render={() =>
+                        (
+                            <React.Fragment>
+                                <Text size='1.7em'>Wyszukaj partnera</Text>
+                                <FindAnnouncementSection display='flex'></FindAnnouncementSection>
+                            </React.Fragment>
+                        )}
+                    />
                     {announcementList.size > 0 ? (
                         <React.Fragment>
                             <FoundAnnouncementSection 
                                 tittle='Dopasowane osoby:'
                                 announcementList={announcementList}
+                                newestAnnouncement={newestAnnouncement}
                             ></FoundAnnouncementSection>
                         </React.Fragment>
                     ) : (
@@ -51,13 +68,15 @@ const MainSectionComponent = () => {
                             <FoundAnnouncementSection 
                             tittle='Może cię zainteresować:'
                             announcementList={randomAnnouncement}
+                            newestAnnouncement={newestAnnouncement}
                         ></FoundAnnouncementSection>
                         ) : null 
                     )}
                     
-                    
                     {/* Footer */}
                     <MainComponent></MainComponent>
+                    <HorizontalLine></HorizontalLine>
+                    <FooterSection></FooterSection>
                 </Container>
             )}
         </FindAnnouncementConsumer>

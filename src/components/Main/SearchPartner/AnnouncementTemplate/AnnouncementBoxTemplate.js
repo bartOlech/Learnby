@@ -4,6 +4,8 @@ import { FontStyle } from '../../../../assets/style/style';
 import MoreButton from './Buttons/MoreButton';
 import ShowWholeAnnouncementBtn from './Buttons/ShowWholeAnnouncementBtn';
 import { fadeIn } from 'react-animations';
+// media queries
+import Media from 'react-media';
 
 // LikeIco animation
 const bounceAnimation = keyframes`${fadeIn}`;
@@ -26,14 +28,16 @@ const Container = styled.div`
     box-shadow: 2px 2px 3px #D5D9DF;
     position: relative;
     animation: 1s ${bounceAnimation};
+    z-index: 1;
     &&::before {
         content: '';
-        width: 10px;
+        width: 7px;
         height: 35px;
-        background-color: #F2D274;
-        border-radius: 3px;
+        background-color: #35AC9D;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
         position: absolute;
-        left: -6px;
+        left: -7px;
         top: 15px;
         z-index: -1;
     }
@@ -50,28 +54,41 @@ const Container = styled.div`
         right: 0;
         bottom: -15px;
     }
+    @media(min-width: 650px) {
+        height: 40vh;
+        margin-bottom: 50px;
+        box-shadow: 0px 0px 2px 0px rgba(82,82,82,.3);
+        margin-left: 50px;
+        max-width: 750px;
+    }
+    @media(min-width: 1000px) {
+        height: 35vh;
+    }
 `
 // Branch of science section
-const BranchSection = styled.div`
+const ScienceSection = styled.div`
     display: flex;
     justify-content: space-around;
+    margin-top: 8px;
+    margin-bottom: 8px;
 `
-const BranchOfScienece = styled.h1`
+const BranchOfScienece = styled.p`
     font-family: ${FontStyle.family};
     color: ${FontStyle.color};
-    font-size: 1.3em;
-    margin-top: 5px;
+    font-size: 1.4em;
+    margin-top: 3px;
+    font-weight: 600;
 `
 // User data section
 const UserDataSection = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    margin-top: -10px;
+    margin-top: 0;
 `
 const Name = styled.p`
     font-family: ${FontStyle.family};
-    color: grey;
+    color: #76849D;
     font-size: 1.1em;
 `
 const Photo = styled.div`
@@ -83,18 +100,18 @@ const Photo = styled.div`
     border: none;
     border-radius: 50%;
     margin-top: 9px;
-    margin-left: 10px;
+    margin-right: 10px;
 `
 // Description section
-const DescriptionTittle = styled.h2`
+const DescriptionTittle = styled.p`
     font-family: ${FontStyle.family};
-    color: ${FontStyle.color};
-    font-size: 1.2em;
+    color: #76849D;
+    font-size: 1.3em;
     margin-bottom: -10px;
-    margin-top: 10px;
+    margin-top: -10px;
     position: relative;
     z-index: 2;
-    &&:before {
+    /* &&:before {
         content: '';
         width: 40px;
         height: 13px;
@@ -104,49 +121,148 @@ const DescriptionTittle = styled.h2`
         top: 7px;
         position: absolute;
         z-index: -1;
-    }
+    } */
 `
 const Description = styled.p`
     font-family: ${FontStyle.family};
-    color: grey;
-    font-size: 1.1em;
-    margin-bottom: -3px;
+    color: ${FontStyle.color};
+    font-size: 1.2em;
+    margin-top: 18px;
+    padding-left: 0px;
+    @media(min-width: 650px) {
+        margin-top: -8px;
+        padding-left: 10px;
+    }
+    @media(max-width: 650px) {
+        margin-bottom: -5px;
+    }
 `
 const SpotSection = styled.div`
+    width: 228px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    @media(min-width: 650px) {
+        position: absolute;
+        right: 0;
+        top: -7px;
+    }
 `
-const SpotTittle = styled.h2`
+const SpotTittle = styled.p`
     font-family: ${FontStyle.family};
-    color: ${FontStyle.color};
-    font-size: 1.2em;
+    color: #76849D;
+    font-size: 1.3em;
     padding-right: 9px;
 `
 const Spot = styled.p`
     font-family: ${FontStyle.family};
-    color: grey;
-    font-size: 1.1em;
+    color: ${FontStyle.color};
+    font-size: 1.3em;
+    margin-top: 21px;
 `
-
+const UserLearnInfoText = styled.p`
+    font-family: ${FontStyle.family};
+    color: #76849D;
+    font-size: 1.3em;
+    margin-top: 5px;
+    padding-right: 10px;
+`
+const UserLevelText = styled.div`
+    font-family: ${FontStyle.family};
+    color: #76849D;
+    font-size: 1.3em;
+`
+// Level of knowledge styles
+const LevelOfLearning = styled.div`
+    display: flex;
+    justify-content: space-around;
+    position: absolute;
+    right: 15px;
+    top: 68px;
+`
+const LevelDotted = styled.div`
+    display: flex;
+`
+const Dot = styled.div`
+    margin-left: 5px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #3AAF9F;
+    background-color: ${props => props.background};
+    border-radius: 50%;
+`
 const AnnouncementBoxTemplate = (props) => {
+    const knowledgeDots = (val) => {
+        let indents = [];
+        let emptyDots = 5 - val
+
+        for (let i = 0; i < val; i++) {
+            indents.push(<Dot background='#3AAF9F'></Dot>);
+        }
+        for (let i = 0; i < emptyDots; i++) {
+            indents.push(<Dot background='#fff'></Dot>);
+        }
+        return indents;
+    }
+    
     return (
         <Container>
-            <BranchSection>
-                <BranchOfScienece>{props.Subject}</BranchOfScienece>
-                <MoreButton></MoreButton>
-            </BranchSection>
-            <UserDataSection>
-                <Name>{props.UserName}</Name>
-                <Photo image={props.UserPhoto}></Photo>
-            </UserDataSection>
-            <DescriptionTittle>Opis:</DescriptionTittle>
-            <Description>{props.Description}</Description>
-            <SpotSection>
-                <SpotTittle>Miejsce:</SpotTittle>
-                <Spot>{props.Place}</Spot>
-            </SpotSection>
-            <ShowWholeAnnouncementBtn id={props.id}></ShowWholeAnnouncementBtn>
+        {/* Phone */}
+        <Media query="(max-width: 650px)" render={() =>
+                (
+                    <React.Fragment>
+                        <UserDataSection>
+                            <Photo image={props.UserPhoto}></Photo>
+                            <Name>{props.UserName}</Name>
+                        </UserDataSection>
+                        <ScienceSection>
+                            <UserLearnInfoText>Uczy się:</UserLearnInfoText><BranchOfScienece>{props.Subject}</BranchOfScienece>
+                            <MoreButton></MoreButton>
+                        </ScienceSection>
+                        <DescriptionTittle>Opis:</DescriptionTittle>
+                        <Description>{props.Description}</Description>
+                        <SpotSection>
+                            <SpotTittle>Miejsce:</SpotTittle>
+                            <Spot>{props.Place}</Spot>
+                        </SpotSection>
+                        <ShowWholeAnnouncementBtn id={props.id}></ShowWholeAnnouncementBtn>
+                    </React.Fragment>   
+                )}
+            />
+            {/* Desktop */}
+            <Media query="(min-width: 650px)" render={() =>
+                (
+                    <React.Fragment>
+                        <UserDataSection>
+                            <Photo image={props.UserPhoto}></Photo>
+                            <Name>{props.UserName}</Name>
+                        </UserDataSection>
+                        <ScienceSection>
+                            <UserLearnInfoText>Uczy się:</UserLearnInfoText><BranchOfScienece>{props.Subject}</BranchOfScienece>
+                            {/* Level of knowledge */}
+                            <LevelOfLearning>
+                            <UserLevelText>Poziom: </UserLevelText>
+                                <LevelDotted>
+                                    {/* function that return quantity of green dots */}
+                                    {knowledgeDots(props.levelOfKnowledge)}
+                                </LevelDotted>
+                            </LevelOfLearning>
+                            {/* city */}
+                            <SpotSection>
+                                <SpotTittle>Miejsce:</SpotTittle>
+                                <Spot>{props.Place}</Spot>
+                            </SpotSection>
+                        </ScienceSection>
+                        {/* description */}
+                        <div style={{display: 'flex', flexDirection: 'row'}}>
+                            <DescriptionTittle>Opis:</DescriptionTittle>
+                            <Description>{props.Description}</Description>
+                        </div>
+                        <ShowWholeAnnouncementBtn id={props.id}></ShowWholeAnnouncementBtn>
+                    </React.Fragment>                        
+                )}
+            />
+            
         </Container>
     )
 }

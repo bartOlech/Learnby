@@ -6,9 +6,13 @@ const Container = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
 `
-const Box = styled.div`
+const NameBox = styled.div`
     position: relative;
+    width: 400px;
+    display: flex;
+    justify-content: center;
 `
 const Name = styled.h2`
     text-align: center;
@@ -17,12 +21,11 @@ const Name = styled.h2`
     color: ${FontStyle.color};
 `
 const Age = styled.span`
-    position: absolute;
-    right: 20px;
-    top: 22px;
     font-size: 1.4em;
     font-family: ${FontStyle.family};
     color: #A0A6B1;
+    margin-top: 23px;
+    margin-left: 20px;
 `
 const MainDescription = styled.div`
     text-align: center;
@@ -57,10 +60,10 @@ const Sex = styled.div`
 const Description = (props) => {
     return (
         <Container>
-            <Box>
+            <NameBox>
                 <Name>{props.name.replace(/ .*/,'')}</Name>
                 <Age>{props.age} lat</Age>
-            </Box>
+            </NameBox>
             <MainDescription>{props.description}</MainDescription>
             <Line></Line>
             <AdditionalData>

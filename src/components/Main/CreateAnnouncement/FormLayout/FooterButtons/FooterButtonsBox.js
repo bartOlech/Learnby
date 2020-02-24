@@ -11,6 +11,9 @@ const Container = styled.div`
     justify-content: space-around;
     position: absolute;
     bottom: 0;
+    @media(min-width: 1200px) {
+        width: 55%;
+    }
 `
 
 const FooterButtomsBox = (props) => {

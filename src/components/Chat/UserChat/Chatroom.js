@@ -9,6 +9,12 @@ import sendIco from '../../../assets/img/Mobile/sendMessage1.svg';
 import firebase from '../../../Firebase.config';
 import SecondsToDate from './SecondsToDate';
 import uniqid from 'uniqid';
+import Media from 'react-media';
+// desktop components
+import DesktopLeftLayout from './DesktopLeftLayout/DesktopLeftLayout';
+import DesktopRightLayout from './DesktopRightLayout/DesktopRightLayout';
+import WaveBackgroundImage from '../../../assets/img/Desktop/Chat/wave-background-chat.svg';
+import { RedditIcon } from 'react-share';
  
 const Container = styled.div`
 
@@ -17,9 +23,18 @@ const Form = styled.form`
     width: 100%;
     height: 50px;
     position: absolute;
-    bottom: 0%;
+    bottom: 0;
     display: flex;
     border-top: 1px solid #D6D6D6;
+    @media(min-width: 1100px) {
+      width: 40%;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+      bottom: 10px;
+      border: none;
+    }
 `
 const FormBox = styled.div`
     width: 100%;
@@ -35,6 +50,27 @@ const Input = styled.input`
     font-size: 1.3em;
     outline: none;
     padding-left: 10px;
+    @media(min-width: 1100px) {
+      border-top-left-radius: 30px;
+      border-bottom-left-radius: 30px;
+      margin-top: -16px;
+      &&::placeholder {
+        padding-left: 12px;
+      }
+    }
+`
+const SendButtonBox = styled.div`
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  cursor: pointer;
+  @media(min-width: 1100px) {
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    margin-top: -16px;
+    }
 `
 const SendButton = styled.div`
     margin-top: 200px;
@@ -46,6 +82,29 @@ const SendButton = styled.div`
     margin-top: 10px;
     margin-left: 10px;
     cursor: pointer;
+    @media(min-width: 1100px) {
+      margin-top: 18px;
+      margin-right: -5px;
+    }
+`
+const DesktopBox = styled.div`
+  width: 100%;
+  height: 100%;
+  display: inline;
+  @media(min-width: 1100px) {
+    display: flex;
+  }
+`
+const WaveBackground = styled.div`
+  width: 100%;
+  height: 95px;
+  background-image: url(${WaveBackgroundImage});
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  bottom: 0;
+  z-index: -3;
+  opacity: 1;
 `
 
 class UserChatBox extends Component{
@@ -53,10 +112,11 @@ class UserChatBox extends Component{
         isExecuted: false,
         messageKeys: [],
         messageInputValue: '',
-        
+        userIdValue: '',
         messages: [
           
-        ]
+        ],
+        userData: ''
       };
 
     componentDidMount () {
@@ -66,6 +126,8 @@ class UserChatBox extends Component{
           const userId = this.props.match.params.id
           const{ messageKeys } = this.state;
           let message = []
+
+          
 
           for(let[key, value] of Object.entries(doc.data().MessagesId)) {
             if(key === userId) {
@@ -165,12 +227,73 @@ class UserChatBox extends Component{
       }
     }
 
+    UpdateUserMessages = () => {
+
+      firebase.isInitialized().then(() => {
+        this.setState({
+          messageKeys: [],
+          messageInputValue: '',
+          userIdValue: '',
+          messages: [
+          
+          ]
+        })
+        // get realtime firebase 
+        firebase.getDataFromFirestore('user').doc(firebase.getCurrentUid()).get().then(doc => {
+          const userId = this.props.match.params.id
+          const{ messageKeys } = this.state;
+          let message = []
+
+          for(let[key, value] of Object.entries(doc.data().MessagesId)) {
+            if(key === userId) {
+              firebase.getDataFromFirestore('Messages').doc(value).onSnapshot(querySnapshot => {
+                if(querySnapshot.exists) {
+                  for(let[key, value] of Object.entries(querySnapshot.data().messages)) {
+                    const date = {createdOn: SecondsToDate(value.date.seconds)}
+                    let id = {}
+
+                    if(!messageKeys.includes(key)){
+                      // adjust authorId
+                      value.authorId === this.props.match.params.id ? (
+                        id = {authorId: 1}
+                      ) : (
+                        id = {authorId: 2}
+                      )
+
+                      let messagesObject = {...value, ...id, ...date} 
+                      message.push(messagesObject)
+                      messageKeys.push(key)
+                      
+                    }
+                  }
+                  this.setState({
+                    messages: message
+                  }, () => {
+                    this.chat && this.chat.onMessageSend()
+                  })
+                }
+              })
+            }
+          }
+
+        })
+        // get user data
+        firebase.getDataFromFirestore('user').doc(this.props.match.params.id).get().then(snapshot => {
+          this.setState({
+            userData: snapshot.data()
+          })
+      })
+      })
+    }
+
     render() {
-        const { isExecuted, messageInputValue } = this.state;
+        const { isExecuted, messageInputValue, userData } = this.state;
 
         return (
             <FindAnnouncementConsumer>
                 {({ userDataFromUserCollection, getUserDataIfRefresh }) => (
+                  <DesktopBox>
+                    <DesktopLeftLayout UpdateUserMessages={this.UpdateUserMessages} userId={this.props.match.params.id}></DesktopLeftLayout>
                     <Container>
                         {!isExecuted ? (
                             getUserDataIfRefresh(this.props.match.params.id),
@@ -181,7 +304,7 @@ class UserChatBox extends Component{
                         {userDataFromUserCollection.Name !== undefined ? (
                           
                             <Header 
-                                image={userDataFromUserCollection.PhotoUrl}
+                                image={userDataFromUserCollection.PhotoUrl || userDataFromUserCollection.photoUrl}
                                 name={userDataFromUserCollection.Name.replace(/ .*/,'')}
                             ></Header>
                         ) : (
@@ -190,18 +313,55 @@ class UserChatBox extends Component{
                                 name=''
                             ></Header>
                         )}
-                        <ChatFeed
-                            ref={e => this.chat = e}
-                            messages={this.state.messages} // Array: list of message objects
-                            authors={this.state.authors} // Array: list of authors
-                            yourAuthorId={2} // Number: Your author id (corresponds with id from list of authors)
-                            // maxHeight='140vw'
-                            style={{position: 'absolute', top: '100px', bottom: '50px', width: '100%'}}
-                            
-                        />  
-                       
+                        {/* Phone */}
+                        <Media query="(max-width: 1100px)" render={() =>
+                            (
+                              <ChatFeed
+                                ref={e => this.chat = e}
+                                messages={this.state.messages} // Array: list of message objects
+                                authors={this.state.authors} // Array: list of authors
+                                yourAuthorId={2} // Number: Your author id (corresponds with id from list of authors)
+                                // maxHeight='140vw'
+                                style={{
+                                  position: 'absolute', 
+                                  top: '100px', 
+                                  bottom: '50px', 
+                                  width: '100%',
+                                  background: '#EFEFEF',}}
+                              />  
+                            )}
+                        />
+                        {/* Desktop */}
+
+                        <Media query="(min-width: 1100px)" render={() =>
+                            (
+                              <ChatFeed
+                                ref={e => this.chat = e}
+                                messages={this.state.messages} // Array: list of message objects
+                                authors={this.state.authors} // Array: list of authors
+                                yourAuthorId={2} // Number: Your author id (corresponds with id from list of authors)
+                                chatBubbleStyles={{
+                                  chatBubble: {
+                                    backgroundColor: '#33BFAC'
+                                  }
+                                }}
+
+                                style={{
+                                  position: 'absolute', 
+                                  top: 0, 
+                                  left:0,
+                                  right:0,
+                                  marginLeft: 'auto',
+                                  marginRight: 'auto',
+                                  bottom: '0',
+                                  paddingBottom: '100px', 
+                                  width: '50%',
+                                  background: '#EFEFEF',
+                                  }}
+                              />                        
+                            )}
+                        />   
                         <Form>
-                          
                             <FormBox>
                                 <Input 
                                   placeholder='Napisz wiadomość...'
@@ -211,10 +371,41 @@ class UserChatBox extends Component{
                                   >      
                                 </Input>
                                 {/* <SmileButton></SmileButton> */}
-                                <SendButton onClick={this.sendMessage}></SendButton>
+                                <SendButtonBox>
+                                  <SendButton onClick={this.sendMessage}></SendButton>
+                                </SendButtonBox>
                             </FormBox>
                         </Form>
                     </Container>
+                    {userDataFromUserCollection.Name !== undefined ? (
+                        userData === '' ? (
+                          <DesktopRightLayout 
+                            name={userDataFromUserCollection.Name.replace(/ .*/,'')}
+                            image={userDataFromUserCollection.PhotoUrl || userDataFromUserCollection.photoUrl}
+                            place={userDataFromUserCollection.Place}
+                            age={userDataFromUserCollection.Age}
+                            sex={userDataFromUserCollection.Sex}
+                            >
+                          </DesktopRightLayout>
+                        ) : (
+                          <DesktopRightLayout 
+                            name={userData.Name.replace(/ .*/,'')}
+                            image={userData.PhotoUrl || userData.photoUrl}
+                            place={userData.Place}
+                            age={userData.Age}
+                            sex={userData.Sex}
+                            >
+                          </DesktopRightLayout>
+                        )
+                      ) : (
+                        <DesktopRightLayout 
+                          name=''
+                          image=''
+                        >
+                        </DesktopRightLayout>
+                      )}
+                      <WaveBackground></WaveBackground>
+                  </DesktopBox>
                 )}
             </FindAnnouncementConsumer>
         )

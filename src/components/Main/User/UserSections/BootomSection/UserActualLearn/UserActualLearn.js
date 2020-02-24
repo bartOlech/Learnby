@@ -4,7 +4,8 @@ import { FontStyle } from '../../../../../../assets/style/style';
 import CheckButton from './CheckButton';
 
 const Container = styled.div`
-
+    width: 100%;
+    max-width: 600px;
 `
 const Text = styled.div`
     font-size: 1.6em;

@@ -3,24 +3,28 @@ import styled from 'styled-components';
 import { FontStyle } from '../../../assets/style/style';
 
 const Container = styled.div`
-    width: 100%;
-    height: 100%;
+    width: 400px;
+    height: 50px;
     display: flex;
     margin-top: 20px;
+    @media(min-width: 1000px) {
+        position: absolute;
+        left: 0;
+        top: 88px;
+    }
 `
 const Text = styled.div`
     padding-left: 20px;
     font-family: ${FontStyle.family};
     color: #76849D;
-    font-size: 1.4em;
-    font-weight: 600;
+    font-size: 1.3em;
+    font-weight: 500;
     padding-right: 10px;
 `
 const Spot = styled.div`
     font-family: ${FontStyle.family};
     color: ${FontStyle.color};
     font-size: 1.3em;
-    margin-top: 3px;
 `
 
 const AnnouncementTopic = (props) => {

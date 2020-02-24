@@ -7,10 +7,9 @@ import { FontStyle } from '../../../assets/style/style';
 
 const Container = styled.div`
     width: 100%;
-    height: 130px;
-    background-image: url(${WaveBck});
-    background-repeat: no-repeat;
-    background-size: cover;
+    height: 70px;
+    background: #2DBAAD;
+    box-shadow: -1px 2px 10px -6px rgba(0,0,0,0.75);
     margin: 0;
     padding: 0;
     position: relative;

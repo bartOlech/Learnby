@@ -8,7 +8,14 @@ import { BrowserRouter as Router, useParams} from 'react-router-dom';
 import { fadeIn } from 'react-animations';
  
 const Container = styled.div`
-   
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 20px;
+    @media(min-width: 1000px) {
+       top: -25px;
+       z-index: 2;
+   }
 `
 const Button = styled.div`
     width: 30px;

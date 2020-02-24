@@ -10,6 +10,11 @@ const Container = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
+    @media (min-width: 1000px) {
+        justify-content: left;
+        margin-left: 55px;
+        margin-top: -10px;
+    }
     cursor: pointer;
 `
 const Text = styled.div`
@@ -30,6 +35,7 @@ const Text = styled.div`
         position: absolute;
         top: 9px;
         left: 4px;
+        
     }
 `
 const Ico = styled.div`

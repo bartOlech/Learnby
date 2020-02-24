@@ -7,10 +7,13 @@ import Loader from 'react-loader-spinner';
 const HeaderBox = styled.div`
     width: 100%;
     height: 100px;
-    background-color: #DEF3EB;
+    background-color: #33BFAC;
     display: flex;
     justify-content: space-between;
     margin-bottom: -25px;
+    @media(min-width: 1100px) {
+        display: none;
+    }
 `
 const Image = styled.div`
     width: 45px;
@@ -24,8 +27,8 @@ const Image = styled.div`
     margin-left: 15px;
     box-shadow:
     0 0px 1.3px rgba(0, 0, 0, 0.073),
-    0 0px 4.5px rgba(0, 0, 0, 0.107),
-    0 0px 20px rgba(0, 0, 0, 0.18)
+    0 0px 2px rgba(0, 0, 0, 0.107),
+    0 0px 2px rgba(0, 0, 0, 0.18)
     ;
 `
 const Name = styled.span`

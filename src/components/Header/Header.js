@@ -8,15 +8,18 @@ import { CurrentUserConsumer } from '../../context/CurrentUser.context';
 import firebase from '../../Firebase.config';
 import UserMenu from './UserMenu/UserMenu';
 import userIco from '../../assets/img/Mobile/logUser.svg';
+import MobilePlusIco from '../../assets/img/Mobile/plus.svg';
 
 const Container = styled.div`
     width: 100%;
-    height: 150px;
+    height: 80px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     background: ${props => props.background};
     background-size: cover;
+    box-shadow: -1px 2px 10px -6px rgba(0,0,0,0.65);
+    box-shadow: ${props => props.shadow};
 `
 const UserSection = styled.div`
     width: 100px;
@@ -28,6 +31,8 @@ const Image = styled.div`
     width: 41px;
     height: 41px;
     border: none;
+    box-shadow: -1px 2px 5px -6px rgba(0,0,0,0.55);
+
     border-radius: 50%;
     background-image: url(${props => props.image});
     background-repeat: no-repeat;
@@ -39,12 +44,13 @@ const Header = (props) => {
     const[isHideImage, setIsHideImage] = useState(true)
 
     const clickImage = () => {
+        console.log('ss')
         isHideImage ? setIsHideImage(false) : setIsHideImage(true)
     }
 
     return (
-        <Container background={props.background}>
-            <Logo></Logo><AddNotice></AddNotice>
+        <Container background={props.background} shadow={props.shadow}>
+            <Logo></Logo><AddNotice background='#DD9A76' image={`url(${MobilePlusIco})`} color='#fff'></AddNotice>
             <CurrentUserConsumer>
                 {({ user }) => (
                     user ? (
@@ -62,7 +68,7 @@ const Header = (props) => {
                         </React.Fragment>
                     ):(
                         <React.Fragment>
-                            <Link to='/login'><Login></Login></Link> 
+                            <Link to='/login'><Login background='#3AB397'></Login></Link> 
                         </React.Fragment>
                     )
                 )}

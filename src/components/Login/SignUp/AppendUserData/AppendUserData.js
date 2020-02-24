@@ -12,7 +12,7 @@ const MainText = styled.h2`
     color: ${FontStyle.color};
     text-align: center;
     font-size: 2em;
-    margin-top: -30px;
+    margin-top: 30px;
     font-weight: 600;
 `
 

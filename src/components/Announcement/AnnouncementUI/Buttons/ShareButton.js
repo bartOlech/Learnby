@@ -3,8 +3,15 @@ import styled from 'styled-components';
 import { FacebookShareButton, FacebookIcon, TwitterIcon, TwitterShareButton, LinkedinShareButton, LinkedinIcon } from 'react-share'
 
 const Container = styled.div`
+    position: absolute;
    display: flex;
    margin-left: -39px;
+   left: 40px;
+   @media(min-width: 1000px) {
+       margin-top: 85px;
+       top: 150px;;
+       left: 65px;
+   }
 `
 const ButtonBox = styled.div`
     margin-left: 20px;

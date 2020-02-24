@@ -5,9 +5,9 @@ import { BrowserRouter as Router, Link, useParams } from 'react-router-dom';
 import { FindAnnouncementConsumer } from '../../../../../../context/CurrentUser.context';
 
 const Button = styled.button`
-    width: 275px;
+    width: 300px;
     height: 50px;
-    background-color: #4DB6AC;
+    background-color: #3AAF9F;
     color: #fff;
     font-family: ${FontStyle.family};
     font-size: 1.4em;
@@ -15,6 +15,7 @@ const Button = styled.button`
     border-radius: 25px;
     cursor: pointer;
     outline: none;
+    font-weight: 600;
 `
 
 const GetContact = () => {

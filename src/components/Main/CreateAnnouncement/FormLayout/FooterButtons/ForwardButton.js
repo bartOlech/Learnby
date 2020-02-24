@@ -17,6 +17,9 @@ const Button = styled.button`
     text-align: center;
     margin-right: -40px;
     cursor: pointer;
+    @media(min-width: 1200px) {
+        background-color: #39A79C;
+    }
 `
 
 

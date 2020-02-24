@@ -6,7 +6,10 @@ import UpperSection from './UserSections/UpperSection/UpperSection';
 import BottomSection from './UserSections/BootomSection/BottomSection';
 import { FindAnnouncementConsumer } from '../../../context/CurrentUser.context';
 import { BrowserRouter as Router, useParams } from 'react-router-dom';
-import firebase from '../../../Firebase.config';
+// media queries
+import Media from 'react-media';
+// desktop components
+import DesktopHeader from '../../Header/DesktopHeader/DesktopHeader';
 
 const Container = styled.div`
     width: 100%;
@@ -18,6 +21,10 @@ const HorizontalLine = styled.div`
     background-color: #E2E2E2;
     border-radius: 10px;
     margin: 18px auto;
+    @media(min-width: 1000px) { 
+        width: 100%;
+        height: 1px;
+     }
 `
 
 const User = () => {
@@ -35,9 +42,20 @@ const User = () => {
                     ) : null}
                     {userDataFromUserCollection ? (
                         <React.Fragment>
-                            <Header background={`url(${WavyBackground}) no-repeat `}></Header>
+                            {/* Desktop */}
+                            <Media query="(min-width: 1000px)" render={() =>
+                                (
+                                    <DesktopHeader displayText='none' height='83px' displaySearchInput='none'></DesktopHeader>                     
+                                )}
+                            />
+                            {/* Phone */}
+                            <Media query="(max-width: 1000px)" render={() =>
+                                (
+                                    <Header background='linear-gradient(#22A795, #3AAF9F)'></Header>
+                                )}
+                            />
                             <UpperSection 
-                                photo={userDataFromUserCollection.PhotoUrl}
+                                photo={userDataFromUserCollection.PhotoUrl || userDataFromUserCollection.photoUrl}
                                 name={userDataFromUserCollection.Name}
                                 age={userDataFromUserCollection.Age}
                                 description={userDataFromUserCollection.Description ? userDataFromUserCollection.Description : 'Konto social, dodać funkcje, która tworzy opis'}

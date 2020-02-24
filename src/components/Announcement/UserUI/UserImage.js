@@ -6,6 +6,9 @@ const Container = styled.div`
     height: 77px;
     border-radius: 50%;
     margin-left: 11px;
+    @media(min-width: 1000px) {
+        margin-top: -6px;
+    }
 `
 const Image = styled.div`
     width: 77px;
@@ -15,18 +18,7 @@ const Image = styled.div`
     background-size: 77px 77px;
     border-radius: 50%;
     margin-top: 3px;
-    position: relative;
-    &&::after {
-        content: '';
-        width: 81px;
-        height: 81px;
-        position: absolute;
-        z-index: -1;
-        top: -2px;
-        right: -2px;
-        background-color: rgba(200, 206, 234, 0.88);
-        border-radius: 50%;
-    }
+    position: absolute;
 `
 
 const UserImage = (props) => {
