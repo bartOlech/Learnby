@@ -30,9 +30,10 @@ const Text = styled.div`
 const ReturnButton = () => {
     return (
         <FindAnnouncementConsumer>
-            {({ setAnnouncementLayout }) => (
+            {({ setAnnouncementLayout, clearAnnouncementData }) => (
                 <Button onClick={() => {
                     setAnnouncementLayout(false)
+                    clearAnnouncementData()
                 }}>
                     <ReturnIco></ReturnIco>
                     <Text>Wstecz</Text>
