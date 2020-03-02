@@ -91,6 +91,7 @@ const FormLayout1 = () => {
 
                         </Input>
                         <div>
+                            {console.log(isRemote)}
                             <CheckIfRemote>
                                 <CheckboxBox>
                                     <Checkbox 

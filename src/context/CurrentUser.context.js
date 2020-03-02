@@ -118,7 +118,6 @@ export class CurrentUserProvider extends Component {
 
     componentDidMount() {
         const{ randomAnnouncement, newestAnnouncement } = this.state;
-
         firebase.isInitialized().then(val => {
             this.setState({
                 firebaseInitialized: val,
