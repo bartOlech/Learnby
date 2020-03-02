@@ -9,7 +9,6 @@ const GetMainAnnouncements = (announcementList) => {
         let place = ''
         let description = ''
         // trim the place text
-        console.log(value)
         if(value.Place.split('').length > 13) {
             place = value.Remote ? 'Zdalnie' : `${value.Place.split('').slice(0, 13).join('')}...`; 
         } else {
