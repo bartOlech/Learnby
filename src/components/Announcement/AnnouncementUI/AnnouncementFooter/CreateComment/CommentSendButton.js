@@ -34,10 +34,11 @@ const CommentSendButton = (props) => {
     return (
         <FindAnnouncementConsumer>
             {/* DODAJ WCISNIECIE PRZYCISKU ENETEREM */}
-            {({ sendComment }) => (
+            {({ sendComment, selectedAnnouncementData }) => (
                 <Container>
                     <Button onClick={() => {
-                        if(props.commentValue !== '') {
+                        if(props.commentValue !== '' && firebase.getCurrentUid() !== selectedAnnouncementData[0].AnnouncementCreator.UserId ) {
+                            console.log('now')
                             if(firebase.getCurrentUid() !== null){
                                 sendComment(props.commentValue, firebase.getCurrentUid(), id, firebase.getCurrentUserAllData());
                                 props.clear();

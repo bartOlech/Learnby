@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontStyle } from '../../../../../assets/style/style';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Link, useParams } from 'react-router-dom';
 import { FindAnnouncementConsumer } from '../../../../../context/CurrentUser.context';
 import SupportIco from '../../../../../assets/img/Desktop/support.svg';
 import SearchPartner from '../../../../Main/User/UserSections/BootomSection/BottomButtons/SearchPartner';
 // media queries
 import Media from 'react-media';
+import firebase from '../../../../../Firebase.config';
 
 const Container = styled.div`
     width: 100%;
@@ -81,23 +82,47 @@ const TextLine = styled.div`
 `
 
 const MakeContactButton = (props) => {
+    let { id }  = useParams();
     return (
         <FindAnnouncementConsumer>
             {({ createUserChatRoom, selectedAnnouncementData }) => (
                 <Container>
-                    <Link onClick={() => {
-                        createUserChatRoom(selectedAnnouncementData[0].AnnouncementCreator.UserId)
-                    }} to={{pathname: `/chat/${props.selectedAnnouncementData[0].AnnouncementCreator.UserId}`}}><Button>Nawiąż współpracę<Ico></Ico></Button></Link>
-                    {/* Phone */}
-                    <Media query="(max-width: 1000px)" render={() =>
-                        (
-                            <BoxLine>
-                                <Line></Line>
-                                <TextLine>Albo</TextLine>
-                                <Line></Line>
-                            </BoxLine>
-                        )}
-                    />
+                    {/* if user is a owner of the announcement, block all buttons */}
+                    {firebase.getCurrentUid() !== selectedAnnouncementData[0].AnnouncementCreator.UserId ? (
+                        <div>
+                            <Link onClick={() => {
+                                createUserChatRoom(selectedAnnouncementData[0].AnnouncementCreator.UserId)
+                            }} to={{pathname: `/chat/${props.selectedAnnouncementData[0].AnnouncementCreator.UserId}`}}><Button>Nawiąż współpracę<Ico></Ico></Button>
+                            </Link>
+                            {/* Phone */}
+                            <Media query="(max-width: 1000px)" render={() =>
+                                (
+                                    <BoxLine>
+                                        <Line></Line>
+                                        <TextLine>Albo</TextLine>
+                                        <Line></Line>
+                                    </BoxLine>
+                                )}
+                            />
+                        </div>
+                        
+                    ) : (
+                        <div>
+                            <Link ><Button>Nawiąż współpracę<Ico></Ico></Button>
+                            </Link>
+                            {/* Phone */}
+                            <Media query="(max-width: 1000px)" render={() =>
+                                (
+                                    <BoxLine>
+                                        <Line></Line>
+                                        <TextLine>Albo</TextLine>
+                                        <Line></Line>
+                                    </BoxLine>
+                                )}
+                            />
+                        </div>
+                    )}
+                    
                     <SearchPartner></SearchPartner>
                 </Container>
             )}

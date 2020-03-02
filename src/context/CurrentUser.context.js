@@ -43,6 +43,7 @@ export class CurrentUserProvider extends Component {
             description: '', 
             regulations: false
         },
+        currentCreatedAnnouncementId: 'null',
         userDataFromUserCollection: '',
         // announcements created by the user
         userAnnouncements: new Map(),
@@ -328,6 +329,11 @@ export class CurrentUserProvider extends Component {
             firebase.getDataFromFirestore('user').doc(userId).get().then(snapshot => {
                 let announcementsFromFirestore = snapshot.data().Announcements;
 
+                // Add current created announcement id to the state
+                this.setState({
+                    currentCreatedAnnouncementId: docRef.id
+                })
+
                 // create a map and transform into a object
                 const map = new Map();
                 // key is a id of announcement, value is a subject!!!
@@ -481,6 +487,7 @@ export class CurrentUserProvider extends Component {
             commentsArray,
             addAnnouncementLayoutNumeber,
             addAnnouncementData,
+            currentCreatedAnnouncementId,
             userDataFromUserCollection,
             userAnnouncements,
             announcementList,
@@ -508,6 +515,7 @@ export class CurrentUserProvider extends Component {
                         addAnnouncementLayoutNumeber,
                         setAnnouncementLayout: this.setAnnouncementLayout,
                         addAnnouncementData,
+                        currentCreatedAnnouncementId,
                         setAnnouncementData: this.setAnnouncementData,
                         clearAnnouncementData: this.clearAnnouncementData,
                         sendAnnouncementToFirestore: this.sendAnnouncementToFirestore,

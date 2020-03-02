@@ -36,11 +36,11 @@ const FormLayout4 = () => {
 
     return (
         <FindAnnouncementConsumer>
-            {({ clearAnnouncementData }) => (
+            {({ clearAnnouncementData, getAnnouncementById, currentCreatedAnnouncementId }) => (
                 <Container>
                     <Text style={{marginTop: '70px'}} size='2em'>Ogłoszenie czeka na weryfikacje</Text>
                     <Text size='1.2em'>Powinno pojawić się w ciągu 30min</Text>
-                    <Button style={{marginTop: '50px'}}>Podgląd</Button>
+                            <Button style={{marginTop: '50px'}}>Podgląd</Button>
                     <Link to='/findPartner'><Button onClick={clearAnnouncementData} style={{marginTop: '30px'}}>Zakończ</Button></Link>
                 </Container>
             )}
