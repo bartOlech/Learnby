@@ -14,7 +14,6 @@ import Media from 'react-media';
 import DesktopLeftLayout from './DesktopLeftLayout/DesktopLeftLayout';
 import DesktopRightLayout from './DesktopRightLayout/DesktopRightLayout';
 import WaveBackgroundImage from '../../../assets/img/Desktop/Chat/wave-background-chat.svg';
-import { RedditIcon } from 'react-share';
  
 const Container = styled.div`
 
@@ -321,7 +320,6 @@ class UserChatBox extends Component{
                                 messages={this.state.messages} // Array: list of message objects
                                 authors={this.state.authors} // Array: list of authors
                                 yourAuthorId={2} // Number: Your author id (corresponds with id from list of authors)
-                                // maxHeight='140vw'
                                 style={{
                                   position: 'absolute', 
                                   top: '100px', 
@@ -345,7 +343,6 @@ class UserChatBox extends Component{
                                     backgroundColor: '#33BFAC'
                                   }
                                 }}
-
                                 style={{
                                   position: 'absolute', 
                                   top: 0, 

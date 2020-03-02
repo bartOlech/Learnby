@@ -258,7 +258,7 @@ const StartPage = () => {
                 {/* Desktop */}
                 <Media query="(min-width: 1000px)" render={() =>
                     (
-                        <AboutSection>              
+                        <AboutSection style={{marginTop: '120px'}}>              
                             <AboutMainText>
                                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                                     "Nie mogłam znaleźć nikogo kto podzielałby wraz ze mną te same pasję. Ta platforma jest rozwiązaniem"

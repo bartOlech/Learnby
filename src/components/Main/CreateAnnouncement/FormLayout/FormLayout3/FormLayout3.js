@@ -82,6 +82,7 @@ const FormLayout3 = () => {
                         <Label style={{fontSize: '1.7em', marginBottom: '25px'}}>Już prawie skończone!</Label>
                         <Label htmlFor='description'>Opis</Label>
                         <Textarea 
+                            maxLength='230'
                             value={addAnnouncementData.description} 
                             onChange={val => {
                                 setAnnouncementData('description', val.target.value)
