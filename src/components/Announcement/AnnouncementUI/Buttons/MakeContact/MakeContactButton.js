@@ -85,13 +85,12 @@ const TextLine = styled.div`
 `
 
 const MakeContactButton = (props) => {
-    let { id }  = useParams();
 
     const createNotification = (type) => {
         return () => {
           switch (type) {
             case 'warning':
-              NotificationManager.warning('Zaloguj się teraz', 'Nie jesteś zalogowany', 3000);
+              NotificationManager.info('Zaloguj się teraz', 'Nie jesteś zalogowany', 3000);
               break;
           }
         };

@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import { FontStyle } from '../../../../../../assets/style/style';
 import { BrowserRouter as Router, Link, useParams } from 'react-router-dom';
 import { FindAnnouncementConsumer } from '../../../../../../context/CurrentUser.context';
+import firebase from '../../../../../../Firebase.config';
+// Notifications
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 const Button = styled.button`
     width: 300px;
@@ -21,13 +25,32 @@ const Button = styled.button`
 const GetContact = () => {
     let { id }  = useParams();
 
+    const createNotification = (type) => {
+        return () => {
+          switch (type) {
+            case 'warning':
+              NotificationManager.info('Zaloguj się teraz', 'Nie jesteś zalogowany', 3000);
+              break;
+          }
+        };
+      };
+
     return (
         <FindAnnouncementConsumer>
             {({ createUserChatRoom }) => (
-                <Link onClick={() => {
-                    createUserChatRoom(id)
-                }
-                } to={{pathname: `/chat/${id}`}}><Button>Nawiąż kontakt</Button></Link>
+                <div>
+                    {/* Notification */}
+                    <NotificationContainer/>
+                    {firebase.getCurrentUid() ? (
+                        <Link onClick={() => {
+                            createUserChatRoom(id)
+                        }
+                        } to={{pathname: `/chat/${id}`}}><Button>Nawiąż kontakt</Button>
+                        </Link>
+                    ) : (
+                    <Button onClick={createNotification('warning')}>Nawiąż kontakt</Button>
+                    )}
+                </div>
             )}
         </FindAnnouncementConsumer>
     )

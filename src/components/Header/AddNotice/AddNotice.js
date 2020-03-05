@@ -1,9 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import ico from '../../../assets/img/Mobile/plus.svg';
-import desktopIco from '../../../assets/img/Desktop/plus.svg';
 import { FontStyle } from '../../../assets/style/style';
 import { BrowserRouter as Router, Link} from 'react-router-dom';
+import firebase from '../../../Firebase.config';
+// Notifications
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 const Container = styled.div`
     width: 152px;
@@ -58,14 +61,35 @@ const Text = styled.p`
 `
 
 const AddNotice = (props) => {
+
+    const createNotification = (type) => {
+        return () => {
+          switch (type) {
+            case 'warning':
+              NotificationManager.info('Zaloguj się teraz', 'Nie jesteś zalogowany', 3000);
+              break;
+          }
+        };
+      };
+
     return (
         <Container margin={props.margin}>
-            <Link to='/createAnnouncement'>
-                <Box background={props.background}>
+            {/* Notification */}
+            <NotificationContainer/>
+            {/* Check does user is logged */}
+            {firebase.getCurrentUid() ? (
+                <Link to='/createAnnouncement'>
+                    <Box background={props.background}>
+                        <Ico image={props.image}></Ico>
+                        <Text color={props.color}>Ogłoszenie</Text>
+                    </Box>
+                </Link>
+            ) : (
+                <Box onClick={createNotification('warning')} background={props.background}>
                     <Ico image={props.image}></Ico>
                     <Text color={props.color}>Ogłoszenie</Text>
                 </Box>
-            </Link>
+            )}
         </Container>
     )
 }
