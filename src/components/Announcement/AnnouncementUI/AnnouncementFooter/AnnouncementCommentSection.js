@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import { FontStyle } from '../../../../assets/style/style';
 import CreateCommentBox from './CreateComment/CreateCommentBox';
@@ -48,6 +48,8 @@ const CommentContainer = styled.div`
 `
 
 const AnnouncementFooterBox = () => {
+
+
     return (
         <FindAnnouncementConsumer>
             {({ commentsArray, newestAnnouncement }) => (

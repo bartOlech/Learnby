@@ -109,7 +109,12 @@ const Form = () => {
 
     // callback error message
     const getAuthAlert = (code) => {
-        setEmailErrorMessage('Konto już istnieje')
+        if(code === "auth/invalid-email") {
+            setEmailErrorMessage('Email jest nieprawidłowy')
+        } else {
+            setEmailErrorMessage('Ops, coś poszło nie tak')
+        }
+        
         // ADD THE ANOTHER ERRORS!!! use if(code === ....)
     }
     

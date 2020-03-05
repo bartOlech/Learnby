@@ -36,17 +36,21 @@ const CommentSendButton = (props) => {
             {/* DODAJ WCISNIECIE PRZYCISKU ENETEREM */}
             {({ sendComment, selectedAnnouncementData }) => (
                 <Container>
-                    <Button onClick={() => {
+                    {props.pressEnter ? (
+                        console.log('click')
+                    ):null}
+                    <Button 
+                    onClick={() => {
                         if(props.commentValue !== '' && firebase.getCurrentUid() !== selectedAnnouncementData[0].AnnouncementCreator.UserId ) {
-                            console.log('now')
                             if(firebase.getCurrentUid() !== null){
                                 sendComment(props.commentValue, firebase.getCurrentUid(), id, firebase.getCurrentUserAllData());
                                 props.clear();
                             } else {
-                                // props.userIsLogged(false);
+                            //you have to sign in
                             }
                         }
-                        }}><Ico></Ico></Button>
+                        }}
+                        ><Ico></Ico></Button>
                 </Container>
             )}
         </FindAnnouncementConsumer>

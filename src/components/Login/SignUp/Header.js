@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import WaveBck from '../../../assets/img/Mobile/wave-bck-header-mobile.svg';
+import { BrowserRouter as Router, Link} from 'react-router-dom';
 import MainLogo from '../../../assets/img/logo-LearnBy.svg';
 import HamburgerMenu from './HamburgerBtn';
 import { FontStyle } from '../../../assets/style/style';
@@ -17,13 +17,11 @@ const Container = styled.div`
 const Logo = styled.div`
     width: 100%;
     height: 100%;
-    background-image: url(${MainLogo});
-    background-repeat: no-repeat;
-    background-size: 40px 40px;
+    background: red;
     position: absolute;
     top: 11px;
     left: 11px;
-    
+    cursor: pointer;
 `
 const Text = styled.h2`
     font-family: ${FontStyle.family};
@@ -40,7 +38,7 @@ const Text = styled.h2`
 const Header = () => {
     return (
         <Container>
-            <Logo></Logo>
+            <Link to='/'><Logo></Logo></Link>
             <Text>Rejestracja</Text>
             <HamburgerMenu></HamburgerMenu>
         </Container>

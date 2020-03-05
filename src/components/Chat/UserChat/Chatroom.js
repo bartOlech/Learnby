@@ -80,10 +80,12 @@ const SendButton = styled.div`
     background-size: 30px 30px;
     margin-top: 10px;
     margin-left: 10px;
+    margin-bottom: -5px;
     cursor: pointer;
     @media(min-width: 1100px) {
       margin-top: 18px;
       margin-right: -5px;
+      margin-bottom: 0;
     }
 `
 const DesktopBox = styled.div`

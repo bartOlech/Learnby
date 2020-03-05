@@ -44,13 +44,13 @@ const Header = (props) => {
     const[isHideImage, setIsHideImage] = useState(true)
 
     const clickImage = () => {
-        console.log('ss')
         isHideImage ? setIsHideImage(false) : setIsHideImage(true)
     }
 
     return (
         <Container background={props.background} shadow={props.shadow}>
-            <Logo></Logo><AddNotice background='#DD9A76' image={`url(${MobilePlusIco})`} color='#fff'></AddNotice>
+            <Logo></Logo>
+            <AddNotice background='#DD9A76' image={`url(${MobilePlusIco})`} color='#fff'></AddNotice>
             <CurrentUserConsumer>
                 {({ user }) => (
                     user ? (

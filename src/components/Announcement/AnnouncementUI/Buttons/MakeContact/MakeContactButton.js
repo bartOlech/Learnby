@@ -8,6 +8,9 @@ import SearchPartner from '../../../../Main/User/UserSections/BootomSection/Bott
 // media queries
 import Media from 'react-media';
 import firebase from '../../../../../Firebase.config';
+// Notifications
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 const Container = styled.div`
     width: 100%;
@@ -83,17 +86,35 @@ const TextLine = styled.div`
 
 const MakeContactButton = (props) => {
     let { id }  = useParams();
+
+    const createNotification = (type) => {
+        return () => {
+          switch (type) {
+            case 'warning':
+              NotificationManager.warning('Zaloguj się teraz', 'Nie jesteś zalogowany', 3000);
+              break;
+          }
+        };
+      };
+
     return (
         <FindAnnouncementConsumer>
             {({ createUserChatRoom, selectedAnnouncementData }) => (
                 <Container>
+                    {/* Notification */}
+                     <NotificationContainer/>
                     {/* if user is a owner of the announcement, block all buttons */}
                     {firebase.getCurrentUid() !== selectedAnnouncementData[0].AnnouncementCreator.UserId ? (
                         <div>
-                            <Link onClick={() => {
-                                createUserChatRoom(selectedAnnouncementData[0].AnnouncementCreator.UserId)
-                            }} to={{pathname: `/chat/${props.selectedAnnouncementData[0].AnnouncementCreator.UserId}`}}><Button>Nawiąż współpracę<Ico></Ico></Button>
-                            </Link>
+                            {firebase.getCurrentUid() ? (
+                                <Link onClick={() => {
+                                    createUserChatRoom(selectedAnnouncementData[0].AnnouncementCreator.UserId)
+                                }} to={{pathname: `/chat/${props.selectedAnnouncementData[0].AnnouncementCreator.UserId}`}}><Button>Nawiąż współpracę<Ico></Ico></Button>
+                                </Link>
+                            ) : (
+                               <Button onClick={createNotification('warning')}>Nawiąż współpracę<Ico></Ico></Button>
+                            )}
+                            
                             {/* Phone */}
                             <Media query="(max-width: 1000px)" render={() =>
                                 (

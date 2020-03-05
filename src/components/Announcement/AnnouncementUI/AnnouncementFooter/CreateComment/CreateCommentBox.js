@@ -3,6 +3,8 @@ import styled  from 'styled-components';
 import CommentSendButton from './CommentSendButton';
 import { FontStyle } from '../../../../../assets/style/style';
 import firebase from '../../../../../Firebase.config';
+import { FindAnnouncementConsumer } from '../../../../../context/CurrentUser.context';
+import { BrowserRouter as Router, useParams } from 'react-router-dom';
 
 const Container = styled.div`
     
@@ -47,45 +49,63 @@ const CreateCommentBox = () => {
     const[isLogged, setIsLogged] = useState(false)
     const[textIsFilled, setTextIsFilled] = useState(false)
 
+    let { id }  = useParams();
+
     const clear = () => {
         setCommentValue('')
     }
 
     return (
-        <Container>
-            <InputBox>
-                <InputText
-                    color={isLogged ? 'red' : 'grey'}
-                    top={textIsFilled ? '1px' : '13px'}
-                    size={textIsFilled ? '1em' : '1.3em'}
-                    weight={textIsFilled ? '500' : '300'}
-                >
-                    {isLogged ? 'Zaloguj się' : 'Napisz Komentarz'}
-                </InputText>
-                    <Input 
-                        data-testid='comment-input'
-                        value={commentValue} 
-                        onChange={el => {
-                            setCommentValue(el.target.value); 
-                            if(el.target.value === '') {
-                                setTextIsFilled(false)
-                                setIsLogged(false)
-                            } else {
-                                if(firebase.getCurrentUid()) {
-                                    setIsLogged(false)
-                                } else {
-                                    setIsLogged(true)
-                                }
-                                setTextIsFilled(true)
-                            }
-                        }} 
-                        type='text' 
+        <FindAnnouncementConsumer>
+            {({ sendComment, selectedAnnouncementData }) => (
+                <Container>
+                    <InputBox>
+                        <InputText
+                            color={isLogged ? 'red' : 'grey'}
+                            top={textIsFilled ? '1px' : '13px'}
+                            size={textIsFilled ? '1em' : '1.3em'}
+                            weight={textIsFilled ? '500' : '300'}
                         >
-                    </Input>
-                    <CommentSendButton clear={clear} commentValue={commentValue}></CommentSendButton>
-            </InputBox>
-            
-        </Container>
+                            {isLogged ? 'Zaloguj się' : 'Napisz Komentarz'}
+                        </InputText>
+                            <Input 
+                                data-testid='comment-input'
+                                value={commentValue} 
+                                onChange={el => {
+                                    setCommentValue(el.target.value); 
+                                    if(el.target.value === '') {
+                                        setTextIsFilled(false)
+                                        setIsLogged(false)
+                                    } else {
+                                        if(firebase.getCurrentUid()) {
+                                            setIsLogged(false)
+                                        } else {
+                                            setIsLogged(true)
+                                        }
+                                        setTextIsFilled(true)
+                                    }
+                                }} 
+                                onKeyDown={(e) => {
+                                    if(e.key === 'Enter') {
+                                        if(commentValue !== '' && firebase.getCurrentUid() !== selectedAnnouncementData[0].AnnouncementCreator.UserId ) {
+                                            if(firebase.getCurrentUid() !== null){
+                                                sendComment(commentValue, firebase.getCurrentUid(), id, firebase.getCurrentUserAllData());
+                                                clear();
+                                            } else {
+                                            //you have to sign in
+                                            }
+                                        }
+                                    }
+                                }} 
+                                type='text' 
+                                >
+                            </Input>
+                            <CommentSendButton clear={clear} commentValue={commentValue}></CommentSendButton>
+                    </InputBox>
+                </Container>
+            )}
+        </FindAnnouncementConsumer>
+        
     )
 }
 
