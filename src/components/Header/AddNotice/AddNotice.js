@@ -45,7 +45,7 @@ const Ico = styled.div`
     background-repeat: no-repeat;
     background-size: 15px 15px;
     position: absolute;
-    top: 12px;
+    top: 13px;
     left: 15px;
 `
 const Text = styled.p`

@@ -12,6 +12,7 @@ const LogoMobile = styled.div`
     background-size: 42px 42px;
     background-repeat: no-repeat;
     margin: 16px 0 15px 13px;
+    opacity: .9;
 `
 const LogoDesktop = styled.div`
     width: 240px;
@@ -20,6 +21,7 @@ const LogoDesktop = styled.div`
     background-size: 240px 150px;
     background-repeat: no-repeat;
     margin: -40px 0 15px 50px;
+    opacity: .9;
 `
 
 const Logo = () => {

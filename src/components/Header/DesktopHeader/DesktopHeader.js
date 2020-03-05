@@ -41,6 +41,7 @@ const LogoDesktop = styled.div`
     background-size: 240px 240px;
     background-repeat: no-repeat;
     margin: -85px 0 15px 15px;
+    opacity: .9;
 `
 const Text = styled.h1`
     width: 800px;
@@ -85,7 +86,7 @@ const DesktopHeader = (props) => {
     return (
         <Container height={props.height}>
             <UpperList>
-                <Link to='/'><LogoDesktop></LogoDesktop></Link>
+                <Link to=''><LogoDesktop></LogoDesktop></Link>
                 <RightButtons>
                     {/* Sign up / user ico & add notice*/}
                     <CurrentUserConsumer>
@@ -93,7 +94,7 @@ const DesktopHeader = (props) => {
                             user ? (
                                 <React.Fragment>
                                     <UserSection>
-                                        <AddNotice margin='-1px -310px 0 0' background='#fff' image={`url(${DesktopPlusIco})`} color='black'></AddNotice>
+                                        <AddNotice margin='-1px -310px 0 0' background='#fff' image={`url(${DesktopPlusIco})`} color='#262F3F'></AddNotice>
                                         {firebase.getCurrentUserAllData() !== null} {
                                             !firebase.getCurrentUserAllData().photoURL ? (
                                                 <Image onClick={clickImage} image={userIco}></Image>
@@ -106,7 +107,7 @@ const DesktopHeader = (props) => {
                                 </React.Fragment>
                             ):(
                                 <React.Fragment>
-                                    <AddNotice background='#fff' image={`url(${DesktopPlusIco})`} color='black'></AddNotice>
+                                    <AddNotice background='#fff' image={`url(${DesktopPlusIco})`} color='#262F3F'></AddNotice>
                                     <Link to='/login'><Login background='#3AB397'></Login></Link> 
                                 </React.Fragment>
                             )
