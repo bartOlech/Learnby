@@ -33,7 +33,6 @@ const CommentSendButton = (props) => {
 
     return (
         <FindAnnouncementConsumer>
-            {/* DODAJ WCISNIECIE PRZYCISKU ENETEREM */}
             {({ sendComment, selectedAnnouncementData }) => (
                 <Container>
                     {props.pressEnter ? (
