@@ -61,6 +61,7 @@ const CreateCommentBox = () => {
                 <Container>
                     <InputBox>
                         <InputText
+                            
                             color={isLogged ? 'red' : 'grey'}
                             top={textIsFilled ? '1px' : '13px'}
                             size={textIsFilled ? '1em' : '1.3em'}
@@ -69,7 +70,7 @@ const CreateCommentBox = () => {
                             {isLogged ? 'Zaloguj się' : 'Napisz Komentarz'}
                         </InputText>
                             <Input 
-                                data-testid='comment-input'
+                                data-testid='input-field'
                                 value={commentValue} 
                                 onChange={el => {
                                     setCommentValue(el.target.value); 

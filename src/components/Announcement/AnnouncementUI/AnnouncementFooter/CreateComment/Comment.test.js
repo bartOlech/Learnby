@@ -2,19 +2,21 @@ import React from 'react';
 import { render, cleanup, fireEvent } from '@testing-library/react';
 import { CurrentUserProvider } from '../../../../../context/CurrentUser.context';
 import CreateCommmentBox from './CreateCommentBox';
+import "@testing-library/jest-dom/extend-expect";
+import { BrowserRouter as Router, useParams } from 'react-router-dom';
 
 const setup = () => {
-    const utils = render(<CurrentUserProvider><CreateCommmentBox  /></CurrentUserProvider>)
-    const input = utils.getAllByTestId('comment-input')
-    return {
-      input,
-      ...utils,
-    }
+  const utils = render(<Router><CurrentUserProvider><CreateCommmentBox/></CurrentUserProvider></Router>) 
+  const input = utils.getByTestId('input-field')
+  return {
+    input,
+    ...utils,
   }
+}
 
 test('It should allow letters to be inputted', () => {
-    const { input } = setup()
-    expect(input.value).toBe(undefined) // empty before
-    fireEvent.change(input, { target: { value: 'Good Day' } })
-    expect(input.value).toBe('Good Day') 
-  })
+  const { input } = setup()
+  expect(input.value).toBe('') // empty before
+  fireEvent.change(input, { target: { value: 'Good Day' } })
+  expect(input.value).toBe('Good Day') 
+})
