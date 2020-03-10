@@ -17,7 +17,7 @@ const Container = styled.div`
 const Logo = styled.div`
     width: 100%;
     height: 100%;
-    background: red;
+    /* background: red; */
     position: absolute;
     top: 11px;
     left: 11px;
