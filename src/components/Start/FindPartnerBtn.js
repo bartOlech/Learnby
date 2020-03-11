@@ -25,7 +25,7 @@ const Button = styled.button`
     cursor: pointer; 
     outline: none;
     &&:before {
-        content: 'Find';
+        content: 'Znajdź partnera';
         position: absolute;
         top: 0;
         left: 0;

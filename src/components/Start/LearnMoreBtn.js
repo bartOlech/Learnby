@@ -12,8 +12,11 @@ const Container = styled.div`
     justify-content: center;
     @media (min-width: 1000px) {
         justify-content: left;
-        margin-left: 55px;
         margin-top: -10px;
+        &&:before {
+            content: '';
+            margin-left: 50px;
+        }
     }
     cursor: pointer;
 `
@@ -25,25 +28,14 @@ const Text = styled.div`
     color: #262F3F;
     margin-right: 10px;
     position: relative;
-    &&:before {
-        content: '';
-        z-index: -1;
-        width: 84px;
-        height: 20px;
-        background-color: #DEF3EB;
-        /* opacity: .85; */
-        position: absolute;
-        top: 9px;
-        left: 4px;
-        
-    }
+    
 `
 const Ico = styled.div`
     width: 65px;
     height: 65px;
     background-image: url(${MoreIco});
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 65px, 65px;
     margin-top: -16px;
     margin-left: 10px;
 `

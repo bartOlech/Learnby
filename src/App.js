@@ -29,7 +29,8 @@ import AppendUserData from './components/Login/SignUp/AppendUserData/AppendUserD
 
 const GlobalStyle = createGlobalStyle`
   body, html {
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 `
 
