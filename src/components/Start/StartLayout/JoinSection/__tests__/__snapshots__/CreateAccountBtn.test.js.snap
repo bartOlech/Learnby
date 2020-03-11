@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-bdVaJa cBJcMp"
+  >
+    <a
+      href="/login"
+    >
+      <button
+        class="sc-bwzfXH kOWHHY"
+      >
+        Załóż konto
+      </button>
+    </a>
+  </div>
+</DocumentFragment>
+`;

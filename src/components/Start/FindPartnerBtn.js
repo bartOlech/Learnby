@@ -25,7 +25,7 @@ const Button = styled.button`
     cursor: pointer; 
     outline: none;
     &&:before {
-        content: 'Znajdź partnera';
+        content: 'Find';
         position: absolute;
         top: 0;
         left: 0;
@@ -36,11 +36,12 @@ const Button = styled.button`
         background-color: #3AB397;
     }
 `
+
 const FindPartnerBtn = () => {
     return (
         <Router>
             <Container>
-                <Button></Button>
+                <Button data-testid='findPartnerBtn-button'></Button>
             </Container>
         </Router>
     )
