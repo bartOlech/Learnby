@@ -15,9 +15,11 @@ const Container = styled.div`
     position: relative;
 `
 const Logo = styled.div`
-    width: 100%;
-    height: 100%;
-    /* background: red; */
+    width: 40px;
+    height: 40px;
+    background-image: url(${MainLogo});
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
     position: absolute;
     top: 11px;
     left: 11px;

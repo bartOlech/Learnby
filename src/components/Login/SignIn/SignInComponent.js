@@ -115,7 +115,7 @@ const SignInComponent = () => {
                                 <Circle top='90%' left='21%'></Circle>
                                 <Circle top='39%' left='71%'></Circle>
                                 <SmallTriangle top='9%' left='23%' rotate='rotate(20deg)'></SmallTriangle>
-                                <SmallTriangle top='2%' left='90%' rotate='rotate(43deg)'></SmallTriangle>
+                                <SmallTriangle top='2%' left='80%' rotate='rotate(43deg)'></SmallTriangle>
                                 <SmallTriangle top='81%' left='53%' rotate='rotate(6deg)'></SmallTriangle>
                                 <SmallTriangle top='64%' left='13%' rotate='rotate(80deg)'></SmallTriangle>
                                 <Square top='29%' left='69%' rotate='rotate(24deg)'></Square>
