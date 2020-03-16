@@ -20,6 +20,13 @@ const Image = styled.div`
         margin-left: 80px;
         background-size: 320px 270px;
     }
+    @media (max-width: 485px) {
+        width: 280px;
+        margin-left: 30px;
+        background-size: 280px 230px;
+        margin-right: 35px;
+    }
+   
 `
 
 const Template = (props) => {

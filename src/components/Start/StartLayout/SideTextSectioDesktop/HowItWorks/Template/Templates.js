@@ -17,14 +17,13 @@ const Container = styled.div`
     @media (max-width: 1000px) {
         flex-direction: column;
         align-items: center;
-        margin-left: 35px;
     }
 `
 const Box = styled.div`
     display: flex;
     flex-direction: column;
     @media (max-width: 1000px) {
-        flex-direction: row;
+        flex-direction: row;     
     }
 `
 

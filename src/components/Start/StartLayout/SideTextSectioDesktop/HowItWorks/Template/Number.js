@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontStyle } from '../../../../../../assets/style/style';
-import Arrow from './Arrow';
 
 
 const Container = styled.h1`
@@ -16,6 +15,14 @@ const Container = styled.h1`
     @media (max-width: 1000px) {
         margin-top: 88px;
         margin-right: 50px;
+    }
+    @media (max-width: 500px) {
+        margin-top: 88px;
+        margin-right: 20px;
+    }
+    @media (max-width: 360px) {
+        margin-top: 88px;
+        margin-right: 10px;
     }
 `
 
