@@ -30,7 +30,7 @@ const RightButtons = styled.div`
     width: 140px;
     height: 100px;
     position: absolute;
-    right: -15px;
+    right: 0;
     top: 4px;
     padding-right: 40px;
 `

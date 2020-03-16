@@ -1,9 +1,6 @@
 import React, { useState, isValidElement } from 'react';
-import AnnouncementBoxTemplate from './AnnouncementTemplate/AnnouncementBoxTemplate';
 import styled from 'styled-components';
 import { FontStyle } from '../../../assets/style/style';
-// Slider
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 // media queries
@@ -13,19 +10,22 @@ import { GetMainAnnouncements, GetSideAnnouncements } from './AnnouncementTempla
 
 
 const Container = styled.div`
-    margin-top: 10px;
     width: 100%;
+    /* max-width: 600px; */
     @media (max-width: 1200px) {
-        width: 600px;
         margin-left: auto;
         margin-right: auto;
         margin-left: -80px;
+        max-width: 600px;
     }
     @media (min-width: 1000px) {
         margin-left: -20px;
     }
+    @media (min-width: 500px) {
+        
+    }
     @media (max-width: 500px) {
-        margin-left: 20px;
+        margin-left: 0;
     }
 `
 
@@ -63,16 +63,6 @@ const SideAnnouncement = styled.div`
 
 const FoundAnnouncementSection = (props) => {
 
-    const settings = {
-        dots: false,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: true,
-        accessibility: true
-      };
-
     return (
         <div>  
             <Container>
@@ -80,10 +70,10 @@ const FoundAnnouncementSection = (props) => {
                 <Media query="(max-width: 500px)" render={() =>
                     (
                         <React.Fragment>
-                            <Text style={{marginTop: '50px'}} size='1.6em'>{props.tittle}</Text>
-                            <Slider {...settings}>
+                            <MainAnnouncements>
+                                <Text style={{marginTop: '50px'}} size='1.6em'>{props.tittle}</Text>
                                 {GetMainAnnouncements(props.announcementList)}
-                            </Slider>
+                            </MainAnnouncements>
                         </React.Fragment>
                     )}
                 />

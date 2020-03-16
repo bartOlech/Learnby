@@ -61,6 +61,9 @@ const Container = styled.div`
     @media(min-width: 1000px) {
         height: 35vh;
     }
+    @media(min-width: 1200px) {
+        width: 27vw;
+    }
 `
 // Branch of science section
 const ScienceSection = styled.div`

@@ -55,6 +55,8 @@ const MainSectionComponent = () => {
                             </React.Fragment>
                         )}
                     />
+                    
+                    {/*  */}
                     {announcementList.size > 0 ? (
                         <React.Fragment>
                             <FoundAnnouncementSection 
@@ -72,6 +74,7 @@ const MainSectionComponent = () => {
                         ></FoundAnnouncementSection>
                         ) : null 
                     )}
+                    {/*  */}
                     
                     {/* Footer */}
                     <MainComponent></MainComponent>
