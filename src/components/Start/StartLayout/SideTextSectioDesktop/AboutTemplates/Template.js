@@ -2,11 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-    width: 500px;
+    width: 100%;
     height : 500px;
     z-index: 2;
     @media (max-width: 1035px) {
-        margin-right: -180px;
         margin-bottom: -70px;
         margin-top: -20px;
     }
@@ -18,8 +17,7 @@ const Image = styled.div`
     background-repeat: no-repeat;
     background-size: 400px 350px;
     @media (max-width: 1035px) {
-        text-align: center;
-        margin-right: -100px;
+        margin-left: 80px;
         background-size: 320px 270px;
     }
 `
@@ -27,7 +25,7 @@ const Image = styled.div`
 const Template = (props) => {
     return (
         <Container>
-            <Image image={props.image}></Image>
+            <Image data-testid='template' image={props.image}></Image>
         </Container>
     )
 }

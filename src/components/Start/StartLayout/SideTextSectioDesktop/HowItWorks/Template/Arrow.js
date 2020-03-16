@@ -22,7 +22,7 @@ const ArrowImage = styled.div`
 const Arrow = () => {
     return (
         <Container>
-            <ArrowImage></ArrowImage>
+            <ArrowImage data-testid='arrow-image'></ArrowImage>
         </Container>
     )
 }

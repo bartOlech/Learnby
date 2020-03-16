@@ -59,6 +59,7 @@ const TemplateBox = () => {
             <Media query="(max-width: 1035px)" render={() =>
                 (
                     <React.Fragment>
+                        {/* TUTAJ m.in BŁĄD SZEROKOŚCI!!! */}
                         <Box>
                             <TextTemplate
                                 MainText='Poznawaj osoby'

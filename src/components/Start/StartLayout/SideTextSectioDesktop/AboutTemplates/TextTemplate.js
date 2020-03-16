@@ -40,8 +40,8 @@ const ExtraText = styled.h4`
 const TextTemplate = (props) => {
     return (
         <Container>
-            <MainText>{props.MainText}</MainText>
-            <ExtraText>{props.ExtraText}</ExtraText>
+            <MainText data-testid='main-text'>{props.MainText}</MainText>
+            <ExtraText data-testid='extra-text'>{props.ExtraText}</ExtraText>
         </Container>
     )
 }

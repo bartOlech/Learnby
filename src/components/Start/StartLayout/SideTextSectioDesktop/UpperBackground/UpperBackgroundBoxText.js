@@ -4,7 +4,7 @@ import LoginButton from './LoginButton';
 import { FontStyle } from '../../../../../assets/style/style';
 
 const Container = styled.div`
-    width: 450px;
+    width: 100%;
     height: 100%;
 `
 const Text = styled.p`
