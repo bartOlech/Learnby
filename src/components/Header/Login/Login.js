@@ -38,6 +38,7 @@ const DesktopButton = styled.button`
     padding-bottom: 6px;
     cursor: pointer;
     outline: none;
+    margin-left: ${props => props.marginLeft};
 `
 
 const Login = (props) => {
@@ -46,7 +47,7 @@ const Login = (props) => {
         <Container>
             <Media query="(min-width: 1000px)" render={() =>
                 (
-                    <DesktopButton background={props.background}>Zaloguj się</DesktopButton>
+                    <DesktopButton marginLeft={props.marginLeft} background={props.background}>Zaloguj się</DesktopButton>
                 )}
             />
             <Media query="(max-width: 1000px)" render={() =>

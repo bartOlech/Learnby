@@ -70,7 +70,7 @@ const Header = (props) => {
                     ):(
                         <React.Fragment>
                               <AddNotice background='#DD9A76' image={`url(${MobilePlusIco})`} color='#fff'></AddNotice>
-                            <Link to='/login'><Login background='#3AB397'></Login></Link> 
+                            <Link to='/login'><Login marginLeft='-30px'  background='#3AB397'></Login></Link> 
                         </React.Fragment>
                     )
                 )}

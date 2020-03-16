@@ -108,7 +108,7 @@ const DesktopHeader = (props) => {
                             ):(
                                 <React.Fragment>
                                     <AddNotice background='#fff' image={`url(${DesktopPlusIco})`} color='#262F3F'></AddNotice>
-                                    <Link to='/login'><Login background='#3AB397'></Login></Link> 
+                                    <Link to='/login'><Login background='#273B48'></Login></Link> 
                                 </React.Fragment>
                             )
                         )}
