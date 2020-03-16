@@ -30,7 +30,6 @@ const BoxComponent = () => {
             />
             <UserBoxComponent></UserBoxComponent>
             <AnnouncementUIBoxComponent></AnnouncementUIBoxComponent>
-            {/* <div>{id}</div> */}
         </Container>
     )
 }

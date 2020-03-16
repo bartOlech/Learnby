@@ -10,7 +10,6 @@ const Container = styled.div`
 `
 const NameBox = styled.div`
     position: relative;
-    width: 400px;
     display: flex;
     justify-content: center;
 `

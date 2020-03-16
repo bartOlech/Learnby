@@ -70,7 +70,8 @@ const AnnouncementUIBoxComponent = () => {
                                 </AnnouncementDescription>
                                 <AnnouncementSpot 
                                     remote={selectedAnnouncementData[0].Remote} 
-                                    spot={selectedAnnouncementData[0].Place}></AnnouncementSpot>
+                                    spot={selectedAnnouncementData[0].Place}>
+                                </AnnouncementSpot>
                                 <AnnouncementUIButtonsBox selectedAnnouncementData={selectedAnnouncementData}></AnnouncementUIButtonsBox>
                                 <MakeContactButton 
                                     selectedAnnouncementData={selectedAnnouncementData}                       

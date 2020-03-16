@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { FontStyle } from '../../../assets/style/style';
 
 const Container = styled.div`
-    width: 400px;
     height: 50px;
     display: flex;
     margin-top: 20px;

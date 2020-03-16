@@ -18,13 +18,24 @@ const Bar = styled.div`
         top: 78px;
     }
 `
+const BarEnd = styled.div`
+    &&::before {
+        content: '';
+        width: 60px;
+        height: 10px;
+        background-color: #DDDDDD;
+        position: absolute;
+        top: 78px;
+        right: 0;
+    }
+`
 
 const ProgressBar = (props) => {
     return (
         <Container>
             <Bar></Bar>
             <Progress 
-            style={{width: '115%'}}
+            style={{width: '100%'}}
             percent={props.layoutNumber === 0 ? '25' : (props.layoutNumber === 1 ? '50' : (props.layoutNumber === 2 ? '75' : (props.layoutNumber === 3 ? '100' : null)))}
             theme={
                 {
@@ -41,6 +52,7 @@ const ProgressBar = (props) => {
                 }
               }
             ></Progress>
+            <BarEnd></BarEnd>
         </Container>
     )
 }
