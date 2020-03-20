@@ -103,10 +103,10 @@ const Comment = (props) => {
     const currentUid = firebase.getCurrentUid()
 
     // TO USE IN THE FUTURE
-    const[isLiked, setIsLiked] = useState() 
+    const[isLiked, setIsLiked] = useState(false) 
 
     const likeComment = () => { 
-        const{ commentKey, } = props;
+        const{ commentKey } = props;
         // get object from the firestore
         if(currentUid !== null){
             if(!likesArray.includes(currentUid)) {
@@ -157,8 +157,8 @@ const Comment = (props) => {
                 </FirstRow>
             </TextContainer>
             <LikeContainer>
-            <LikeAmount>{likeArray.length}</LikeAmount>
-            <LikeBox onClick={likeComment}>
+            <LikeAmount data-testid='likeAmount'>{likeArray.length}</LikeAmount>
+            <LikeBox data-testid='likeBox' onClick={likeComment}>
                 <LikeBackground display='inline'></LikeBackground>
                 <LikeIco 
                 animation={likeArray.includes(currentUid) ? css`1s ${bounceAnimation}` : 'none'} 
