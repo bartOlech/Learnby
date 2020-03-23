@@ -8,13 +8,14 @@ import { CurrentUserConsumer } from '../../../../context/CurrentUser.context';
 const Container = styled.div`
 
 `
-const Button = styled.button`
+const Button = styled.div`
     width: 300px;
     height: 35px;
     border: none;
     outline: none;
     cursor: pointer;
     display: flex;
+    margin-top: 9px;
 `
 const Ico = styled.div`
     width: 28px;
@@ -22,12 +23,14 @@ const Ico = styled.div`
     background-image: url(${logOutIco});
     background-repeat: no-repeat;
     background-size: 18px 16px;
+    margin-left: 8px;
+    margin-top: 3px;
 `
 const Text = styled.span`
     font-family: ${FontStyle.family};
     color: ${FontStyle.color};
-    font-size: 1.6em;
-    margin-top: -3px;
+    font-size: 1.1em;
+    margin-left: 0;
 `
 
 const LogOut = () => {

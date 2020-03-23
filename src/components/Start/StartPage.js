@@ -175,32 +175,16 @@ const AboutMainTextDesktop = styled.h3`
         width: 80%;
         display: flex;
     }
-    &&:after {
-        content: '';
-        width: 97px;
-        height: 25px;
-        background-color: #DEF3EB;
-        position: absolute;
-        opacity: .65;
-        top: 13px;
-        left: -797px; 
-        right: 0; 
-        margin-left: auto; 
-        margin-right: auto; 
-        border-radius: 1px;
-        z-index: -1;
-        @media (max-width: 1111px) {
-            left: -692px; 
-    }
+   
     }
     &&:before {
         content: '';
         width: 60px;
         height: 5px;
-        background-color: #33BFAC;
+        background-color: #00A089;
         position: absolute;
         opacity: .65;
-        top: -55px;
+        top: -85px;
         left: 0; 
         right: 0; 
         margin-left: auto; 
@@ -258,7 +242,7 @@ const StartPage = () => {
                 {/* Desktop */}
                 <Media query="(min-width: 1000px)" render={() =>
                     (
-                        <AboutSection style={{marginTop: '120px'}}>              
+                        <AboutSection style={{marginTop: '230px', marginBottom: '100px'}}>              
                             <AboutMainText>
                                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                                     "Nie mogłam znaleźć nikogo kto podzielałby wraz ze mną te same pasję. Ta platforma jest rozwiązaniem"

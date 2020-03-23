@@ -40,7 +40,6 @@ const Box = styled.div`
 const Ico = styled.div`
     width: 15px;
     height: 15px;
-    /* background-image: url(${ico}); */
     background-image: ${props => props.image};
     background-repeat: no-repeat;
     background-size: 15px 15px;

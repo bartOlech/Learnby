@@ -39,7 +39,7 @@ const HowItWorksSection = () => {
     return (
         <Container>
             <HowItWorksText>Jak to działa</HowItWorksText>
-            <HowItWorksExtraText>Zacznij w 4 krótkich krokach</HowItWorksExtraText>
+            <HowItWorksExtraText>Zacznij w 3 krótkich krokach</HowItWorksExtraText>
             <Templates></Templates>
         </Container>
     )

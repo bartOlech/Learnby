@@ -49,7 +49,7 @@ const UserMenu = (props) => {
             <HorizontalLine></HorizontalLine>
             <Messages></Messages>
             <Notification></Notification>
-            <HorizontalLine></HorizontalLine>
+            <HorizontalLine style={{marginTop: '-3px'}}></HorizontalLine>
             <LogOut></LogOut>
         </Container>
     )
