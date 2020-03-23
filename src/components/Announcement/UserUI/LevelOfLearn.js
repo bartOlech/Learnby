@@ -39,12 +39,15 @@ const LevelOfLearn = (props) => {
     const knowledgeDots = (val) => {
         let indents = [];
         let emptyDots = 5 - val
+        let key = 0
 
         for (let i = 0; i < val; i++) {
-            indents.push(<Dot background='#3AAF9F'></Dot>);
+            indents.push(<Dot key={key} background='#3AAF9F'></Dot>);
+            key++
         }
         for (let i = 0; i < emptyDots; i++) {
-            indents.push(<Dot background='#fff'></Dot>);
+            indents.push(<Dot key={key + 5} background='#fff'></Dot>);
+            key++
         }
         return indents;
     }
@@ -53,7 +56,7 @@ const LevelOfLearn = (props) => {
         <Container>
             <LevelOfLearning>
                 <LevelText>Poziom:</LevelText>
-                <LevelDotted>
+                <LevelDotted data-testid='levelDotted'>
                     {/* function that return quantity of green dots */}
                     {knowledgeDots(props.level)}
                 </LevelDotted>

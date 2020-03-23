@@ -60,11 +60,13 @@ const UserData = (props) => {
                         (
                             <Container>
                                 <MainData style={{marginTop: '28px'}}>
-                                    <Link to={{pathname: `/user/${selectedAnnouncementData[0].AnnouncementCreator.UserId}`}}><Name onClick={()=> {
+                                    <Link to={{pathname: `/user/${selectedAnnouncementData[0].AnnouncementCreator.UserId}`}}><Name 
+                                    data-testid='name'
+                                    onClick={()=> {
                                         getUserAnnouncementsFromUserCollection(selectedAnnouncementData[0].AnnouncementCreator.UserId)
                                         getUserData()
                                     }}>{props.name.replace(/ .*/,'')}<Line></Line></Name></Link>
-                                    <Age>{props.age} lat</Age>
+                                    <Age >{props.age} lat</Age>
                                 </MainData>
                             </Container>
                         )}

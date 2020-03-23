@@ -4,7 +4,7 @@ import FindAnnouncementSection from '../../Main/SearchPartner/FindAnnouncementSe
 import { FontStyle } from '../../../assets/style/style';
 import Login from '../Login/Login';
 import AddNotice from '../AddNotice/AddNotice';
-import desktopLogo from '../../../assets/img/Desktop/Logo-desktop.svg';
+import desktopLogo from '../../../assets/img/Desktop/Logo-desktop-dark.png';
 import { BrowserRouter as Router, Link} from 'react-router-dom';
 import DesktopPlusIco from '../../../assets/img/Desktop/plus.svg';
 import { CurrentUserConsumer } from '../../../context/CurrentUser.context';
@@ -35,12 +35,12 @@ const RightButtons = styled.div`
     padding-right: 40px;
 `
 const LogoDesktop = styled.div`
-    width: 240px;
-    height: 240px;
+    width: 180px;
+    height: 60px;
     background-image: url(${desktopLogo});
-    background-size: 240px 240px;
+    background-size: cover;
     background-repeat: no-repeat;
-    margin: -85px 0 15px 15px;
+    margin: 13px 0 15px 15px;
     opacity: .9;
 `
 const Text = styled.h1`

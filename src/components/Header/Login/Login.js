@@ -39,6 +39,7 @@ const DesktopButton = styled.button`
     cursor: pointer;
     outline: none;
     margin-left: ${props => props.marginLeft};
+    padding-top: 3px;
 `
 
 const Login = (props) => {

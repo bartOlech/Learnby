@@ -23,7 +23,7 @@ const Container = styled.div`
         margin: ${props => props.margin};
     }
 `
-const Box = styled.button`
+const Box = styled.div`
     width: 160px;
     height: 41px;
     background-color: #4DB6AC;
@@ -50,12 +50,12 @@ const Ico = styled.div`
 `
 const Text = styled.p`
     font-family: ${FontStyle.family};
-    font-size: 1.9em;
+    font-size: 1.4em;
     color: black; 
     color: ${props => props.color};
     text-decoration: none;
     position: absolute;
-    top: -15px;
+    top: -16px;
     right: 17px;
     font-weight: 600;
 `

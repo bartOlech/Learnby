@@ -32,6 +32,8 @@ const InputText = styled.input`
     font-family: ${FontStyle.family};
     font-size: 1.3em;
     padding-left: 20px;
+    margin-top: 60px;
+    padding-bottom: 4px;
     &&::placeholder {
         font-size: .9em;
     }
@@ -42,7 +44,7 @@ const InputText = styled.input`
 `
 const Ico = styled.div`
     right: 0;
-    top: 8px;
+    top: 68px;
     width: 30px;
     height: 30px;
     background-image: url(${MagnifierIco});

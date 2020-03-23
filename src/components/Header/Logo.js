@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import logo from '../../assets/img/logo-LearnBy.svg';
-import desktopLogo from '../../assets/img/Desktop/Logo-desktop.svg';
+import desktopLogo from '../../assets/img/Desktop/Logo-desktop-dark.png';
 import { BrowserRouter as Router, Link} from 'react-router-dom';
 import Media from 'react-media';
 
@@ -15,12 +15,12 @@ const LogoMobile = styled.div`
     opacity: .9;
 `
 const LogoDesktop = styled.div`
-    width: 240px;
-    height: 150px;
+    width: 180px;
+    height: 60px;
     background-image: url(${desktopLogo});
-    background-size: 240px 150px;
+    background-size: cover;
     background-repeat: no-repeat;
-    margin: -40px 0 15px 50px;
+    margin: 10px 0 15px 50px;
     opacity: .9;
 `
 
