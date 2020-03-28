@@ -32,25 +32,28 @@ const InputText = styled.input`
     font-family: ${FontStyle.family};
     font-size: 1.3em;
     padding-left: 20px;
-    margin-top: 60px;
     padding-bottom: 4px;
     &&::placeholder {
         font-size: .9em;
     }
     @media (min-width: 1000px) {
+        margin-top: 60px;
         width: 510px;
         box-shadow: none;
     }
 `
 const Ico = styled.div`
     right: 0;
-    top: 68px;
+    top: 8px;
     width: 30px;
     height: 30px;
     background-image: url(${MagnifierIco});
     background-repeat: no-repeat;
     background-size: 30px 30px;
     position: absolute;
+    @media (min-width: 1000px) {
+        top: 68px;
+    }
 `
 
 const FindUserSection = (props) => {
