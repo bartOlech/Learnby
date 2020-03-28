@@ -50,13 +50,13 @@ const Header = (props) => {
     return (
         <Container background={props.background} shadow={props.shadow}>
             <Logo></Logo>
-           
             <CurrentUserConsumer>
                 {({ user }) => (
-                    user ? (
+                    firebase.getCurrentUser() ? (
                         <React.Fragment>
                             <UserSection>
                             <AddNotice margin='17px -240px 0 0' background='#DD9A76' image={`url(${MobilePlusIco})`} color='#fff'></AddNotice>
+                
                                 {firebase.getCurrentUserAllData() !== null} {
                                     !firebase.getCurrentUserAllData().photoURL ? (
                                         <Image onClick={clickImage} image={userIco}></Image>
