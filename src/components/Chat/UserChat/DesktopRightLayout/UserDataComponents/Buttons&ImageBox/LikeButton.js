@@ -25,7 +25,7 @@ const LikeButton = () => {
     }
 
     return (
-        <Container ico={isLike ? likeIcoGreen : likeIco} onClick={likeAnnouncement}>
+        <Container data-testid='like-button' ico={isLike ? likeIcoGreen : likeIco} onClick={likeAnnouncement}>
 
         </Container>
     )

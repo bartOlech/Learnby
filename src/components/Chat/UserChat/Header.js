@@ -59,7 +59,7 @@ const Header = (props) => {
     return (
         <HeaderBox>
             {props.image ? (
-                <Image image={props.image}></Image>
+                <Image data-testid='image' image={props.image}></Image>
             ) : (
                 <LoaderBox>
                     <Loader
