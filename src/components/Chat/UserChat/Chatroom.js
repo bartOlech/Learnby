@@ -128,8 +128,6 @@ class UserChatBox extends Component{
           const{ messageKeys } = this.state;
           let message = []
 
-          
-
           for(let[key, value] of Object.entries(doc.data().MessagesId)) {
             if(key === userId) {
               firebase.getDataFromFirestore('Messages').doc(value).onSnapshot(querySnapshot => {
@@ -137,8 +135,7 @@ class UserChatBox extends Component{
                   for(let[key, value] of Object.entries(querySnapshot.data().messages)) {
                     const date = {createdOn: SecondsToDate(value.date.seconds)}
                     let id = {}
-
-                    if(!messageKeys.includes(key)){
+                    if(!messageKeys.includes(key)) {
                       // adjust authorId
                       value.authorId === this.props.match.params.id ? (
                         id = {authorId: 1}
@@ -149,7 +146,7 @@ class UserChatBox extends Component{
                       let messagesObject = {...value, ...id, ...date} 
                       message.push(messagesObject)
                       messageKeys.push(key)
-                      
+                      console.log(messageKeys)
                     }
                   }
                   this.setState({
@@ -203,6 +200,21 @@ class UserChatBox extends Component{
               
               } else {
                 // create a new document in firestore
+                let message = []
+                const objectMessage2 = {
+                  authorId: 2,
+                  createdOn: new Date(),
+                  message: messageInputValue
+                }
+                message.push(objectMessage2)
+                console.log(objectMessage2)
+
+                this.setState({
+                  messages: message
+                }, () => {
+                  this.chat && this.chat.onMessageSend()
+                })
+
                 const map = new Map();
                 map.set(uniqueKey, objectMessage)
 
@@ -210,6 +222,57 @@ class UserChatBox extends Component{
                 firebase.sendDataToFirestore('Messages').doc(value).set({
                   messages: mapToObject
                 })
+
+
+
+
+
+                // Get realtime firebase
+                firebase.getDataFromFirestore('user').doc(firebase.getCurrentUid()).get().then(doc => {
+                  const userId = this.props.match.params.id
+                  const{ messageKeys } = this.state;
+                  let message = []
+        
+                  for(let[key, value] of Object.entries(doc.data().MessagesId)) {
+                    if(key === userId) {
+                      firebase.getDataFromFirestore('Messages').doc(value).onSnapshot(querySnapshot => {
+                        if(querySnapshot.exists) {
+                          for(let[key, value] of Object.entries(querySnapshot.data().messages)) {
+                            const date = {createdOn: SecondsToDate(value.date.seconds)}
+                            let id = {}
+                            if(!messageKeys.includes(key)) {
+                              // adjust authorId
+                              value.authorId === this.props.match.params.id ? (
+                                id = {authorId: 1}
+                              ) : (
+                                id = {authorId: 2}
+                              )
+        
+                              let messagesObject = {...value, ...id, ...date} 
+                              message.push(messagesObject)
+                              messageKeys.push(key)
+                              console.log(messageKeys)
+                            }
+                          }
+                          this.setState({
+                            messages: message
+                          }, () => {
+                            this.chat && this.chat.onMessageSend()
+                          })
+                        }
+                      })
+                    }
+                  }
+        
+                })
+
+
+
+
+
+
+
+
               }           
             })       
           }
