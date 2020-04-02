@@ -91,7 +91,7 @@ const DesktopHeader = (props) => {
                     {/* Sign up / user ico & add notice*/}
                     <CurrentUserConsumer>
                         {({ user }) => (
-                            user ? (
+                           firebase.getCurrentUser() ? (
                                 <React.Fragment>
                                     <UserSection>
                                         <AddNotice margin='-1px -310px 0 0' background='#fff' image={`url(${DesktopPlusIco})`} color='#262F3F'></AddNotice>

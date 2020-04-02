@@ -146,7 +146,6 @@ class UserChatBox extends Component{
                       let messagesObject = {...value, ...id, ...date} 
                       message.push(messagesObject)
                       messageKeys.push(key)
-                      console.log(messageKeys)
                     }
                   }
                   this.setState({
@@ -208,7 +207,6 @@ class UserChatBox extends Component{
                   message: messageInputValue
                 }
                 message.push(objectMessage2)
-                console.log(objectMessage2)
 
                 this.setState({
                   messages: message
@@ -238,7 +236,7 @@ class UserChatBox extends Component{
                             const date = {createdOn: SecondsToDate(value.date.seconds)}
                             let id = {}
                             if(!messageKeys.includes(key)) {
-                              // adjust authorId
+                             // adjust authorId
                               value.authorId === this.props.match.params.id ? (
                                 id = {authorId: 1}
                               ) : (
@@ -248,7 +246,6 @@ class UserChatBox extends Component{
                               let messagesObject = {...value, ...id, ...date} 
                               message.push(messagesObject)
                               messageKeys.push(key)
-                              console.log(messageKeys)
                             }
                           }
                           this.setState({
