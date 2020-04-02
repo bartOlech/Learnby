@@ -200,6 +200,7 @@ class UserChatBox extends Component{
               
               } else {
                 // create a new document in firestore
+                // update local state
                 let message = []
                 const objectMessage2 = {
                   authorId: 2,
@@ -222,10 +223,6 @@ class UserChatBox extends Component{
                 firebase.sendDataToFirestore('Messages').doc(value).set({
                   messages: mapToObject
                 })
-
-
-
-
 
                 // Get realtime firebase
                 firebase.getDataFromFirestore('user').doc(firebase.getCurrentUid()).get().then(doc => {
@@ -265,14 +262,7 @@ class UserChatBox extends Component{
                   }
         
                 })
-
-
-
-
-
-
-
-
+                ///////////////////////////////////////
               }           
             })       
           }
@@ -391,6 +381,11 @@ class UserChatBox extends Component{
                                   bottom: '50px', 
                                   width: '100%',
                                   background: '#EFEFEF',}}
+                                  chatBubbleStyles={{
+                                    chatBubble: {
+                                      backgroundColor: '#33BFAC'
+                                    }
+                                  }}
                               />  
                             )}
                         />
