@@ -16,7 +16,6 @@ const TittleBox = styled.div`
     border-bottom: 1px solid rgba(206, 206, 206, .7);
     display: flex;
     align-items: center;
-
 `
 const TittleText = styled.span`
     font-size: 1.3em;

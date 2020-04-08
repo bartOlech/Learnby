@@ -7,7 +7,7 @@ const Container = styled.div`
     width: 25%;
     height: 100%;
     @media(max-width: 1100px) {
-        display: none
+        display: ${props => props.display};
     }
 `
 
@@ -18,7 +18,7 @@ const DesktopLeftLayout = (props) => {
     }
     
     return (
-        <Container>
+        <Container display={props.display}>
             <MessageTextLogoBox></MessageTextLogoBox>
             <ListOfUserMessages UpdateUserMessages={UpdateUserMessages} userId={props.userId}></ListOfUserMessages>
         </Container>

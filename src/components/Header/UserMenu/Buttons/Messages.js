@@ -5,6 +5,8 @@ import { FontStyle } from '../../../../assets/style/style';
 import { BrowserRouter as Router, Link, useParams } from 'react-router-dom';
 // Context
 import { FindAnnouncementConsumer } from '../../../../context/CurrentUser.context';
+// media queries
+import Media from 'react-media';
 
 const Container = styled.div`
     
@@ -39,14 +41,28 @@ const Messages = () => {
         <FindAnnouncementConsumer>
             {({ createUserChatRoom }) => (
                 <Container>
-                    <Link style={{textDecoration: 'none'}} onClick={() => {
-                        createUserChatRoom('mWBuVDnGQCQ8vtT1CbcQRwO1Qyu1')
-                    }} to={{pathname: `/chat/mWBuVDnGQCQ8vtT1CbcQRwO1Qyu1`}}> 
-                    <Button>
-                        <Ico></Ico>
-                        <Text>Wiadomości</Text>
-                    </Button>
-                    </Link>
+                    <Media query="(min-width: 1100px)" render={() => (
+                        <Link style={{textDecoration: 'none'}} onClick={() => {
+                            createUserChatRoom('mWBuVDnGQCQ8vtT1CbcQRwO1Qyu1')
+                        }} to={{pathname: `/chat/mWBuVDnGQCQ8vtT1CbcQRwO1Qyu1`}}> 
+                            <Button>
+                                <Ico></Ico>
+                                <Text>Wiadomości</Text>
+                            </Button>
+                        </Link>
+                    )}
+                    />   
+                    <Media query="(max-width: 1100px)" render={() => (
+                        <Link style={{textDecoration: 'none'}} onClick={() => {
+                            createUserChatRoom('mWBuVDnGQCQ8vtT1CbcQRwO1Qyu1')
+                        }} to='/phoneUserList'> 
+                            <Button>
+                                <Ico></Ico>
+                                <Text>Wiadomości</Text>
+                            </Button>
+                        </Link>
+                    )}
+                    /> 
                 </Container>
             )}
         </FindAnnouncementConsumer>

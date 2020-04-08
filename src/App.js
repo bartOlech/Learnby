@@ -24,6 +24,7 @@ import User from './components/Main/User/User';
 // Chat
 import MessagesListBox from './components/Chat/MessagesList/MessagesListBox';
 import Chatroom from './components/Chat/UserChat/Chatroom';
+import PhoneUserList from './components/Chat/PhoneUserList/PhoneUserList';
 // append user data during the registration
 import AppendUserData from './components/Login/SignUp/AppendUserData/AppendUserData';
 
@@ -61,6 +62,7 @@ function App() {
             <Route path='/messagesList' component={MessagesListBox}></Route>
             <Route path='/chat/:id' component={Chatroom}></Route>
             <Route path='/appendData' component={AppendUserData}></Route>
+            <Route path='/phoneUserList' component={PhoneUserList}></Route>
             {/* footer */}
             <Route path='/about/' component={AboutSection}></Route>
             <Route path='/career/' component={CareerSection}></Route>

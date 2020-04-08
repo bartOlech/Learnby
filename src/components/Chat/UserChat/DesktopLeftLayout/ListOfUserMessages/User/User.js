@@ -24,7 +24,7 @@ const User = (props) => {
     return (
         <FindAnnouncementConsumer>
             {({ getUserDataIfRefresh }) => (
-                <Link onClick={UpdateUserMessages} style={{ textDecoration: 'none' }} to={`${props.messageId}`}>
+                <Link onClick={UpdateUserMessages} style={{ textDecoration: 'none' }} to={{pathname: `/chat/${props.messageId}`}}>
                     <Container background={props.background} >
                         <Image image={props.image}></Image>
                         <Name name={props.name}></Name>
