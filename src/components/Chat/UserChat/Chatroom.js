@@ -431,7 +431,10 @@ class UserChatBox extends Component{
                             </FormBox>
                         </Form>
                     </Container>
-                    {userDataFromUserCollection.Name !== undefined ? (
+                    {this.props.match.params.id  === 'mWBuVDnGQCQ8vtT1CbcQRwO1Qyu1' ? (
+                         null
+                    ) : (
+                      userDataFromUserCollection.Name !== undefined ? (
                         userData === '' ? (
                           <DesktopRightLayout 
                             name={userDataFromUserCollection.Name.replace(/ .*/,'')}
@@ -457,7 +460,9 @@ class UserChatBox extends Component{
                           image=''
                         >
                         </DesktopRightLayout>
-                      )}
+                      )
+                    )}
+                    
                       <WaveBackground></WaveBackground>
                   </DesktopBox>
                 )}

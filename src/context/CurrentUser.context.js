@@ -126,7 +126,6 @@ export class CurrentUserProvider extends Component {
                 user: firebase.getCurrentUser()
             })
           })
-
         // here create function that will be draws lots announcement
         firebase.getDataFromFirestore('Announcements').doc('LqB5OyvGsoTp3hf6DB6o').get().then(doc => {
             randomAnnouncement.clear()

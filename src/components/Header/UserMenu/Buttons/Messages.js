@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import messageIco from '../../../../assets/img/Mobile/message.svg';
 import { FontStyle } from '../../../../assets/style/style';
+import { BrowserRouter as Router, Link, useParams } from 'react-router-dom';
+// Context
+import { FindAnnouncementConsumer } from '../../../../context/CurrentUser.context';
 
 const Container = styled.div`
     
@@ -33,12 +36,20 @@ const Text = styled.span`
 
 const Messages = () => {
     return (
-        <Container>
-            <Button>
-                <Ico></Ico>
-                <Text>Wiadomości</Text>
-            </Button>
-        </Container>
+        <FindAnnouncementConsumer>
+            {({ createUserChatRoom }) => (
+                <Container>
+                    <Link style={{textDecoration: 'none'}} onClick={() => {
+                        createUserChatRoom('mWBuVDnGQCQ8vtT1CbcQRwO1Qyu1')
+                    }} to={{pathname: `/chat/mWBuVDnGQCQ8vtT1CbcQRwO1Qyu1`}}> 
+                    <Button>
+                        <Ico></Ico>
+                        <Text>Wiadomości</Text>
+                    </Button>
+                    </Link>
+                </Container>
+            )}
+        </FindAnnouncementConsumer>
     )
 }
 
