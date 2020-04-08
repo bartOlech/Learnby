@@ -4,6 +4,7 @@ import { ChatFeed } from 'react-bell-chat';
 import { FindAnnouncementConsumer } from '../../../context/CurrentUser.context';
 import Header from './Header';
 import { FontStyle } from '../../../assets/style/style';
+import ReturnButton from '../ReturnButton/ReturnButton';
 // import smileIco from '../../../assets/img/Mobile/smile.svg';
 import sendIco from '../../../assets/img/Mobile/sendMessage1.svg';
 import firebase from '../../../Firebase.config';
@@ -344,6 +345,10 @@ class UserChatBox extends Component{
             <FindAnnouncementConsumer>
                 {({ userDataFromUserCollection, getUserDataIfRefresh }) => (
                   <DesktopBox>
+                    <Media query="(min-width: 1100px)" render={() => (
+                      <ReturnButton top='28px' left='82px'></ReturnButton>
+                    )}
+                    />
                     <DesktopLeftLayout display='none' UpdateUserMessages={this.UpdateUserMessages} userId={this.props.match.params.id}></DesktopLeftLayout>
                     <Container>
                         {!isExecuted ? (

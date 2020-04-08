@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import moreIco from '../../../assets/img/Mobile/moreDots.svg';
 import { FontStyle } from '../../../assets/style/style';
-import Loader from 'react-loader-spinner';
+import ReturnButton from '../ReturnButton/ReturnButton';
 
 const HeaderBox = styled.div`
     width: 100%;
@@ -48,29 +48,16 @@ const ButtonIco = styled.div`
     margin-right: 15px;
     cursor: pointer;
 `
-const LoaderBox = styled.div`
-    margin: -45px 0 0 45px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+const ReturnBox = styled.div`
+    margin-top: 25px;
 `
 
 const Header = (props) => {
     return (
         <HeaderBox>
-            {props.image ? (
-                <Image data-testid='image' image={props.image}></Image>
-            ) : (
-                <LoaderBox>
-                    <Loader
-                        type="TailSpin"
-                        color="#262F3F"
-                        height={30}
-                        width={30}
-                        style={{marginTop: '50px', marginLeft: '-20px'}}
-                    />
-                </LoaderBox>
-            )}
+            <ReturnBox>
+                <ReturnButton></ReturnButton>
+            </ReturnBox>
             <Name>{props.name}</Name>
             <ButtonIco></ButtonIco>
         </HeaderBox>
