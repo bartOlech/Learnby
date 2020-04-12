@@ -22,37 +22,31 @@ const LogForm = styled.form`
 `
 const InputEmail = styled.input`
     width: 250px;
-    height: 40px;
-    border-radius: 10px;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid #d9dad7;
     margin-top: 30px;
-    font-size: 1.3em;
+    font-size: 1.2em;
     outline: none;
-    border: none;
-    box-shadow: 1px 1px 6px #B4B4B4;
+    background-color: #FCFDFE;
     padding-left: 10px;
-    &&::placeholder {
-        font-family: ${FontStyle.family};
-        font-weight: 300;
-        padding-left: 20px;
-        padding-top: 10px;
-    }
+    position: relative;
+    color: ${FontStyle.color};
+    padding-bottom: 3px;
 `
 const InputPassword = styled.input`
     width: 250px;
-    height: 40px;
-    border-radius: 10px;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid #d9dad7;
     margin-top: 30px;
-    font-size: 1.3em;
+    font-size: 1.2em;
     outline: none;
-    border: none;
-    box-shadow: 1px 1px 6px #B4B4B4;
+    background-color: #FCFDFE;
     padding-left: 10px;
-    &&::placeholder {
-        font-family: ${FontStyle.family};
-        font-weight: 300;
-        padding-left: 20px;
-        padding-top: 10px;
-    }
+    position: relative;
+    color: ${FontStyle.color};
+    padding-bottom: 3px;
 `
 const InputAlert = styled.p`
     font-family: ${FontStyle.family};
@@ -60,10 +54,23 @@ const InputAlert = styled.p`
     font-size: 1.2em;
     color: #d9534f;
     display: ${(props) => props.display};
-    padding: 0 40px 0 40px;
+    /* padding: 0 40px 0 40px; */
+    padding-left: 5px;
     margin-top: 8px;
     margin-bottom: -10px;
     text-align: center;
+`
+const InputText = styled.label`
+    position: absolute;
+    padding-left: 1px;
+    margin-top: 3px;
+    color: ${FontStyle.color};
+`
+const InputBox = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    
 `
 
 const Form = () => {
@@ -91,10 +98,17 @@ const Form = () => {
     return (
         <Container>
             <LogForm>
-                <InputEmail data-testid='form-email' value={email} onChange={emailHandle} type='text' placeholder='Email'></InputEmail>
-                <InputAlert>{authAlertMsg}</InputAlert>
-                <InputPassword value={password} onChange={passwordHandle} type='password' placeholder='Hasło'></InputPassword>
-                <ForgotPassword></ForgotPassword>
+                <InputBox>
+                    <InputText>Email</InputText>
+                    <InputEmail data-testid='form-email' value={email} onChange={emailHandle} type='text' ></InputEmail>
+                    <InputAlert>{authAlertMsg}</InputAlert>
+                </InputBox>
+                
+                <InputBox style={{marginTop: '15px'}}>
+                    <InputText>Hasło</InputText>
+                    <InputPassword value={password} onChange={passwordHandle} type='password'></InputPassword>
+                    <ForgotPassword></ForgotPassword>
+                </InputBox>
                 <SendBtn getAuthAlert={getAuthAlert} email={email} password={password}></SendBtn>
             </LogForm>
             <RegisterBtn></RegisterBtn>

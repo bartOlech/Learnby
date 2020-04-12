@@ -37,6 +37,10 @@ const SocialIco = styled.div`
     padding: 0;
     display: flex;
     justify-content: center;
+    margin-top: 50px;
+    @media (min-width: 1000px) {
+        margin-top: 0;
+    }
 `
 // desktop styled
 const Main = styled.div`
@@ -78,7 +82,6 @@ const SignUpComponent = () => {
                 (
                     <Container> 
                         <Header></Header>
-                        <MainText>Zarejestruj się</MainText>
                         <SocialIco>
                             <FacebookBtn></FacebookBtn>
                             <GoogleBtn></GoogleBtn>

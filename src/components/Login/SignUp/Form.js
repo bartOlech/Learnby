@@ -23,39 +23,32 @@ const LogForm = styled.form`
 `
 const InputEmail = styled.input`
     width: 250px;
-    height: 40px;
-    border-radius: 10px;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid #d9dad7;
     margin-top: 30px;
-    font-size: 1.3em;
+    font-size: 1.2em;
     outline: none;
-    border: none;
-    border-bottom: ${props => props.border};
-    box-shadow: 1px 1px 6px #B4B4B4;
+    background-color: #FCFDFE;
     padding-left: 10px;
-    &&::placeholder {
-        font-family: ${FontStyle.family};
-        font-weight: 300;
-        padding-left: 20px;
-        padding-top: 10px;
+    position: relative;
+    color: ${FontStyle.color};
+    padding-bottom: 3px;
     }
 `
 const InputPassword = styled.input`
-    width: 250px;
-    height: 40px;
-    border-radius: 10px;
+   width: 250px;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid #d9dad7;
     margin-top: 30px;
-    font-size: 1.3em;
+    font-size: 1.2em;
     outline: none;
-    border: none;
-    border-bottom: ${props => props.border};
-    box-shadow: 1px 1px 6px #B4B4B4;
+    background-color: #FCFDFE;
     padding-left: 10px;
-    &&::placeholder {
-        font-family: ${FontStyle.family};
-        font-weight: 300;
-        padding-left: 20px;
-        padding-top: 10px;
-    }
+    position: relative;
+    color: ${FontStyle.color};
+    padding-bottom: 3px;
 `
 const InputAlert = styled.p`
     font-family: ${FontStyle.family};
@@ -67,6 +60,19 @@ const InputAlert = styled.p`
     margin-top: 8px;
     margin-bottom: -10px;
     text-align: center;
+`
+const InputText = styled.label`
+    position: absolute;
+    padding-left: 1px;
+    margin-top: 3px;
+    color: ${FontStyle.color};
+`
+const InputBox = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 15px;
+    
 `
 
 //send this code to the containers!!!
@@ -121,32 +127,39 @@ const Form = () => {
     return (
         <Container>
             <LogForm>
-                <InputEmail 
-                    border={emailValidation ? 'none' : 'solid 2px #d9534f'} 
-                    value={email} 
-                    onChange={emailHandle} 
-                    type='text' 
-                    placeholder='Email'>
-                </InputEmail>
+                <InputBox>
+                    <InputText>Email</InputText>
+                    <InputEmail 
+                        border={emailValidation ? 'none' : 'solid 2px #d9534f'} 
+                        value={email} 
+                        onChange={emailHandle} 
+                        type='text' >
+                    </InputEmail>
+                </InputBox>
+                
                 <InputAlert 
                     display={!emailValidation || emailErrorMessage ? 'inline' : 'none'}>
                     {emailErrorMessage ? emailErrorMessage : 'Podany email jest nieprawidłowy'}
                  </InputAlert>
-                <InputPassword 
-                    border={passwordValidation ? 'none' : 'solid 2px #d9534f'} 
-                    value={password} 
-                    onChange={passwordHandle} 
-                    type='password' 
-                    placeholder='Hasło'>
-                </InputPassword>
-                <InputPassword 
-                    border={passwordValidation ? 'none' : 'solid 2px #d9534f'} 
-                    value={password2} 
-                    style={{marginBottom: '30px'}} 
-                    onChange={password2Handle} 
-                    type='password' 
-                    placeholder='Powtórz hasło'>
-                </InputPassword>
+                 <InputBox>
+                    <InputText>Hasło</InputText>
+                        <InputPassword 
+                            border={passwordValidation ? 'none' : 'solid 2px #d9534f'} 
+                            value={password} 
+                            onChange={passwordHandle} 
+                            type='password' >
+                        </InputPassword>
+                </InputBox>
+                <InputBox>
+                    <InputText>Powtórz hasło</InputText>
+                    <InputPassword 
+                        border={passwordValidation ? 'none' : 'solid 2px #d9534f'} 
+                        value={password2} 
+                        style={{marginBottom: '30px'}} 
+                        onChange={password2Handle} 
+                        type='password' >
+                    </InputPassword>
+                </InputBox>
                 <InputAlert 
                     style={{marginTop: '-22px'}}
                     display={passwordValidation ? 'none' : 'inline'}

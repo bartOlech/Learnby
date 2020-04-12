@@ -57,6 +57,8 @@ const MainText = styled.h1`
     margin: 0;
     padding: 0;
     text-align: center;
+    font-weight: 600;
+    font-size: 2em;
     @media (min-width: 1000px) {
         /* text-align: center; */
     }
@@ -65,7 +67,7 @@ const AuxiliaryText = styled.h2`
     font-family: ${FontStyle.family};
     color: ${FontStyle.color};
     padding: 0;
-    margin: 80px 20px 80px 20px;  
+    margin: 50px 20px 80px 20px;  
     text-align: center;
     font-weight: 400; 
     @media (min-width: 1000px) {
