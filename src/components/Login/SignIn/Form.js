@@ -24,6 +24,7 @@ const InputEmail = styled.input`
     width: 250px;
     height: 35px;
     border-radius: 5px;
+    border: none;
     border: 1px solid #d9dad7;
     margin-top: 30px;
     font-size: 1.2em;
@@ -87,11 +88,11 @@ const Form = () => {
 
     const getAuthAlert = (code) => {
         if (code === 'auth/invalid-email') {
-            setAuthAlertMsg('podany email jest nieprawidłowy')
+            setAuthAlertMsg('Podany email jest nieprawidłowy')
         } else if (code === 'auth/wrong-password') {
-            setAuthAlertMsg('podane hasło jest błędne')
+            setAuthAlertMsg('Podane hasło jest błędne')
         } else if (code === 'auth/user-not-found') {
-            setAuthAlertMsg('użytkownik nie istnieje')
+            setAuthAlertMsg('Użytkownik nie istnieje')
         }
     }
 

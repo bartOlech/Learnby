@@ -79,7 +79,7 @@ const FormLayout3 = () => {
             {({ addAnnouncementData, setAnnouncementData }) => (
                 <Container>
                     <Form>
-                        <Label style={{fontSize: '1.7em', marginBottom: '25px'}}>Już prawie skończone!</Label>
+                        <Label style={{fontSize: '2em', marginBottom: '25px'}}>Już prawie skończone!</Label>
                         <Label htmlFor='description'>Opis</Label>
                         <Textarea 
                             maxLength='230'

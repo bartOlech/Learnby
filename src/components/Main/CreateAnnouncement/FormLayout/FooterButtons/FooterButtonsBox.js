@@ -9,10 +9,14 @@ const Container = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    position: absolute;
-    bottom: 0;
+    margin-top: 35px;
     @media(min-width: 1200px) {
         width: 55%;
+    }
+    @media(min-width: 1000px) {
+        position: absolute;
+        bottom: 0;
+        margin-top: 0;
     }
 `
 

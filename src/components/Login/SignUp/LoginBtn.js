@@ -9,7 +9,7 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     cursor: pointer;
-    margin-top: -60px;
+    margin-top: -50px;
 `
 const Text = styled.p`
     font-family: ${FontStyle.family};

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { FontStyle } from '../../../../../assets/style/style';
 import { BrowserRouter as Router, Link} from 'react-router-dom';
 import { FindAnnouncementConsumer } from '../../../../../context/CurrentUser.context';
+import FinishIco from '../../../../../assets/img/Desktop/checkmark.svg';
 
 const Container = styled.div`
     width: 100%;
@@ -31,6 +32,15 @@ const Button = styled.button`
     text-align: center;
     cursor: pointer;
 `
+const Ico   = styled.div`
+    width: 100px;
+    height: 100px;
+    background-image: url(${FinishIco});
+    background-repeat: no-repeat;
+    background-size: 100px 100px;
+    margin-top: 30px;
+    margin-bottom: -20px;
+`
 
 const FormLayout4 = () => {
 
@@ -38,6 +48,7 @@ const FormLayout4 = () => {
         <FindAnnouncementConsumer>
             {({ clearAnnouncementData, getAnnouncementById, currentCreatedAnnouncementId }) => (
                 <Container>
+                    <Ico></Ico>
                     <Text style={{marginTop: '70px'}} size='2em'>Ogłoszenie czeka na weryfikacje</Text>
                     <Text size='1.2em'>Powinno pojawić się w ciągu 30min</Text>
                             <Button style={{marginTop: '50px'}}>Podgląd</Button>
