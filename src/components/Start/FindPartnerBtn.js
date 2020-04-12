@@ -35,6 +35,9 @@ const Button = styled.button`
         margin: -50px 0 0 -15px;
         background-color: #3AB397;
     }
+    @media (max-width: 358px) {
+        margin-top: -30px;
+    }
 `
 
 const FindPartnerBtn = () => {
