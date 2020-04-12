@@ -6,11 +6,11 @@ import { FontStyle } from '../../../../assets/style/style';
 const Container = styled.div`
     width: 100%;
     height: 100%;
-    margin-top: -200px;
+    margin-top: -240px;
 `
 const TittleText = styled.h2`
     font-family: ${FontStyle.family};
-    font-size: 1.8em;
+    font-size: 2.2em;
     font-weight: 500;
     color: ${FontStyle.color};
     text-align: center;

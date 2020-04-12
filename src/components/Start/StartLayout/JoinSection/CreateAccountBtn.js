@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 // style
 import { FontStyle } from '../../../../assets/style/style';
+import firebase from '../../../../Firebase.config';
 
 const Container = styled.div`
     width: 100%;
@@ -19,7 +20,7 @@ const Button = styled.button`
     background-color: #3AAF9F;
     border: none;
     border-radius: 35px;
-    font-size: 1.8em;
+    font-size: 1.6em;
     outline: none;
     cursor: pointer;
 `
@@ -27,7 +28,7 @@ const Button = styled.button`
 const CreateAccountBtn = () => {
     return (
         <Container>
-            <Link to='/login'><Button>Załóż konto</Button></Link>
+            <Link to='/findPartner'><Button>Znajdź osobę</Button></Link>
         </Container>
     )
 }
